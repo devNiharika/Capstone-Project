@@ -31,8 +31,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/green"
-                    android:padding="16dp"
-                    android:text="Welcome to the official app of Galgotias University!\nTIP: Use navigation drawer on the left side to visit various parts of the app."
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Welcome to the official app of Galgotias University!\n◕‿◕\nUse navigation drawer ☰ on the top left corner to visit various parts of the app."
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="@color/white" />
             </LinearLayout>
@@ -48,8 +49,8 @@
 
                 <dev.rg.WaveProgress.WaveLoadingView
                     android:id="@+id/waveLoadingView"
-                    android:layout_width="288dp"
-                    android:layout_height="288dp"
+                    android:layout_width="244dp"
+                    android:layout_height="244dp"
                     android:background="@drawable/circle"
                     app:wlv_borderColor="@color/primary_dark"
                     app:wlv_borderWidth="4dp"
@@ -106,7 +107,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <View
                         android:layout_width="match_parent"
@@ -149,7 +150,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <View
                         android:layout_width="match_parent"
@@ -191,7 +192,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
                     <View
                         android:layout_width="match_parent"
@@ -203,25 +205,14 @@
                         android:layout_marginStart="8dp"
                         android:background="@color/yellow" />
 
-                    <Button
-                        android:id="@+id/sync_library"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:onClick="syncLibrary"
-                        android:text="SYNC"
-                        android:theme="@style/Button" />
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:gravity="center|bottom"
                         android:lines="2"
-                        android:paddingBottom="8dp"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
+                        android:padding="8dp"
                         android:text="LIBRARY FINE"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@color/secondary_text" />

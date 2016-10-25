@@ -9,12 +9,12 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/toolbar">
 
-    <im.delight.android.webview.AdvancedWebView
-        android:id="@+id/bannerAd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone" />
+    <!--<im.delight.android.webview.AdvancedWebView-->
+    <!--android:id="@+id/bannerAd"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical"-->
+    <!--android:visibility="gone" />-->
 
     <!--<LinearLayout-->
     <!--android:id="@+id/bannerAd"-->
