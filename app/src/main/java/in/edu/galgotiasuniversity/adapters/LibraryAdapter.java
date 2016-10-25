@@ -9,15 +9,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.ViewHolder> {
 
-    ArrayList<String> titles, contents1, contents2, contents3;
-    Context mContext;
+    private ArrayList<String> titles, contents1, contents2, contents3;
+    private Context mContext;
 
     public LibraryAdapter(Context context, ArrayList<String> titles, ArrayList<String> contents1, ArrayList<String> contents2, ArrayList<String> contents3) {
         this.mContext = context;
@@ -34,7 +34,7 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         holder.title.setText(titles.get(position));
         holder.content1.setText(contents1.get(position));
         holder.content2.setText(contents2.get(position));
@@ -46,17 +46,17 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.ViewHold
         return titles.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.title)
+    class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.title)
         TextView title;
-        @Bind(R.id.content1)
+        @BindView(R.id.content1)
         TextView content1;
-        @Bind(R.id.content2)
+        @BindView(R.id.content2)
         TextView content2;
-        @Bind(R.id.content3)
+        @BindView(R.id.content3)
         TextView content3;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             Utils.setFontAllView((ViewGroup) view);

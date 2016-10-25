@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.utils.ColorUtils;
@@ -18,8 +18,8 @@ import in.edu.galgotiasuniversity.utils.Utils;
 
 public class SubjectWiseAdapter extends RecyclerView.Adapter<SubjectWiseAdapter.ViewHolder> {
 
-    ArrayList<String> titles, contents1, contents2, contents3;
-    Context mContext;
+    private ArrayList<String> titles, contents1, contents2, contents3;
+    private Context mContext;
 
     public SubjectWiseAdapter(Context context, ArrayList<String> titles, ArrayList<String> contents1, ArrayList<String> contents2, ArrayList<String> contents3) {
         this.mContext = context;
@@ -36,7 +36,7 @@ public class SubjectWiseAdapter extends RecyclerView.Adapter<SubjectWiseAdapter.
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         String sPercentage = contents3.get(position);
         String color = contents3.get(position);
         try {
@@ -62,15 +62,15 @@ public class SubjectWiseAdapter extends RecyclerView.Adapter<SubjectWiseAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.title)
+        @BindView(R.id.title)
         TextView title;
-        @Bind(R.id.content1)
+        @BindView(R.id.content1)
         TextView content1;
-        @Bind(R.id.content2)
+        @BindView(R.id.content2)
         TextView content2;
-        @Bind(R.id.content3)
+        @BindView(R.id.content3)
         TextView content3;
-        @Bind(R.id.cardColor)
+        @BindView(R.id.cardColor)
         View cardColor;
 
         public ViewHolder(View view) {

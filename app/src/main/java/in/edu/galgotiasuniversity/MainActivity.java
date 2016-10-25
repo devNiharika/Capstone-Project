@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -40,6 +41,7 @@ import org.json.JSONObject;
 import butterknife.BindString;
 import butterknife.ButterKnife;
 import dev.rg.VersionManager.WVersionManager;
+import im.delight.android.webview.AdvancedWebView;
 import in.edu.galgotiasuniversity.fragments.DayByDayFragment;
 import in.edu.galgotiasuniversity.fragments.LibraryFragment;
 import in.edu.galgotiasuniversity.fragments.MainFragment;
@@ -53,7 +55,6 @@ import in.edu.galgotiasuniversity.networking.MonthlyTask;
 import in.edu.galgotiasuniversity.utils.AppStatus;
 import in.edu.galgotiasuniversity.utils.CustomTypefaceSpan;
 import in.edu.galgotiasuniversity.utils.Utils;
-import im.delight.android.webview.AdvancedWebView;
 
 /**
  * Created by Rohan Garg
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+//        ButterKnife.unbind(this);
         isCookieRefreshed = false;
         isSubjectWiseRefreshed = false;
         isMonthlyRefreshed = false;
@@ -381,7 +382,7 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         //MenuItem dbd=ButterKnife.findById()
 

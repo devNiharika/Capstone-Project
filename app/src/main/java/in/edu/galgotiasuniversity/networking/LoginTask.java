@@ -38,19 +38,19 @@ import in.edu.galgotiasuniversity.utils.Utils;
 
 public class LoginTask extends AsyncTask<Void, Integer, Void> {
 
-    protected final String TAG = "LOGIN_TASK";
+    private final String TAG = "LOGIN_TASK";
     public LoginActivity context;
-    boolean isShownAsDialog, isQuickPass;
-    Map<String, String> cookies;
-    Document document;
-    HashMap<String, String> POST_DATA;
-    Elements inputs;
-    String id, pwd;
-    int progress;
-    String captchaText;
+    private boolean isShownAsDialog, isQuickPass;
+    private Map<String, String> cookies;
+    private Document document;
+    private HashMap<String, String> POST_DATA;
+    private Elements inputs;
+    private String id, pwd;
+    private int progress;
+    private String captchaText;
 
     @SuppressWarnings("unchecked")
-    public LoginTask(LoginActivity context, boolean isShownAsDialog, String captchaText, Map<String, String> cookies, boolean isQuickPass) {
+    LoginTask(LoginActivity context, boolean isShownAsDialog, String captchaText, Map<String, String> cookies, boolean isQuickPass) {
         this.context = context;
         this.isShownAsDialog = isShownAsDialog;
         this.cookies = cookies;
@@ -243,13 +243,13 @@ public class LoginTask extends AsyncTask<Void, Integer, Void> {
 //        context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
     }
 
-    void showToast(String msg, int duration) {
+    private void showToast(String msg, int duration) {
         Toast toast = Toast.makeText(context.getApplicationContext(), msg, duration);
         Utils.setFontAllView((ViewGroup) toast.getView());
         toast.show();
     }
 
-    public void writeObjectToMemory(String filename, Object object) {
+    private void writeObjectToMemory(String filename, Object object) {
         FileOutputStream fos;
         try {
             fos = context.openFileOutput(filename, Context.MODE_PRIVATE);

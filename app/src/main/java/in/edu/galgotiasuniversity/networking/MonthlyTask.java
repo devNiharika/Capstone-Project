@@ -2,7 +2,6 @@ package in.edu.galgotiasuniversity.networking;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -34,13 +33,13 @@ import in.edu.galgotiasuniversity.utils.ColorUtils;
  */
 public class MonthlyTask extends AsyncTask<Void, Integer, Void> {
 
-    protected final String TAG = "MONTHLY_TASK";
-    MainActivity context;
-    Map<String, String> cookies;
-    Connection.Response res;
-    ProgressDialog dialog;
-    Document document;
-    int progress;
+    private final String TAG = "MONTHLY_TASK";
+    private MainActivity context;
+    private Map<String, String> cookies;
+    private Connection.Response res;
+    private ProgressDialog dialog;
+    private Document document;
+    private int progress;
     private OnTaskCompleted listener;
     private OnError error_listener;
 
@@ -210,7 +209,7 @@ public class MonthlyTask extends AsyncTask<Void, Integer, Void> {
 //        context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
     }
 
-    public Object readObjectFromMemory(String filename) {
+    private Object readObjectFromMemory(String filename) {
         Object defaultObject = null;
         FileInputStream fis;
         try {

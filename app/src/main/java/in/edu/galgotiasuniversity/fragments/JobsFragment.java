@@ -10,13 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import im.delight.android.webview.AdvancedWebView;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.utils.AppStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
-import im.delight.android.webview.AdvancedWebView;
 
 /**
  * Created by Rohan Garg on 17-04-2016.
@@ -24,7 +24,7 @@ import im.delight.android.webview.AdvancedWebView;
 public class JobsFragment extends Fragment implements AdvancedWebView.Listener {
 
     View view;
-    @Bind(R.id.jobsWebView)
+    @BindView(R.id.jobsWebView)
     AdvancedWebView mWebView;
     ProgressDialog dialog;
 

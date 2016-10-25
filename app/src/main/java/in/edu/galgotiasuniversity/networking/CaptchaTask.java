@@ -35,16 +35,16 @@ import in.edu.galgotiasuniversity.utils.Utils;
  */
 public class CaptchaTask extends AsyncTask<Void, Integer, Void> {
 
-    protected final String TAG = "CAPTCHA_TASK";
-    LoginActivity context;
-    Map<String, String> cookies, quickLoginCookies;
-    boolean isCaptchaRequired;
-    int progress;
-    boolean isShownAsDialog;
-    Connection.Response res;
-    Dialog dialog;
-    String captchaText;
-    AppCompatButton button;
+    private final String TAG = "CAPTCHA_TASK";
+    private LoginActivity context;
+    private Map<String, String> cookies, quickLoginCookies;
+    private boolean isCaptchaRequired;
+    private int progress;
+    private boolean isShownAsDialog;
+    private Connection.Response res;
+    private Dialog dialog;
+    private String captchaText;
+    private AppCompatButton button;
 
     @SuppressWarnings("unchecked")
     public CaptchaTask(LoginActivity context, boolean isShownAsDialog, boolean isCaptchaRequired) {
@@ -92,7 +92,7 @@ public class CaptchaTask extends AsyncTask<Void, Integer, Void> {
         }
     }
 
-    void showToast(String msg, int duration) {
+    private void showToast(String msg, int duration) {
         Toast toast = Toast.makeText(context, msg, duration);
         Utils.setFontAllView((ViewGroup) toast.getView());
         toast.show();
@@ -176,7 +176,7 @@ public class CaptchaTask extends AsyncTask<Void, Integer, Void> {
 //        context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
     }
 
-    void onCaptchaButtonClick() {
+    private void onCaptchaButtonClick() {
         if (dialog != null && dialog.isShowing()) {
             final EditText captchaTextView = (EditText) dialog.findViewById(R.id.captchaText);
             TextInputLayout captchaTextLayout = (TextInputLayout) dialog.findViewById(R.id.captchaTextLayout);
@@ -195,7 +195,7 @@ public class CaptchaTask extends AsyncTask<Void, Integer, Void> {
         new LoginTask(context, isShownAsDialog, captchaText, cookies, false).execute();
     }
 
-    public Object readObjectFromMemory(String filename) {
+    private Object readObjectFromMemory(String filename) {
         Object defaultObject;
         FileInputStream fis;
         try {

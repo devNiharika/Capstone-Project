@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dev.rg.ProgressButton.iml.ActionProcessButton;
@@ -31,19 +31,19 @@ import in.edu.galgotiasuniversity.utils.Utils;
  */
 public class LoginActivity extends Activity {
 
-    @Bind(R.id.loginID)
+    @BindView(R.id.loginID)
     public TextInputEditText loginID;
-    @Bind(R.id.password)
+    @BindView(R.id.password)
     public TextInputEditText password;
-    @Bind(R.id.rememberMe)
+    @BindView(R.id.rememberMe)
     public AppCompatCheckBox rememberMe;
-    @Bind(R.id.loginButton)
+    @BindView(R.id.loginButton)
     public ActionProcessButton loginButton;
-    @Bind(R.id.loginIDLayout)
+    @BindView(R.id.loginIDLayout)
     TextInputLayout loginIDLayout;
-    @Bind(R.id.passwordLayout)
+    @BindView(R.id.passwordLayout)
     TextInputLayout passwordLayout;
-    @Bind(R.id.loginHeadline)
+    @BindView(R.id.loginHeadline)
     TextView loginHeadline;
     boolean isShownAsDialog;
     CaptchaTask captchaTask;
@@ -61,7 +61,7 @@ public class LoginActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+//        ButterKnife.unbind(this);
         System.gc();
     }
 

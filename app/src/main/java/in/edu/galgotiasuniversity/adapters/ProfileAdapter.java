@@ -9,15 +9,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHolder> {
 
-    ArrayList<String> titles, contents;
-    Context mContext;
+    private ArrayList<String> titles, contents;
+    private Context mContext;
 
     public ProfileAdapter(Context context, ArrayList<String> titles, ArrayList<String> contents) {
         this.mContext = context;
@@ -43,9 +43,9 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.title)
+        @BindView(R.id.title)
         TextView title;
-        @Bind(R.id.content)
+        @BindView(R.id.content)
         TextView content;
 
         public ViewHolder(View view) {

@@ -19,7 +19,7 @@ public class Date implements Parcelable {
             return new Date[size];
         }
     };
-    int day, month, year;
+    private int day, month, year;
 
     public Date(int day, int month, int year) {
         this.day = day;
@@ -27,7 +27,7 @@ public class Date implements Parcelable {
         this.year = year;
     }
 
-    protected Date(Parcel in) {
+    private Date(Parcel in) {
         day = in.readInt();
         month = in.readInt();
         year = in.readInt();

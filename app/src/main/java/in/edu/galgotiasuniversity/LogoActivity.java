@@ -9,7 +9,6 @@ import android.preference.PreferenceManager;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import butterknife.ButterKnife;
 import in.edu.galgotiasuniversity.utils.AppStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
@@ -24,7 +23,7 @@ public class LogoActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+//        ButterKnife.unbind(this);
         System.gc();
     }
 

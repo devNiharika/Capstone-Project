@@ -15,7 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import dev.rg.WaveProgress.WaveLoadingView;
 import in.edu.galgotiasuniversity.R;
@@ -27,13 +27,13 @@ import in.edu.galgotiasuniversity.utils.Utils;
  */
 public class MainFragment extends Fragment {
 
-    @Bind(R.id.dataContainer)
+    @BindView(R.id.dataContainer)
     View dataContainer;
-    @Bind(R.id.waveLoadingView)
+    @BindView(R.id.waveLoadingView)
     WaveLoadingView waveLoadingView;
-    @Bind(R.id.waveProgressCenter)
+    @BindView(R.id.waveProgressCenter)
     TextView waveProgressCenter;
-    @Bind(R.id.topMessageText1)
+    @BindView(R.id.topMessageText1)
     TextView topMessageText1;
 
     View view;

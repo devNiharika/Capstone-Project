@@ -32,13 +32,13 @@ import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
  */
 public class SubjectWiseTask extends AsyncTask<Void, Integer, Void> {
 
-    protected final String TAG = "SUBJECT_WISE_TASK";
-    MainActivity context;
-    Map<String, String> cookies;
-    Connection.Response res;
-    ProgressDialog dialog;
-    Document document;
-    int progress;
+    private final String TAG = "SUBJECT_WISE_TASK";
+    private MainActivity context;
+    private Map<String, String> cookies;
+    private Connection.Response res;
+    private ProgressDialog dialog;
+    private Document document;
+    private int progress;
     private OnTaskCompleted listener;
     private OnError error_listener;
 
@@ -179,7 +179,7 @@ public class SubjectWiseTask extends AsyncTask<Void, Integer, Void> {
 //        context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
     }
 
-    public Object readObjectFromMemory(String filename) {
+    private Object readObjectFromMemory(String filename) {
         Object defaultObject = null;
         FileInputStream fis;
         try {
