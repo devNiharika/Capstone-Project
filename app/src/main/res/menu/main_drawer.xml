@@ -26,10 +26,10 @@
             android:id="@+id/profile"
             android:icon="@drawable/ic_account_circle_white_48dp"
             android:title="Profile" />
-        <!--<item-->
-        <!--android:id="@+id/jobs"-->
-        <!--android:icon="@drawable/ic_work_white_48dp"-->
-        <!--android:title="Jobs" />-->
+        <item
+            android:id="@+id/jobs"
+            android:icon="@drawable/ic_work_white_48dp"
+            android:title="Jobs" />
     </group>
     <item
         android:checkableBehavior="none"

@@ -21,4 +21,10 @@
     <string name="changelog_ok_button">Cool</string>
     <string name="changelog_show_full">More</string>
 
+    <string name="updateNowLabel">Update</string>
+    <string name="remindMeLaterLabel">Later</string>
+
+    <string name="pressAgainToExitMessage">Press again to exit</string>
+
+    <string name="syncFailed">Sync failed</string>
 </resources>

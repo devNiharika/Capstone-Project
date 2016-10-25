@@ -15,6 +15,8 @@ public class Constants {
     public static String[] HEADER1 = {"Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"};
     public static String[] HEADER2 = {"Accept-Encoding", "gzip, deflate"};
     public static String[] HEADER3 = {"Accept-Language", "en-US,en;q=0.8"};
+    public static String UPDATES_URL = "http://galgotias.ga/UpdatesGU";
+
 //    GU
     public static String LOGIN_URL = "http://182.71.87.38/iSIM/Login";
     public static String HOME_URL = "http://182.71.87.38/iSIM/Home";

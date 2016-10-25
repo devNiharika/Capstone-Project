@@ -5,7 +5,6 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,11 +37,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import butterknife.BindString;
 import butterknife.ButterKnife;
 import dev.rg.VersionManager.WVersionManager;
-import im.delight.android.webview.AdvancedWebView;
 import in.edu.galgotiasuniversity.fragments.DayByDayFragment;
+import in.edu.galgotiasuniversity.fragments.JobsFragment;
 import in.edu.galgotiasuniversity.fragments.LibraryFragment;
 import in.edu.galgotiasuniversity.fragments.MainFragment;
 import in.edu.galgotiasuniversity.fragments.MonthlyFragment;
@@ -51,8 +49,6 @@ import in.edu.galgotiasuniversity.fragments.SubjectWiseFragment;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 import in.edu.galgotiasuniversity.networking.LibraryTask;
-import in.edu.galgotiasuniversity.networking.MonthlyTask;
-import in.edu.galgotiasuniversity.utils.AppStatus;
 import in.edu.galgotiasuniversity.utils.CustomTypefaceSpan;
 import in.edu.galgotiasuniversity.utils.Utils;
 
@@ -68,21 +64,13 @@ public class MainActivity extends AppCompatActivity
     public static boolean isMonthlyRefreshed;
     public static boolean isLibraryRefreshed;
     SharedPreferences sp;
-    @BindString(R.string.shareHeader)
-    String shareHeader;
-    @BindString(R.string.shareSubject)
-    String shareSubject;
-    @BindString(R.string.shareText)
-    String shareText;
     Fragment fragment;
     boolean doubleBackToExitPressedOnce;
-    AdvancedWebView webView;
     private Activity currentActivity;
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        ButterKnife.unbind(this);
         isCookieRefreshed = false;
         isSubjectWiseRefreshed = false;
         isMonthlyRefreshed = false;
@@ -104,20 +92,20 @@ public class MainActivity extends AppCompatActivity
             switchContent(getSupportFragmentManager().getFragment(savedInstanceState, "fragment"));
         } else {
             switchContent(new MainFragment());
-            new MonthlyTask(this, new OnTaskCompleted() {
-                @Override
-                public void onTaskCompleted() {
-                    isMonthlyRefreshed = true;
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    ft.detach(fragment);
-                    ft.attach(fragment);
-                    ft.commit();
-                }
-            }, new OnError() {
-                @Override
-                public void onError() {
-                }
-            }).execute();
+//            new MonthlyTask(this, new OnTaskCompleted() {
+//                @Override
+//                public void onTaskCompleted() {
+//                    isMonthlyRefreshed = true;
+//                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//                    ft.detach(fragment);
+//                    ft.attach(fragment);
+//                    ft.commit();
+//                }
+//            }, new OnError() {
+//                @Override
+//                public void onError() {
+//                }
+//            }).execute();
             syncLibrary(null);
         }
 
@@ -162,13 +150,14 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    void checkUpdate() {
+    private void checkUpdate() {
         WVersionManager versionManager = new WVersionManager(currentActivity);
-        versionManager.setUpdateNowLabel("Update");
-        versionManager.setRemindMeLaterLabel("Later");
+        versionManager.setUpdateNowLabel(getString(R.string.updateNowLabel));
+        versionManager.setRemindMeLaterLabel(getString(R.string.remindMeLaterLabel));
         versionManager.setIgnoreThisVersionLabel("");
         versionManager.setReminderTimer(60);
-        versionManager.setVersionContentUrl("http://galgotias.ga/Updates"); // your update content url, see the response format below
+        // Update content url
+        versionManager.setVersionContentUrl(Constants.UPDATES_URL);
         versionManager.checkVersion();
     }
 
@@ -177,12 +166,12 @@ public class MainActivity extends AppCompatActivity
         if (checkVersion && currentVersionCode <= getLastVersionCode()) return;
         AlertDialog.Builder builder = new AlertDialog.Builder(currentActivity);
         // Set the dialog title
-        builder.setTitle("Change Log:");
+        builder.setTitle(getString(R.string.changelog_full_title));
         // Set the dialog view
         LayoutInflater inflater = currentActivity.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.changelog, null);
         builder.setView(dialogView);
-        builder.setPositiveButton("Cool", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.changelog_ok_button), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 updateVersionInPreferences(currentVersionCode);
@@ -196,8 +185,6 @@ public class MainActivity extends AppCompatActivity
     protected void updateVersionInPreferences(int mCurrentVersionCode) {
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt("last_version_code", mCurrentVersionCode);
-
-        // TODO: Update preferences from a background thread
         editor.apply();
     }
 
@@ -206,50 +193,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     void showBannerAds() {
-        webView = ButterKnife.findById(currentActivity, R.id.bannerAd);
-        webView.setListener(currentActivity, new AdvancedWebView.Listener() {
-            @Override
-            public void onPageStarted(String s, Bitmap bitmap) {
-                webView.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onPageFinished(String s) {
-                webView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onPageError(int i, String s, String s1) {
-                webView.setVisibility(View.GONE);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (AppStatus.getInstance(currentActivity).isOnline())
-                            webView.loadUrl("http://galgotias.ga/BannerAds.html");
-                    }
-                }, 5000);
-            }
-
-            @Override
-            public void onDownloadRequested(String url, String suggestedFilename, String mimeType, long contentLength, String contentDisposition, String userAgent) {
-
-            }
-
-            @Override
-            public void onExternalPageRequest(String s) {
-                if (s.equals("http://galgotias.ga/BannerAds.html"))
-                    webView.reload();
-                else {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(s));
-                    startActivity(browserIntent);
-                }
-            }
-        });
-        webView.setVerticalScrollBarEnabled(false);
-        webView.setHorizontalScrollBarEnabled(false);
-        webView.addPermittedHostname("www.galgotias.ga");
-        webView.addPermittedHostname("fonts.googleapis.com");
-        webView.loadUrl("http://galgotias.ga/BannerAds.html");
     }
 
     public void syncLibrary(View view) {
@@ -265,7 +208,7 @@ public class MainActivity extends AppCompatActivity
         }, new OnError() {
             @Override
             public void onError() {
-                showToast("Sync failed", Toast.LENGTH_SHORT);
+                showToast(getString(R.string.syncFailed), Toast.LENGTH_SHORT);
             }
         }).execute();
     }
@@ -289,9 +232,9 @@ public class MainActivity extends AppCompatActivity
     private void share() {
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("text/plain");
-        i.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
-        i.putExtra(Intent.EXTRA_TEXT, shareText);
-        startActivity(Intent.createChooser(i, shareHeader));
+        i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.shareSubject));
+        i.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareText));
+        startActivity(Intent.createChooser(i, getString(R.string.shareHeader)));
     }
 
     @Override
@@ -307,7 +250,7 @@ public class MainActivity extends AppCompatActivity
             return;
         }
         this.doubleBackToExitPressedOnce = true;
-        Snackbar.make(ButterKnife.findById(currentActivity, R.id.root), "Press again to exit", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(ButterKnife.findById(currentActivity, R.id.root), getString(R.string.pressAgainToExitMessage), Snackbar.LENGTH_SHORT).show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -403,14 +346,12 @@ public class MainActivity extends AppCompatActivity
             switchContent(new MonthlyFragment());
             item.setChecked(true);
             //}
-        }
-        else if (id == R.id.subjectWise) {
+        } else if (id == R.id.subjectWise) {
             //if (!item.isChecked()) {
             switchContent(new SubjectWiseFragment());
             item.setChecked(true);
             //}
-        }
-        else if (id == R.id.library) {
+        } else if (id == R.id.library) {
             //if (!item.isChecked()) {
             switchContent(new LibraryFragment());
             item.setChecked(true);
@@ -420,14 +361,12 @@ public class MainActivity extends AppCompatActivity
             switchContent(new ProfileFragment());
             item.setChecked(true);
             //}
-        }
-//        else if (id == R.id.jobs) {
-//            //if (!item.isChecked()) {
-//            switchContent(new JobsFragment());
-//            item.setChecked(true);
-//            //}
-//        }
-        else if (id == R.id.share) {
+        } else if (id == R.id.jobs) {
+            //if (!item.isChecked()) {
+            switchContent(new JobsFragment());
+            item.setChecked(true);
+            //}
+        } else if (id == R.id.share) {
             share();
         } else if (id == R.id.like) {
             like();
