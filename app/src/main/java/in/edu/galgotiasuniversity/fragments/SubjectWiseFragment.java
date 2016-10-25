@@ -23,14 +23,13 @@ import butterknife.ButterKnife;
 import in.edu.galgotiasuniversity.MainActivity;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.adapters.SubjectWiseAdapter;
-import in.edu.galgotiasuniversity.interfaces.OnError;
-import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
-import in.edu.galgotiasuniversity.networking.SubjectWiseTask;
 import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
+//import in.edu.galgotiasuniversity.networking.SubjectWiseTask;
+
 /**
- * Created by Rohan Garg on 02-02-2016.
+ * Created on 25-01-2016.
  */
 public class SubjectWiseFragment extends Fragment {
 
@@ -64,20 +63,20 @@ public class SubjectWiseFragment extends Fragment {
             contents3 = savedInstanceState.getStringArrayList("contents3");
             setupRecyclerView((RecyclerView) recyclerView);
         } else {
-            setupRecyclerView((RecyclerView) recyclerView);
-            if (!MainActivity.isSubjectWiseRefreshed) {
-                new SubjectWiseTask((MainActivity) this.getContext(), new OnTaskCompleted() {
-                    @Override
-                    public void onTaskCompleted() {
-                        taskCompleted();
-                    }
-                }, new OnError() {
-                    @Override
-                    public void onError() {
-                        onErrorReceived();
-                    }
-                }).execute();
-            } else display();
+//            setupRecyclerView((RecyclerView) recyclerView);
+//            if (!MainActivity.isSubjectWiseRefreshed) {
+//                new SubjectWiseTask((MainActivity) this.getContext(), new OnTaskCompleted() {
+//                    @Override
+//                    public void onTaskCompleted() {
+//                        taskCompleted();
+//                    }
+//                }, new OnError() {
+//                    @Override
+//                    public void onError() {
+//                        onErrorReceived();
+//                    }
+//                }).execute();
+//            } else display();
         }
 
         Utils.setFontAllView((ViewGroup) view);

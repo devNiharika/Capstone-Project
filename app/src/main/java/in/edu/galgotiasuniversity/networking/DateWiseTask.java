@@ -28,9 +28,9 @@ import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 
 /**
- * Created by Rohan Garg on 29-01-2016.
+ * Created on 25-01-2016.
  */
-public class DayByDayTask extends AsyncTask<Void, Integer, Void> {
+public class DateWiseTask extends AsyncTask<Void, Integer, Void> {
 
     private final String TAG = "DAY_BY_DAY_TASK";
     private MainActivity context;
@@ -43,7 +43,7 @@ public class DayByDayTask extends AsyncTask<Void, Integer, Void> {
     private OnTaskCompleted listener;
     private OnError error_listener;
 
-    public DayByDayTask(MainActivity context, OnTaskCompleted listener, OnError error_listener, String FROM_DATE, String TO_DATE) {
+    public DateWiseTask(MainActivity context, OnTaskCompleted listener, OnError error_listener, String FROM_DATE, String TO_DATE) {
         this.context = context;
         this.listener = listener;
         this.error_listener = error_listener;

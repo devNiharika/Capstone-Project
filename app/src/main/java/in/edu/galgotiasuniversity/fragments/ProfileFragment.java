@@ -31,7 +31,7 @@ import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 /**
- * Created by Rohan Garg on 02-02-2016.
+ * Created on 25-01-2016.
  */
 public class ProfileFragment extends Fragment {
 

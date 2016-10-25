@@ -23,7 +23,7 @@ import in.edu.galgotiasuniversity.utils.ColorUtils;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 /**
- * Created by Rohan Garg on 02-02-2016.
+ * Created on 25-01-2016.
  */
 public class MainFragment extends Fragment {
 

@@ -33,7 +33,7 @@ import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 /**
- * Created by Rohan Garg on 25-01-2016.
+ * Created on 25-01-2016.
  */
 
 public class LoginTask extends AsyncTask<Void, Integer, Void> {

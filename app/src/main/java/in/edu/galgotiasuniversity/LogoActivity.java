@@ -12,7 +12,7 @@ import android.widget.Toast;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 /**
- * Created by Rohan Garg
+ * Created on 25-01-2016.
  */
 
 public class LogoActivity extends Activity {

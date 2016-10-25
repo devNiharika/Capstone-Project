@@ -28,18 +28,18 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.edu.galgotiasuniversity.MainActivity;
 import in.edu.galgotiasuniversity.R;
-import in.edu.galgotiasuniversity.adapters.DayByDayAdapter;
+import in.edu.galgotiasuniversity.adapters.DateWiseAdapter;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 import in.edu.galgotiasuniversity.models.Date;
-import in.edu.galgotiasuniversity.networking.DayByDayTask;
+import in.edu.galgotiasuniversity.networking.DateWiseTask;
 import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 /**
- * Created by Rohan Garg on 02-02-2016.
+ * Created on 25-01-2016.
  */
-public class DayByDayFragment extends Fragment {
+public class DateWiseFragment extends Fragment {
 
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
     View view;
@@ -47,7 +47,7 @@ public class DayByDayFragment extends Fragment {
     LinearLayoutManager layoutManager;
     SharedPreferences sp;
     View recyclerView;
-    DayByDayAdapter dayByDayAdapter;
+    DateWiseAdapter dateWiseAdapter;
     Date from_date, to_date;
     Calendar c;
 
@@ -106,7 +106,7 @@ public class DayByDayFragment extends Fragment {
     }
 
     void fetch() {
-        new DayByDayTask((MainActivity) this.getContext(), new OnTaskCompleted() {
+        new DateWiseTask((MainActivity) this.getContext(), new OnTaskCompleted() {
             @Override
             public void onTaskCompleted() {
                 taskCompleted();
@@ -142,7 +142,7 @@ public class DayByDayFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        dayByDayAdapter.notifyDataSetChanged();
+        dateWiseAdapter.notifyDataSetChanged();
     }
 
     public void onErrorReceived() {
@@ -166,7 +166,7 @@ public class DayByDayFragment extends Fragment {
             contents2.add("Error connecting to the server");
             contents3.add("");
             contents4.add("");
-            dayByDayAdapter.notifyDataSetChanged();
+            dateWiseAdapter.notifyDataSetChanged();
             return;
         }
         taskCompleted();
@@ -183,8 +183,8 @@ public class DayByDayFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        dayByDayAdapter = new DayByDayAdapter(this.getContext(), titles, contents1, contents2, contents3, contents4);
-        recyclerView.setAdapter(dayByDayAdapter);
+        dateWiseAdapter = new DateWiseAdapter(this.getContext(), titles, contents1, contents2, contents3, contents4);
+        recyclerView.setAdapter(dateWiseAdapter);
     }
 
     @Override

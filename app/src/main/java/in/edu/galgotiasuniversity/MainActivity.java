@@ -39,7 +39,7 @@ import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 import dev.rg.VersionManager.WVersionManager;
-import in.edu.galgotiasuniversity.fragments.DayByDayFragment;
+import in.edu.galgotiasuniversity.fragments.DateWiseFragment;
 import in.edu.galgotiasuniversity.fragments.JobsFragment;
 import in.edu.galgotiasuniversity.fragments.LibraryFragment;
 import in.edu.galgotiasuniversity.fragments.MainFragment;
@@ -53,7 +53,7 @@ import in.edu.galgotiasuniversity.utils.CustomTypefaceSpan;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 /**
- * Created by Rohan Garg
+ * Created on 25-01-2016.
  */
 
 public class MainActivity extends AppCompatActivity
@@ -338,7 +338,7 @@ public class MainActivity extends AppCompatActivity
             //}
         } else if (id == R.id.dayByDay) {
             //if (!item.isChecked()) {
-            switchContent(new DayByDayFragment());
+            switchContent(new DateWiseFragment());
             item.setChecked(true);
             //}
         } else if (id == R.id.monthly) {

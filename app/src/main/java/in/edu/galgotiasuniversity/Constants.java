@@ -3,7 +3,7 @@ package in.edu.galgotiasuniversity;
 import org.jsoup.Connection;
 
 /**
- * Created by Rohan Garg on 25-01-2016.
+ * Created on 25-01-2016.
  */
 public class Constants {
 

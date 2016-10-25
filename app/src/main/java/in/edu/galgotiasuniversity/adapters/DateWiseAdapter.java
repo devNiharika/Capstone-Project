@@ -15,12 +15,12 @@ import butterknife.ButterKnife;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.utils.Utils;
 
-public class DayByDayAdapter extends RecyclerView.Adapter<DayByDayAdapter.ViewHolder> {
+public class DateWiseAdapter extends RecyclerView.Adapter<DateWiseAdapter.ViewHolder> {
 
     private ArrayList<String> titles, contents1, contents2, contents3, contents4;
     private Context mContext;
 
-    public DayByDayAdapter(Context context, ArrayList<String> titles, ArrayList<String> contents1, ArrayList<String> contents2, ArrayList<String> contents3, ArrayList<String> contents4) {
+    public DateWiseAdapter(Context context, ArrayList<String> titles, ArrayList<String> contents1, ArrayList<String> contents2, ArrayList<String> contents3, ArrayList<String> contents4) {
         this.mContext = context;
         this.titles = titles;
         this.contents1 = contents1;

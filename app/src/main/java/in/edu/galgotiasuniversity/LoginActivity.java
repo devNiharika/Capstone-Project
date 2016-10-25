@@ -26,7 +26,7 @@ import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 /**
- * Created by Rohan Garg
+ * Created on 25-01-2016.
  */
 public class LoginActivity extends Activity {
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 /**
- * Created by Rohan Garg on 01-02-2016.
+ * Created on 25-01-2016.
  */
 public class AboutActivity extends Activity {
 

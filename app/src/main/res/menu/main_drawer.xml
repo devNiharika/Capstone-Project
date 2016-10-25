@@ -9,7 +9,7 @@
         <item
             android:id="@+id/dayByDay"
             android:icon="@drawable/ic_today_white_48dp"
-            android:title="Attendance: Day by day" />
+            android:title="Attendance: Date-wise" />
         <item
             android:id="@+id/subjectWise"
             android:icon="@drawable/ic_poll_white_48dp"
