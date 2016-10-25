@@ -121,6 +121,7 @@ public class LoginActivity extends Activity {
     void validate() {
         if (!new NetworkStatus(LoginActivity.this).isOnline()) {
             showToast("No internet!", Toast.LENGTH_SHORT);
+            loginHeadline.setText("Offline!");
             return;
         } else if (!isShownAsDialog) {
             String id = loginID.getText().toString().trim();
@@ -145,7 +146,8 @@ public class LoginActivity extends Activity {
                 passwordLayout.setError("At least 3 characters required!");
                 return;
             }
-        }
+        } else
+            loginHeadline.setText("Please wait");
 //        loginTask = new LoginTask(this, isShownAsDialog, null, null);
 //        loginTask.execute();
         captchaTask = new CaptchaTask(this, isShownAsDialog, Constants.isCaptchaRequired);

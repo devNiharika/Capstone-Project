@@ -82,7 +82,7 @@ public class CaptchaTask extends AsyncTask<Void, Integer, Void> {
         if (context != null && !context.isFinishing() && this.progress < 0) {
             context.loginButton.setProgress(this.progress);
             context.loginButton.setEnabled(true);
-            showToast("Captcha could not be loaded!\nPlease try again\nPress back to continue in offline mode", Toast.LENGTH_LONG);
+            showToast("Captcha could not be loaded!\nPlease try again", Toast.LENGTH_LONG);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

@@ -232,11 +232,11 @@ public class LoginTask extends AsyncTask<Void, Integer, Void> {
             }
             if (!isShownAsDialog) {
                 showToast("Welcome " + name, Toast.LENGTH_SHORT);
-                context.startActivity(new Intent(context, MainActivity.class));
-                context.overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             } else {
                 showToast("Welcome back " + name, Toast.LENGTH_SHORT);
             }
+            context.startActivity(new Intent(context, MainActivity.class));
+            context.overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
             MainActivity.isCookieRefreshed = true;
             context.finish();
         }

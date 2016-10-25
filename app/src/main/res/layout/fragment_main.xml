@@ -49,13 +49,13 @@
 
                 <dev.rg.WaveProgress.WaveLoadingView
                     android:id="@+id/waveLoadingView"
-                    android:layout_width="244dp"
-                    android:layout_height="244dp"
-                    android:background="@drawable/circle"
+                    android:layout_width="280dp"
+                    android:layout_height="280dp"
+                    android:background="@drawable/square"
                     app:wlv_borderColor="@color/primary_dark"
                     app:wlv_borderWidth="4dp"
                     app:wlv_progressValue="0"
-                    app:wlv_shapeType="circle"
+                    app:wlv_shapeType="square"
                     app:wlv_waveAmplitude="15"
                     app:wlv_waveColor="@color/primary_dark" />
 

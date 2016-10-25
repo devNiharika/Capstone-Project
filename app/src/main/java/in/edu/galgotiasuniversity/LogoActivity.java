@@ -9,7 +9,6 @@ import android.preference.PreferenceManager;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 /**
@@ -23,7 +22,6 @@ public class LogoActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        ButterKnife.unbind(this);
         System.gc();
     }
 
@@ -40,21 +38,15 @@ public class LogoActivity extends Activity {
                 }
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 if (sharedPreferences.getBoolean("rememberMe", false)) {
-                    if (new NetworkStatus(getApplicationContext()).isOnline()) {
-                        showToast("Reconnecting to the server...", Toast.LENGTH_SHORT);
-                        startActivityForResult(new Intent(getApplicationContext(), LoginActivity.class), 0);
-                        overridePendingTransition(R.anim.push_up_in, 0);
-                    } else {
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
-                        finish();
-                    }
+                    showToast("Reconnecting to the server...", Toast.LENGTH_SHORT);
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    overridePendingTransition(R.anim.push_up_in, 0);
                 } else {
                     PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().apply();
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                     overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
-                    finish();
                 }
+                finish();
             }
         }, 1000);
     }
@@ -63,16 +55,6 @@ public class LogoActivity extends Activity {
         toast = Toast.makeText(getApplicationContext(), msg, duration);
         Utils.setFontAllView((ViewGroup) toast.getView());
         toast.show();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
-            finish();
-        }
     }
 
     @Override
