@@ -18,11 +18,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class Utils {
-    public static final String BOLD_FONT_PATH = "Montserrat-Bold.ttf";
     public static final String REGULAR_FONT_PATH = "Montserrat-Regular.ttf";
-    public static Typeface regularFont, boldFont;
+    private static final String BOLD_FONT_PATH = "Montserrat-Bold.ttf";
+    private static Typeface regularFont, boldFont;
 
-    public static void loadFonts() {
+    static void loadFonts() {
         regularFont = Typeface.createFromAsset(MyApp.getContext().getAssets(),
                 Utils.REGULAR_FONT_PATH);
         boldFont = Typeface.createFromAsset(MyApp.getContext().getAssets(),
@@ -49,21 +49,22 @@ public class Utils {
                 } else {
                     face = regularFont;
                 }
-                if (child instanceof TextView) {
-                    TextView textView = (TextView) child;
-                    textView.setTypeface(face);
-                } else if (child instanceof EditText) {
+                if (child instanceof EditText) {
                     EditText editText = (EditText) child;
                     editText.setTypeface(face);
-                } else if (child instanceof Button) {
-                    Button button = (Button) child;
-                    button.setTypeface(face);
+
                 } else if (child instanceof RadioButton) {
                     RadioButton radioButton = (RadioButton) child;
                     radioButton.setTypeface(face);
                 } else if (child instanceof CheckBox) {
                     CheckBox checkBox = (CheckBox) child;
                     checkBox.setTypeface(face);
+                } else if (child instanceof Button) {
+                    Button button = (Button) child;
+                    button.setTypeface(face);
+                } else if (child instanceof TextView) {
+                    TextView textView = (TextView) child;
+                    textView.setTypeface(face);
                 }
             }
         }
@@ -79,7 +80,7 @@ public class Utils {
                     break;
                 os.write(bytes, 0, count);
             }
-        } catch (Exception ex) {
+        } catch (Exception ignored) {
         }
     }
 
