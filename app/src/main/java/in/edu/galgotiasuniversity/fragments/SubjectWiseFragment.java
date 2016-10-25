@@ -26,7 +26,7 @@ import in.edu.galgotiasuniversity.adapters.SubjectWiseAdapter;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 import in.edu.galgotiasuniversity.networking.SubjectWiseTask;
-import in.edu.galgotiasuniversity.utils.AppStatus;
+import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 /**
@@ -115,13 +115,13 @@ public class SubjectWiseFragment extends Fragment {
 //    }
 
     public void onErrorReceived() {
-//        if (AppStatus.getInstance(getActivity()).isOnline()) {
+//        if (NetworkStatus.getInstance(getActivity()).isOnline()) {
 //            if (!MainActivity.isCookieRefreshed)
 //                startActivity(new Intent(getActivity(), LoginActivity.class));
 //                startActivityForResult(new Intent(getActivity(), LoginActivity.class), 0);
 //            showToast("Reconnecting to the server", Toast.LENGTH_SHORT);
 //        }
-        if (AppStatus.getInstance(getActivity()).isOnline())
+        if (new NetworkStatus(getActivity()).isOnline())
             showToast("Aw, Snap! Please try again", Toast.LENGTH_SHORT);
         else
             showToast("Offline mode", Toast.LENGTH_SHORT);

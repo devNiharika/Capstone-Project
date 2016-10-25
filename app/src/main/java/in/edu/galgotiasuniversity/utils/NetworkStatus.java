@@ -5,21 +5,18 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-public class AppStatus {
+public class NetworkStatus {
 
-    static Context context;
-    private static AppStatus instance = new AppStatus();
-    ConnectivityManager connectivityManager;
-    boolean connected = false;
+    private Context context;
+    private boolean connected = false;
 
-    public static AppStatus getInstance(Context ctx) {
+    public NetworkStatus(Context ctx) {
         context = ctx.getApplicationContext();
-        return instance;
     }
 
     public boolean isOnline() {
         try {
-            connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
             connected = networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected();
             return connected;

@@ -207,7 +207,7 @@ public class ColorUtils {
      * @param b
      * @return
      */
-    public String getColorNameFromRgb(int r, int g, int b) {
+    private String getColorNameFromRgb(int r, int g, int b) {
         ArrayList<ColorName> colorList = initColorList();
         ColorName closestMatch = null;
         int minMSE = Integer.MAX_VALUE;
@@ -255,20 +255,20 @@ public class ColorUtils {
      *
      * @author Xiaoxiao Li
      */
-    public class ColorName {
-        public int r, g, b;
+    private class ColorName {
         public String name;
+        int r, g, b;
 
-        public ColorName(String name, int r, int g, int b) {
+        ColorName(String name, int r, int g, int b) {
             this.r = r;
             this.g = g;
             this.b = b;
             this.name = name;
         }
 
-        public int computeMSE(int pixR, int pixG, int pixB) {
-            return (int) (((pixR - r) * (pixR - r) + (pixG - g) * (pixG - g) + (pixB - b)
-                    * (pixB - b)) / 3);
+        int computeMSE(int pixR, int pixG, int pixB) {
+            return ((pixR - r) * (pixR - r) + (pixG - g) * (pixG - g) + (pixB - b)
+                    * (pixB - b)) / 3;
         }
 
         public int getR() {

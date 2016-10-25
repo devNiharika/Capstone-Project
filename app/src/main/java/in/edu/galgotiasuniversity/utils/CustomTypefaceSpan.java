@@ -1,5 +1,6 @@
 package in.edu.galgotiasuniversity.utils;
 
+import android.annotation.SuppressLint;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.text.TextPaint;
@@ -9,7 +10,7 @@ import android.text.style.TypefaceSpan;
  * Created by Rohan Garg on 07-01-2016.
  */
 
-
+@SuppressLint("ParcelCreator")
 public class CustomTypefaceSpan extends TypefaceSpan {
 
     private final Typeface newType;

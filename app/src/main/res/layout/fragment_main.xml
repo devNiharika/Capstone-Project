@@ -32,7 +32,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/green"
                     android:padding="16dp"
-                    android:text="Welcome to the official app of Galgotias College!\nTIP: Use navigation drawer on the left side to visit various parts of the app."
+                    android:text="Welcome to the official app of Galgotias University!\nTIP: Use navigation drawer on the left side to visit various parts of the app."
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="@color/white" />
             </LinearLayout>
@@ -88,7 +88,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:paddingBottom="28dp"
-                    android:text="by Rohan Garg"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     android:textStyle="italic" />

@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import im.delight.android.webview.AdvancedWebView;
 import in.edu.galgotiasuniversity.R;
-import in.edu.galgotiasuniversity.utils.AppStatus;
+import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 /**
@@ -57,7 +57,7 @@ public class JobsFragment extends Fragment implements AdvancedWebView.Listener {
     @Override
     public void onPageError(int errorCode, String description, String failingUrl) {
         mWebView.loadUrl("file:///android_asset/error.html");
-        if (AppStatus.getInstance(getActivity()).isOnline())
+        if (new NetworkStatus(getActivity()).isOnline())
             showToast("Aw, Snap! Please try again", Toast.LENGTH_SHORT);
         else
             showToast("Offline mode", Toast.LENGTH_SHORT);

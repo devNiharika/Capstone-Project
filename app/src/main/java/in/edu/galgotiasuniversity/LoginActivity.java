@@ -22,8 +22,8 @@ import dev.rg.ProgressButton.iml.ActionProcessButton;
 import dev.rg.VersionManager.WVersionManager;
 import in.edu.galgotiasuniversity.networking.CaptchaTask;
 import in.edu.galgotiasuniversity.networking.LoginTask;
-import in.edu.galgotiasuniversity.utils.AppStatus;
 import in.edu.galgotiasuniversity.utils.MyApp;
+import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 /**
@@ -114,7 +114,7 @@ public class LoginActivity extends Activity {
 
     @OnClick(R.id.loginButton)
     void validate() {
-        if (!AppStatus.getInstance(LoginActivity.this).isOnline()) {
+        if (!new NetworkStatus(LoginActivity.this).isOnline()) {
             showToast("No internet!", Toast.LENGTH_SHORT);
             return;
         } else if (!isShownAsDialog) {

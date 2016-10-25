@@ -9,7 +9,7 @@ import android.preference.PreferenceManager;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import in.edu.galgotiasuniversity.utils.AppStatus;
+import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 /**
@@ -40,7 +40,7 @@ public class LogoActivity extends Activity {
                 }
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 if (sharedPreferences.getBoolean("rememberMe", false)) {
-                    if (AppStatus.getInstance(getApplicationContext()).isOnline()) {
+                    if (new NetworkStatus(getApplicationContext()).isOnline()) {
                         showToast("Reconnecting to the server...", Toast.LENGTH_SHORT);
                         startActivityForResult(new Intent(getApplicationContext(), LoginActivity.class), 0);
                         overridePendingTransition(R.anim.push_up_in, 0);
