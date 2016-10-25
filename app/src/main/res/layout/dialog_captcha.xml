@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/captchaImage"
         android:layout_width="200dp"
-        android:layout_height="120dp"
+        android:layout_height="104dp"
         android:layout_gravity="center"
         android:padding="8dp"
         android:scaleType="centerCrop" />

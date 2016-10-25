@@ -5,6 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-feature
+        android:name="android.software.app_widgets"
+        android:required="true" />
+
     <application
         android:name=".utils.MyApp"
         android:allowBackup="true"
@@ -34,6 +38,10 @@
             android:label="About"
             android:theme="@style/Theme.Transparent" />
 
+        <provider
+            android:name=".data.generated.AttendanceProvider"
+            android:authorities="in.edu.galgotiasuniversity.data.QuoteProvider"
+            android:exported="true" />
     </application>
 
 </manifest>

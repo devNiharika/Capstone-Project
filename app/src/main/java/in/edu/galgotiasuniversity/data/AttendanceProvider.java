@@ -40,7 +40,7 @@ public class AttendanceProvider {
                 name = "ATTENDANCE_ID",
                 path = Path.ATTENDANCE + "/*",
                 type = "vnd.android.cursor.item/attendance",
-                whereColumn = AttendanceColumns.SYMBOL,
+                whereColumn = AttendanceColumns.SUBJECT_NAME,
                 pathSegment = 1
         )
         public static Uri withSymbol(String symbol) {
