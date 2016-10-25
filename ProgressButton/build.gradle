@@ -1,0 +1,31 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.2'
+    }
+}
+
+apply plugin: 'com.android.library'
+
+repositories {
+    jcenter()
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        minSdkVersion 10
+        targetSdkVersion 25
+        versionCode 4
+        versionName "1.0.4"
+    }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:25.0.0'
+}

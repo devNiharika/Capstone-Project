@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:checked="true"
+            android:icon="@drawable/ic_donut_large_white_48dp"
+            android:title="Home" />
+        <item
+            android:id="@+id/dayByDay"
+            android:icon="@drawable/ic_today_white_48dp"
+            android:title="Attendance: Day by day" />
+        <item
+            android:id="@+id/subjectWise"
+            android:icon="@drawable/ic_poll_white_48dp"
+            android:title="Attendance: Subject-wise" />
+        <item
+            android:id="@+id/monthly"
+            android:icon="@drawable/ic_poll_white_48dp"
+            android:title="Attendance: Month-wise" />
+        <item
+            android:id="@+id/library"
+            android:icon="@drawable/ic_local_library_white_48dp"
+            android:title="Library" />
+        <item
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_account_circle_white_48dp"
+            android:title="Profile" />
+        <!--<item-->
+        <!--android:id="@+id/jobs"-->
+        <!--android:icon="@drawable/ic_work_white_48dp"-->
+        <!--android:title="Jobs" />-->
+    </group>
+    <item
+        android:checkableBehavior="none"
+        android:title="Communicate">
+        <menu>
+            <!--<item
+                android:id="@+id/ads"
+                android:checkable="false"
+                android:icon="@drawable/ic_thumb_up_white_48dp"
+                android:title="Recommendations" />-->
+            <item
+                android:id="@+id/share"
+                android:icon="@drawable/ic_share_white_48dp"
+                android:title="Share" />
+            <item
+                android:id="@+id/like"
+                android:icon="@drawable/ic_thumb_up_white_48dp"
+                android:title="Like" />
+        </menu>
+    </item>
+
+    <item
+        android:checkableBehavior="none"
+        android:title="Other">
+        <menu>
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/ic_power_settings_new_white_48dp"
+                android:title="Logout" />
+            <!--<item
+                android:icon="@drawable/ic_settings_white_48dp"
+                android:title="Settings" />-->
+            <item
+                android:id="@+id/whats_new"
+                android:icon="@drawable/ic_help_white_48dp"
+                android:title="What's new" />
+            <item
+                android:id="@+id/about"
+                android:icon="@drawable/ic_info_white_48dp"
+                android:title="About" />
+        </menu>
+    </item>
+</menu>

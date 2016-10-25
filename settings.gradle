@@ -1,0 +1,2 @@
+include ':app', ':ProgressButton', ':WaveProgress', ':ChangeLog'
+include ':VersionManager'

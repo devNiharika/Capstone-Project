@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<changelog bulletedList="true">
+
+    <changelogversion changeDate="" versionName="1.9">
+        <changelogtext>Auto refresh support for Ads</changelogtext>
+    </changelogversion>
+
+    <changelogversion changeDate="" versionName="1.8">
+        <changelogtext>Bug fixes</changelogtext>
+        <changelogtext>[b]New![/b] Library status auto syncs</changelogtext>
+        <changelogtext>Stay tuned! More features coming soon!</changelogtext>
+        <changelogtext>Jobs portal temporarily discontinued</changelogtext>
+    </changelogversion>
+
+    <changelogversion changeDate="" versionName="1.7">
+        <changelogtext>Recommended to logout and login once after the update</changelogtext>
+        <changelogtext>[b]New![/b] Jobs</changelogtext>
+        <changelogtext>[b]Fixed![/b] Monthly attendance</changelogtext>
+    </changelogversion>
+
+    <changelogversion changeDate="" versionName="1.4">
+        <changelogtext>Less than 1 second to fetch attendance using QuickPass Algorithm
+        </changelogtext>
+        <changelogtext>Update notifications</changelogtext>
+        <changelogtext>Optimized for 2G connection</changelogtext>
+        <changelogtext>Minor bug fixes</changelogtext>
+        <changelogtext>Speed and performance improvements</changelogtext>
+    </changelogversion>
+
+    <changelogversion changeDate="" versionName="1.3">
+        <changelogtext>1.09 seconds to fetch attendance using QuickPass Algorithm</changelogtext>
+        <changelogtext>Fixed log while parsing</changelogtext>
+        <changelogtext>Captcha for enhanced security</changelogtext>
+        <changelogtext>Monthly attendance</changelogtext>
+        <changelogtext>Memory footprint optimization</changelogtext>
+    </changelogversion>
+
+    <changelogversion changeDate="" versionName="1.2">
+        <changelogtext>[b]New![/b] QuickPass Algorithm by dev. Rohan Garg ensuring FASTEST login
+            possible
+        </changelogtext>
+        <changelogtext>[b]New![/b] Beautiful calendar to choose the dates you want to see the
+            attendance on
+        </changelogtext>
+        <changelogtext>Last synced data is always available in offline mode</changelogtext>
+        <changelogtext>Speed and Performance improvements</changelogtext>
+        <changelogtext>UI improvements</changelogtext>
+    </changelogversion>
+
+    <changelogversion changeDate="" versionName="1.1">
+        <changelogtext>Performance improvement</changelogtext>
+        <changelogtext>Offline caching</changelogtext>
+    </changelogversion>
+
+</changelog>
