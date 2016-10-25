@@ -9,7 +9,6 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatCheckBox;
-import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -78,19 +77,25 @@ public class LoginActivity extends Activity {
             showAsDialog();
             validate();
         } else {
-            WVersionManager versionManager = new WVersionManager(this);
-            versionManager.setUpdateNowLabel("Update");
-            versionManager.setRemindMeLaterLabel("Later");
-            versionManager.setIgnoreThisVersionLabel("");
-            versionManager.setVersionContentUrl("http://galgotias.ga/Updates"); // your update content url, see the response format below
-            versionManager.checkVersion();
+            checkUpdate();
         }
+    }
+
+    private void checkUpdate() {
+        WVersionManager versionManager = new WVersionManager(this);
+        versionManager.setUpdateNowLabel(getString(R.string.updateNowLabel));
+        versionManager.setRemindMeLaterLabel(getString(R.string.remindMeLaterLabel));
+        versionManager.setIgnoreThisVersionLabel("");
+        versionManager.setReminderTimer(60);
+        // Update content url
+        versionManager.setVersionContentUrl(Constants.UPDATES_URL);
+        versionManager.checkVersion();
     }
 
     void showAsDialog() {
         loginHeadline.setText("Please wait");
-        loginID.setVisibility(View.GONE);
-        password.setVisibility(View.GONE);
+        loginIDLayout.setVisibility(View.GONE);
+        passwordLayout.setVisibility(View.GONE);
         rememberMe.setVisibility(View.GONE);
         loginButton.setNormalText("Connect");
         loginButton.setLoadingText("Connecting");
@@ -125,7 +130,7 @@ public class LoginActivity extends Activity {
             passwordLayout.setErrorEnabled(false);
             if (id.length() == 0) {
                 loginID.requestFocus();
-                loginID.setError(Html.fromHtml("<font color='#F57C00'>Required!</font>"));
+                loginID.setError("Required!");
                 return;
             } else if (id.length() < 6) {
                 loginID.requestFocus();
@@ -133,7 +138,7 @@ public class LoginActivity extends Activity {
                 return;
             } else if (pwd.length() == 0) {
                 password.requestFocus();
-                password.setError(Html.fromHtml("<font color='#F57C00'>Required!</font>"));
+                password.setError("Required!");
                 return;
             } else if (pwd.length() < 3) {
                 password.requestFocus();

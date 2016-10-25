@@ -1,6 +1,7 @@
 <resources>
 
-    <string name="app_name">Galgotias University mSIM</string>
+    <string name="app_name">Galgotias University mSIM </string>
+    <string name="app_name_short">GU mSIM</string>
 
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
@@ -11,7 +12,7 @@
     <string name="text_about">This app is created with lots of Love and Coffee. Please support the app by liking us on Play Store and sharing the app. Your Love matters a lot for the development of the app.</string>
 
     <string name="shareHeader">Share via:</string>
-    <string name="shareSubject">Galgotia College App</string>
+    <string name="shareSubject">Galgotias University mSIM</string>
     <string name="shareText">Hey,\nCheckout this app for Galgotias University.\n\nhttps://play.google.com/store/apps/details?id=in.edu.galgotiasuniversity\n\nYou can check your attendance directly!\nAlso it has a Holiday Planner and many other awesome features.\nCheers :)</string>
 
     <string name="playLink">https://play.google.com/store/apps/details?id=in.edu.galgotiasuniversity</string>
