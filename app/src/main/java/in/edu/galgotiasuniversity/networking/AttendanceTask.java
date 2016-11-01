@@ -1,14 +1,16 @@
 package in.edu.galgotiasuniversity.networking;
 
 import android.app.ProgressDialog;
+import android.content.ContentProviderOperation;
+import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.AsyncTask;
+import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,21 +20,25 @@ import org.jsoup.select.Elements;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 import in.edu.galgotiasuniversity.Constants;
 import in.edu.galgotiasuniversity.MainActivity;
+import in.edu.galgotiasuniversity.data.AttendanceColumns;
+import in.edu.galgotiasuniversity.data.AttendanceProvider;
+import in.edu.galgotiasuniversity.data.DB_Utils;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 
 /**
  * Created on 25-01-2016.
  */
-public class DateWiseTask extends AsyncTask<Void, Integer, Void> {
+public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
 
-    private final String TAG = "DAY_BY_DAY_TASK";
+    private final String TAG = "ATTENDANCE_TASK";
     private MainActivity context;
     private Map<String, String> cookies;
     private Connection.Response res;
@@ -43,7 +49,7 @@ public class DateWiseTask extends AsyncTask<Void, Integer, Void> {
     private OnTaskCompleted listener;
     private OnError error_listener;
 
-    public DateWiseTask(MainActivity context, OnTaskCompleted listener, OnError error_listener, String FROM_DATE, String TO_DATE) {
+    public AttendanceTask(MainActivity context, OnTaskCompleted listener, OnError error_listener, String FROM_DATE, String TO_DATE) {
         this.context = context;
         this.listener = listener;
         this.error_listener = error_listener;
@@ -148,42 +154,42 @@ public class DateWiseTask extends AsyncTask<Void, Integer, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         if (progress == 100) {
-//            Elements rows = document.select("span[id*=lblDate],span[id*=lblNAME],span[id*=lblTimeSlot],span[id*=lblAttType],span[id*=lblProgram]");
-            Iterator<Element> i = document.select("span[id*=lblDate],span[id*=lblNAME],span[id*=lblTimeSlot],span[id*=lblAttType],span[id*=lblProgram]").iterator();
-//            System.out.println(document.toString());
+            Iterator<Element> i = document.select("span[id*=lblSubjectName],span[id*=lblDate],span[id*=lblNAME],span[id*=lblTimeSlot],span[id*=lblAttType],span[id*=lblProgram]").iterator();
+            ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
+            String date, time;
+            Cursor queryCursor;
+            boolean exists = false;
             try {
-                JSONObject dayByDayList = new JSONObject();
-//                JSONArray data;
-                int k = 0;
-//                for (int i = 0; i < rows.size(); ) {
-//                    data = new JSONArray();
-//                    data.put(rows.get(i++).text());
-//                    data.put(rows.get(i++).text());
-//                    data.put(rows.get(i++).text());
-//                    data.put(rows.get(i++).text());
-//                    data.put(rows.get(i++).text());
-//                    dayByDayList.put(String.valueOf(k++), data);
-//                }
                 while (i.hasNext()) {
-                    dayByDayList.put(String.valueOf(k), new JSONArray()
+                    JSONArray data = new JSONArray()
+                            .put(i.next().text())
+                            .put(date = i.next().text())
+                            .put(i.next().text())
+                            .put(time = i.next().text())
                             .put(i.next().text())
                             .put(i.next().text())
-                            .put(i.next().text())
-                            .put(i.next().text())
-                            .put(i.next().text()));
-                    k++;
+                            .put(date + time);
+
+                    queryCursor = context.getContentResolver().query(AttendanceProvider.Attendance.CONTENT_URI,
+                            new String[]{AttendanceColumns.KEY}, AttendanceColumns.KEY + " = ? ",
+                            new String[]{date + time}, null);
+                    if (null != queryCursor) {
+                        exists = queryCursor.getCount() != 0;
+                        queryCursor.close();
+                    }
+                    if (exists)
+                        continue;
+                    batchOperations.add(DB_Utils.buildBatchOperation(data));
                 }
+                context.getContentResolver().applyBatch(AttendanceProvider.AUTHORITY, batchOperations);
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
                 editor.putBoolean("isDayByDayListLoaded", true);
-                Log.d(TAG, dayByDayList.toString());
-                editor.putString("dayByDayList", dayByDayList.toString());
                 editor.putString("from_date", FROM_DATE);
                 editor.putString("to_date", TO_DATE);
                 editor.apply();
                 listener.onTaskCompleted();
-            } catch (JSONException e) {
-                Log.d(TAG, e.getMessage());
-                error_listener.onError();
+            } catch (RemoteException | OperationApplicationException e) {
+                e.printStackTrace();
             }
         }
         dialog.dismiss();

@@ -1,6 +1,7 @@
 package in.edu.galgotiasuniversity.fragments;
 
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -17,10 +18,6 @@ import android.widget.Toast;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -29,12 +26,16 @@ import butterknife.OnClick;
 import in.edu.galgotiasuniversity.MainActivity;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.adapters.DateWiseAdapter;
+import in.edu.galgotiasuniversity.data.AttendanceColumns;
+import in.edu.galgotiasuniversity.data.AttendanceProvider;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 import in.edu.galgotiasuniversity.models.Date;
-import in.edu.galgotiasuniversity.networking.DateWiseTask;
+import in.edu.galgotiasuniversity.networking.AttendanceTask;
 import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
+
+//import in.edu.galgotiasuniversity.networking.AttendanceTask;
 
 /**
  * Created on 25-01-2016.
@@ -42,6 +43,7 @@ import in.edu.galgotiasuniversity.utils.Utils;
 public class DateWiseFragment extends Fragment {
 
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
+    //    private static final int CURSOR_LOADER_ID = 0;
     View view;
     ArrayList<String> titles, contents1, contents2, contents3, contents4;
     LinearLayoutManager layoutManager;
@@ -106,7 +108,7 @@ public class DateWiseFragment extends Fragment {
     }
 
     void fetch() {
-        new DateWiseTask((MainActivity) this.getContext(), new OnTaskCompleted() {
+        new AttendanceTask((MainActivity) this.getContext(), new OnTaskCompleted() {
             @Override
             public void onTaskCompleted() {
                 taskCompleted();
@@ -120,29 +122,45 @@ public class DateWiseFragment extends Fragment {
     }
 
     public void taskCompleted() {
-        try {
-            JSONObject subjectWiseList = new JSONObject(sp.getString("dayByDayList", ""));
-            titles.clear();
-            contents1.clear();
-            contents2.clear();
-            contents3.clear();
-            contents4.clear();
-            for (int i = 0; i < subjectWiseList.length(); i++) {
-                JSONArray data = subjectWiseList.getJSONArray(Integer.toString(i));
-                titles.add(data.getString(1));
-                contents1.add(data.getString(0));
-                contents2.add(data.getString(2));
-                contents3.add(data.getString(3));
-                contents4.add(data.getString(4));
-            }
-            from_date.setDate(sp.getString("from_date", from_date.getDate()));
-            to_date.setDate(sp.getString("to_date", to_date.getDate()));
-            setFromButtonText();
-            setToButtonText();
-        } catch (JSONException e) {
-            e.printStackTrace();
+//        try {
+//            JSONObject subjectWiseList = new JSONObject(sp.getString("dayByDayList", ""));
+//            titles.clear();
+//            contents1.clear();
+//            contents2.clear();
+//            contents3.clear();
+//            contents4.clear();
+//            for (int i = 0; i < subjectWiseList.length(); i++) {
+//                JSONArray data = subjectWiseList.getJSONArray(Integer.toString(i));
+//                titles.add(data.getString(1));
+//                contents1.add(data.getString(0));
+//                contents2.add(data.getString(2));
+//                contents3.add(data.getString(3));
+//                contents4.add(data.getString(4));
+//            }
+//            from_date.setDate(sp.getString("from_date", from_date.getDate()));
+//            to_date.setDate(sp.getString("to_date", to_date.getDate()));
+//            setFromButtonText();
+//            setToButtonText();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        dateWiseAdapter.notifyDataSetChanged();
+//        getActivity().getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
+
+        Cursor mCursor = getContext().getContentResolver().query(AttendanceProvider.Attendance.CONTENT_URI,
+                new String[]{AttendanceColumns.KEY, AttendanceColumns.SEMESTER, AttendanceColumns.DATE, AttendanceColumns.SUBJECT_NAME, AttendanceColumns.TIME_SLOT, AttendanceColumns.ATTENDANCE_TYPE, AttendanceColumns.STATUS},
+                null,
+                null,
+                null);
+
+        mCursor.moveToFirst();
+        Log.d("DWF", String.valueOf(mCursor.getCount()));
+        for (int i = 0; i < mCursor.getCount(); i++) {
+            Log.d("DWF", mCursor.getString(mCursor.getColumnIndex(AttendanceColumns.SEMESTER)) + mCursor.getString(mCursor.getColumnIndex(AttendanceColumns.DATE)) + mCursor.getString(mCursor.getColumnIndex(AttendanceColumns.SUBJECT_NAME)) + mCursor.getString(mCursor.getColumnIndex(AttendanceColumns.TIME_SLOT)) + mCursor.getString(mCursor.getColumnIndex(AttendanceColumns.ATTENDANCE_TYPE)) + mCursor.getString(mCursor.getColumnIndex(AttendanceColumns.STATUS)));
+            mCursor.moveToNext();
         }
-        dateWiseAdapter.notifyDataSetChanged();
+        mCursor.close();
+
     }
 
     public void onErrorReceived() {
@@ -154,21 +172,21 @@ public class DateWiseFragment extends Fragment {
         if (new NetworkStatus(getActivity()).isOnline())
             showToast("Aw, Snap! Please try again", Toast.LENGTH_SHORT);
         else
-            showToast("Offline mode", Toast.LENGTH_SHORT);
-        if (!(sp.getBoolean("isDayByDayListLoaded", false))) {
-            titles.clear();
-            contents1.clear();
-            contents2.clear();
-            contents3.clear();
-            contents4.clear();
-            titles.add("Aw, Snap!");
-            contents1.add("");
-            contents2.add("Error connecting to the server");
-            contents3.add("");
-            contents4.add("");
-            dateWiseAdapter.notifyDataSetChanged();
-            return;
-        }
+            showToast("Offline!", Toast.LENGTH_SHORT);
+//        if (!(sp.getBoolean("isDayByDayListLoaded", false))) {
+//            titles.clear();
+//            contents1.clear();
+//            contents2.clear();
+//            contents3.clear();
+//            contents4.clear();
+//            titles.add("Aw, Snap!");
+//            contents1.add("");
+//            contents2.add("Error connecting to the server");
+//            contents3.add("");
+//            contents4.add("");
+//            dateWiseAdapter.notifyDataSetChanged();
+//            return;
+//        }
         taskCompleted();
     }
 
@@ -240,5 +258,4 @@ public class DateWiseFragment extends Fragment {
                 .setThemeDark();
         cdp.show(getActivity().getSupportFragmentManager(), FRAG_TAG_DATE_PICKER);
     }
-
 }

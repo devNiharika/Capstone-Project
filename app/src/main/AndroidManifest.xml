@@ -40,7 +40,7 @@
 
         <provider
             android:name=".data.generated.AttendanceProvider"
-            android:authorities="in.edu.galgotiasuniversity.data.QuoteProvider"
+            android:authorities="in.edu.galgotiasuniversity.data.AttendanceProvider"
             android:exported="true" />
     </application>
 

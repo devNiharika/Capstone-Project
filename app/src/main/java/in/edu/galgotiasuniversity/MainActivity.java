@@ -33,6 +33,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.stetho.Stetho;
+import com.github.javiersantos.appupdater.AppUpdater;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -82,6 +85,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Stetho.initializeWithDefaults(this);
+
         currentActivity = this;
         ButterKnife.bind(currentActivity);
         sp = PreferenceManager.getDefaultSharedPreferences(currentActivity);
@@ -151,14 +157,17 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void checkUpdate() {
-        WVersionManager versionManager = new WVersionManager(currentActivity);
-        versionManager.setUpdateNowLabel(getString(R.string.updateNowLabel));
-        versionManager.setRemindMeLaterLabel(getString(R.string.remindMeLaterLabel));
-        versionManager.setIgnoreThisVersionLabel("");
-        versionManager.setReminderTimer(60);
-        // Update content url
-        versionManager.setVersionContentUrl(Constants.UPDATES_URL);
-        versionManager.checkVersion();
+//        WVersionManager versionManager = new WVersionManager(currentActivity);
+//        versionManager.setUpdateNowLabel(getString(R.string.updateNowLabel));
+//        versionManager.setRemindMeLaterLabel(getString(R.string.remindMeLaterLabel));
+//        versionManager.setIgnoreThisVersionLabel("");
+//        versionManager.setReminderTimer(60);
+//        // Update content url
+//        versionManager.setVersionContentUrl(Constants.UPDATES_URL);
+//        versionManager.checkVersion();
+
+        AppUpdater appUpdater = new AppUpdater(this);
+        appUpdater.start();
     }
 
     void showChangelog(boolean checkVersion) {
