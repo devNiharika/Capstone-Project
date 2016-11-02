@@ -156,6 +156,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
     private void checkUpdate() {
 //        WVersionManager versionManager = new WVersionManager(currentActivity);
 //        versionManager.setUpdateNowLabel(getString(R.string.updateNowLabel));
@@ -167,6 +168,9 @@ public class MainActivity extends AppCompatActivity
 //        versionManager.checkVersion();
 
         AppUpdater appUpdater = new AppUpdater(this);
+//                .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
+//                .setDisplay(Display.DIALOG)
+//                .showEvery(5);
         appUpdater.start();
     }
 

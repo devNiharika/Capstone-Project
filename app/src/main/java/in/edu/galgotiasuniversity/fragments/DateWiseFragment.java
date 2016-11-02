@@ -1,7 +1,6 @@
 package in.edu.galgotiasuniversity.fragments;
 
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -26,8 +25,6 @@ import butterknife.OnClick;
 import in.edu.galgotiasuniversity.MainActivity;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.adapters.DateWiseAdapter;
-import in.edu.galgotiasuniversity.data.AttendanceColumns;
-import in.edu.galgotiasuniversity.data.AttendanceProvider;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 import in.edu.galgotiasuniversity.models.Date;
@@ -147,19 +144,19 @@ public class DateWiseFragment extends Fragment {
 //        dateWiseAdapter.notifyDataSetChanged();
 //        getActivity().getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
 
-        Cursor mCursor = getContext().getContentResolver().query(AttendanceProvider.Attendance.CONTENT_URI,
-                new String[]{AttendanceColumns.KEY, AttendanceColumns.SEMESTER, AttendanceColumns.DATE, AttendanceColumns.SUBJECT_NAME, AttendanceColumns.TIME_SLOT, AttendanceColumns.ATTENDANCE_TYPE, AttendanceColumns.STATUS},
-                null,
-                null,
-                null);
-
-        mCursor.moveToFirst();
-        Log.d("DWF", String.valueOf(mCursor.getCount()));
-        for (int i = 0; i < mCursor.getCount(); i++) {
-            Log.d("DWF", mCursor.getString(mCursor.getColumnIndex(AttendanceColumns.SEMESTER)) + mCursor.getString(mCursor.getColumnIndex(AttendanceColumns.DATE)) + mCursor.getString(mCursor.getColumnIndex(AttendanceColumns.SUBJECT_NAME)) + mCursor.getString(mCursor.getColumnIndex(AttendanceColumns.TIME_SLOT)) + mCursor.getString(mCursor.getColumnIndex(AttendanceColumns.ATTENDANCE_TYPE)) + mCursor.getString(mCursor.getColumnIndex(AttendanceColumns.STATUS)));
-            mCursor.moveToNext();
-        }
-        mCursor.close();
+//        Cursor mCursor = getContext().getContentResolver().query(AttendanceProvider.Attendance.CONTENT_URI,
+//                new String[]{Record.KEY, Record.SEMESTER, Record.DATE, Record.SUBJECT_NAME, Record.TIME_SLOT, Record.ATTENDANCE_TYPE, Record.STATUS},
+//                null,
+//                null,
+//                null);
+//
+//        mCursor.moveToFirst();
+//        Log.d("DWF", String.valueOf(mCursor.getCount()));
+//        for (int i = 0; i < mCursor.getCount(); i++) {
+//            Log.d("DWF", mCursor.getString(mCursor.getColumnIndex(Record.SEMESTER)) + mCursor.getString(mCursor.getColumnIndex(Record.DATE)) + mCursor.getString(mCursor.getColumnIndex(Record.SUBJECT_NAME)) + mCursor.getString(mCursor.getColumnIndex(Record.TIME_SLOT)) + mCursor.getString(mCursor.getColumnIndex(Record.ATTENDANCE_TYPE)) + mCursor.getString(mCursor.getColumnIndex(Record.STATUS)));
+//            mCursor.moveToNext();
+//        }
+//        mCursor.close();
 
     }
 

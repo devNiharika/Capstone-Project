@@ -1,9 +1,8 @@
 package in.edu.galgotiasuniversity.utils;
 
-import android.app.Application;
 import android.content.Context;
 
-public class MyApp extends Application {
+public class MyApp extends com.activeandroid.app.Application {
 
     private static MyApp instance;
 
@@ -28,7 +27,6 @@ public class MyApp extends Application {
 
     @Override
     public void onTerminate() {
-
         super.onTerminate();
     }
 

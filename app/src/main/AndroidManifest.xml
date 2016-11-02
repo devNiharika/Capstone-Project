@@ -16,6 +16,17 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="attendance.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="in.edu.galgotiasuniversity.data.Record" />
+
         <activity
             android:name=".LogoActivity"
             android:label="@string/app_name_short"
@@ -39,7 +50,7 @@
             android:theme="@style/Theme.Transparent" />
 
         <provider
-            android:name=".data.generated.AttendanceProvider"
+            android:name="com.activeandroid.content.ContentProvider"
             android:authorities="in.edu.galgotiasuniversity.data.AttendanceProvider"
             android:exported="true" />
     </application>

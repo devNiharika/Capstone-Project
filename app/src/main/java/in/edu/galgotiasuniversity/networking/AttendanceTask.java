@@ -1,16 +1,13 @@
 package in.edu.galgotiasuniversity.networking;
 
 import android.app.ProgressDialog;
-import android.content.ContentProviderOperation;
-import android.content.OperationApplicationException;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.AsyncTask;
-import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import org.json.JSONArray;
+import com.activeandroid.ActiveAndroid;
+
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,16 +17,19 @@ import org.jsoup.select.Elements;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 
 import in.edu.galgotiasuniversity.Constants;
 import in.edu.galgotiasuniversity.MainActivity;
-import in.edu.galgotiasuniversity.data.AttendanceColumns;
-import in.edu.galgotiasuniversity.data.AttendanceProvider;
-import in.edu.galgotiasuniversity.data.DB_Utils;
+import in.edu.galgotiasuniversity.data.Record;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 
@@ -155,42 +155,39 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
         super.onPostExecute(aVoid);
         if (progress == 100) {
             Iterator<Element> i = document.select("span[id*=lblSubjectName],span[id*=lblDate],span[id*=lblNAME],span[id*=lblTimeSlot],span[id*=lblAttType],span[id*=lblProgram]").iterator();
-            ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
-            String date, time;
-            Cursor queryCursor;
-            boolean exists = false;
+            ActiveAndroid.beginTransaction();
+            Calendar c = Calendar.getInstance();
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
             try {
                 while (i.hasNext()) {
-                    JSONArray data = new JSONArray()
-                            .put(i.next().text())
-                            .put(date = i.next().text())
-                            .put(i.next().text())
-                            .put(time = i.next().text())
-                            .put(i.next().text())
-                            .put(i.next().text())
-                            .put(date + time);
-
-                    queryCursor = context.getContentResolver().query(AttendanceProvider.Attendance.CONTENT_URI,
-                            new String[]{AttendanceColumns.KEY}, AttendanceColumns.KEY + " = ? ",
-                            new String[]{date + time}, null);
-                    if (null != queryCursor) {
-                        exists = queryCursor.getCount() != 0;
-                        queryCursor.close();
-                    }
-                    if (exists)
-                        continue;
-                    batchOperations.add(DB_Utils.buildBatchOperation(data));
+                    Record record = new Record();
+                    record.SEMESTER = i.next().text();
+                    Date date = df.parse(i.next().text());
+                    c.setTime(date);
+                    String year = String.format(Locale.ENGLISH, "%04d", c.get(Calendar.YEAR));
+                    String month = String.format(Locale.ENGLISH, "%02d", c.get(Calendar.MONTH) + 1);
+                    String day = String.format(Locale.ENGLISH, "%02d", c.get(Calendar.DATE));
+                    record.DATE = Long.parseLong(year + month + day);
+                    record.MM = c.get(Calendar.MONTH) + 1;
+                    record.SUBJECT_NAME = i.next().text();
+                    record.TIME_SLOT = i.next().text();
+                    record.ATTENDANCE_TYPE = i.next().text();
+                    record.STATUS = i.next().text();
+                    record.KEY = String.valueOf(record.DATE) + record.TIME_SLOT;
+                    record.save();
                 }
-                context.getContentResolver().applyBatch(AttendanceProvider.AUTHORITY, batchOperations);
-                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-                editor.putBoolean("isDayByDayListLoaded", true);
-                editor.putString("from_date", FROM_DATE);
-                editor.putString("to_date", TO_DATE);
-                editor.apply();
-                listener.onTaskCompleted();
-            } catch (RemoteException | OperationApplicationException e) {
+                ActiveAndroid.setTransactionSuccessful();
+            } catch (ParseException e) {
                 e.printStackTrace();
+            } finally {
+                ActiveAndroid.endTransaction();
             }
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+            editor.putBoolean("isDayByDayListLoaded", true);
+            editor.putString("from_date", FROM_DATE);
+            editor.putString("to_date", TO_DATE);
+            editor.apply();
+            listener.onTaskCompleted();
         }
         dialog.dismiss();
 //        context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
