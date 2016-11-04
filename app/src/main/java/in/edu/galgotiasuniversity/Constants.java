@@ -16,8 +16,9 @@ public class Constants {
     public static String[] HEADER2 = {"Accept-Encoding", "gzip, deflate"};
     public static String[] HEADER3 = {"Accept-Language", "en-US,en;q=0.8"};
     public static String UPDATES_URL = "http://galgotias.ga/UpdatesGU";
+    public static int MAX_DIFFERENCE = 30;
 
-//    GU
+    //    GU
     public static String LOGIN_URL = "http://182.71.87.38/iSIM/Login";
     public static String HOME_URL = "http://182.71.87.38/iSIM/Home";
     public static String INFO_URL = "http://182.71.87.38/iSIM/Student/Course";

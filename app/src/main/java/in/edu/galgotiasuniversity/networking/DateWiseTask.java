@@ -36,7 +36,7 @@ import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 /**
  * Created on 25-01-2016.
  */
-public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
+public class DateWiseTask extends AsyncTask<Void, Integer, Void> {
 
     private final String TAG = "ATTENDANCE_TASK";
     private MainActivity context;
@@ -49,7 +49,7 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
     private OnTaskCompleted listener;
     private OnError error_listener;
 
-    public AttendanceTask(MainActivity context, OnTaskCompleted listener, OnError error_listener, String FROM_DATE, String TO_DATE) {
+    public DateWiseTask(MainActivity context, OnTaskCompleted listener, OnError error_listener, String FROM_DATE, String TO_DATE) {
         this.context = context;
         this.listener = listener;
         this.error_listener = error_listener;

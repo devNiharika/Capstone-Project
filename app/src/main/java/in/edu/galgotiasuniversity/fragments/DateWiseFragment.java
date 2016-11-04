@@ -15,24 +15,27 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.activeandroid.query.Select;
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.edu.galgotiasuniversity.MainActivity;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.adapters.DateWiseAdapter;
+import in.edu.galgotiasuniversity.data.Record;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 import in.edu.galgotiasuniversity.models.Date;
-import in.edu.galgotiasuniversity.networking.AttendanceTask;
+import in.edu.galgotiasuniversity.networking.DateWiseTask;
 import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
-//import in.edu.galgotiasuniversity.networking.AttendanceTask;
+//import in.edu.galgotiasuniversity.networking.DateWiseTask;
 
 /**
  * Created on 25-01-2016.
@@ -105,7 +108,7 @@ public class DateWiseFragment extends Fragment {
     }
 
     void fetch() {
-        new AttendanceTask((MainActivity) this.getContext(), new OnTaskCompleted() {
+        new DateWiseTask((MainActivity) this.getContext(), new OnTaskCompleted() {
             @Override
             public void onTaskCompleted() {
                 taskCompleted();
@@ -157,6 +160,19 @@ public class DateWiseFragment extends Fragment {
 //            mCursor.moveToNext();
 //        }
 //        mCursor.close();
+        int i = 0;
+        List<Record> temp = new Select()
+                .distinct()
+                .from(Record.class)
+                .groupBy("SUBJECT_NAME")
+                .orderBy("SUBJECT_NAME ASC")
+                .execute();
+        for (Record record : temp) {
+            System.out.println(record.KEY);
+            System.out.println(record.SUBJECT_NAME);
+            i++;
+        }
+        System.out.println(String.valueOf(i));
 
     }
 
