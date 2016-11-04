@@ -24,18 +24,17 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import in.edu.galgotiasuniversity.MainActivity;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.adapters.DateWiseAdapter;
 import in.edu.galgotiasuniversity.data.Record;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 import in.edu.galgotiasuniversity.models.Date;
-import in.edu.galgotiasuniversity.networking.DateWiseTask;
+import in.edu.galgotiasuniversity.networking.AttendanceTask;
 import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
-//import in.edu.galgotiasuniversity.networking.DateWiseTask;
+//import in.edu.galgotiasuniversity.networking.AttendanceTask;
 
 /**
  * Created on 25-01-2016.
@@ -108,7 +107,7 @@ public class DateWiseFragment extends Fragment {
     }
 
     void fetch() {
-        new DateWiseTask((MainActivity) this.getContext(), new OnTaskCompleted() {
+        new AttendanceTask(this.getContext(), new OnTaskCompleted() {
             @Override
             public void onTaskCompleted() {
                 taskCompleted();
