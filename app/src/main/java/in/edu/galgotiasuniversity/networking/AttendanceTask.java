@@ -9,6 +9,8 @@ import android.util.Log;
 
 import com.activeandroid.ActiveAndroid;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,6 +50,7 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
     private String FROM_DATE, TO_DATE;
     private OnTaskCompleted listener;
     private OnError error_listener;
+    private ArrayList<Record> records = new ArrayList<>();
 
     public AttendanceTask(Context context, OnTaskCompleted listener, OnError error_listener, String FROM_DATE, String TO_DATE) {
         this.context = context;
@@ -107,67 +111,88 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
             for (Element input : inputs) {
                 POST_DATA.put(input.attr("name"), input.attr("value"));
             }
-            POST_DATA.put("ctl00$ctl00$MCPH1$SCPH$txtFrom", FROM_DATE);
-            POST_DATA.put("ctl00$ctl00$MCPH1$SCPH$txtTo", TO_DATE);
             POST_DATA.put("ctl00$ctl00$MCPH1$SCPH$btnShowAtt", "Show");
-            res = Jsoup
-                    .connect(Constants.ATTENDANCE_URL)
-                    .userAgent(Constants.USER_AGENT)
-                    .referrer(Constants.REFERRER)
-                    .followRedirects(false)
-                    .header(Constants.HEADER1[0], Constants.HEADER1[1])
-                    .header(Constants.HEADER2[0], Constants.HEADER2[1])
-                    .header(Constants.HEADER3[0], Constants.HEADER3[1])
-                    .header(Constants.HEADER4[0], Constants.HEADER4[1])
-                    .cookies(cookies)
-                    .data(POST_DATA)
-                    .method(Connection.Method.POST)
-                    .timeout(Constants.TIMEOUT)
-                    .execute();
-            document = res.parse();
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+            LocalDate START_DATE = new LocalDate(new DateTime(df.parse(FROM_DATE)));
+            LocalDate END_DATE = new LocalDate(new DateTime(df.parse(TO_DATE)));
+
+            for (LocalDate date = START_DATE; !date.isAfter(END_DATE); date = date.plusDays(Constants.MAX_DIFFERENCE)) {
+                POST_DATA.put("ctl00$ctl00$MCPH1$SCPH$txtFrom", df.format(date.toDate()));
+                POST_DATA.put("ctl00$ctl00$MCPH1$SCPH$txtTo", df.format(date.plusDays(Constants.MAX_DIFFERENCE).toDate()));
+                System.out.println(POST_DATA);
+                res = Jsoup
+                        .connect(Constants.ATTENDANCE_URL)
+                        .userAgent(Constants.USER_AGENT)
+                        .referrer(Constants.REFERRER)
+                        .followRedirects(false)
+                        .header(Constants.HEADER1[0], Constants.HEADER1[1])
+                        .header(Constants.HEADER2[0], Constants.HEADER2[1])
+                        .header(Constants.HEADER3[0], Constants.HEADER3[1])
+                        .header(Constants.HEADER4[0], Constants.HEADER4[1])
+                        .cookies(cookies)
+                        .data(POST_DATA)
+                        .method(Connection.Method.POST)
+                        .timeout(Constants.TIMEOUT)
+                        .execute();
+                document = res.parse();
+                addToRecords();
+            }
             publishProgress(100);
         } catch (IOException e) {
             Log.d(TAG, e.getMessage());
             publishProgress(-1);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return null;
+    }
+
+    private void addToRecords() {
+        Iterator<Element> i = document.select("span[id*=lblSubjectName],span[id*=lblDate],span[id*=lblNAME],span[id*=lblTimeSlot],span[id*=lblAttType],span[id*=lblProgram]").iterator();
+        Calendar c = Calendar.getInstance();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        String YYYY, MM, DD;
+        try {
+            while (i.hasNext()) {
+                Record record = new Record();
+                record.SEMESTER = i.next().text();
+                Date date = df.parse(i.next().text());
+                c.setTime(date);
+                YYYY = String.format(Locale.ENGLISH, "%04d", c.get(Calendar.YEAR));
+                MM = String.format(Locale.ENGLISH, "%02d", c.get(Calendar.MONTH) + 1);
+                DD = String.format(Locale.ENGLISH, "%02d", c.get(Calendar.DATE));
+                record.DATE = Long.parseLong(YYYY + MM + DD);
+                record.MM = Integer.parseInt(MM);
+                record.SUBJECT_NAME = i.next().text();
+                record.TIME_SLOT = i.next().text();
+                record.ATTENDANCE_TYPE = i.next().text();
+                record.STATUS = i.next().text();
+                record.KEY = YYYY + MM + DD + record.TIME_SLOT;
+                records.add(record);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         if (progress == 100) {
-            Iterator<Element> i = document.select("span[id*=lblSubjectName],span[id*=lblDate],span[id*=lblNAME],span[id*=lblTimeSlot],span[id*=lblAttType],span[id*=lblProgram]").iterator();
+
             ActiveAndroid.beginTransaction();
-            Calendar c = Calendar.getInstance();
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-            String YYYY, MM, DD;
             try {
-                while (i.hasNext()) {
-                    Record record = new Record();
-                    record.SEMESTER = i.next().text();
-                    Date date = df.parse(i.next().text());
-                    c.setTime(date);
-                    YYYY = String.format(Locale.ENGLISH, "%04d", c.get(Calendar.YEAR));
-                    MM = String.format(Locale.ENGLISH, "%02d", c.get(Calendar.MONTH) + 1);
-                    DD = String.format(Locale.ENGLISH, "%02d", c.get(Calendar.DATE));
-                    record.DATE = Long.parseLong(YYYY + MM + DD);
-                    record.MM = Integer.parseInt(MM);
-                    record.SUBJECT_NAME = i.next().text();
-                    record.TIME_SLOT = i.next().text();
-                    record.ATTENDANCE_TYPE = i.next().text();
-                    record.STATUS = i.next().text();
-                    record.KEY = YYYY + MM + DD + record.TIME_SLOT;
+                System.out.println(String.valueOf(records.size()));
+                for (Record record : records) {
+                    System.out.println(record.DATE);
                     record.save();
                 }
                 ActiveAndroid.setTransactionSuccessful();
-            } catch (ParseException e) {
-                e.printStackTrace();
             } finally {
                 ActiveAndroid.endTransaction();
             }
+
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-            editor.putBoolean("isAttendanceListLoaded", true);
             editor.putString("from_date", FROM_DATE);
             editor.putString("to_date", TO_DATE);
             editor.apply();

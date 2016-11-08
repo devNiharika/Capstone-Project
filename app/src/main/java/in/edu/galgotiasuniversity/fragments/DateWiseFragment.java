@@ -15,18 +15,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.activeandroid.query.Select;
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.adapters.DateWiseAdapter;
-import in.edu.galgotiasuniversity.data.Record;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 import in.edu.galgotiasuniversity.models.Date;
@@ -51,6 +49,8 @@ public class DateWiseFragment extends Fragment {
     DateWiseAdapter dateWiseAdapter;
     Date from_date, to_date;
     Calendar c;
+    @BindView(R.id.fetch)
+    Button fetch;
 
     @Nullable
     @Override
@@ -106,7 +106,9 @@ public class DateWiseFragment extends Fragment {
         button.setText(string);
     }
 
+    @OnClick(R.id.fetch)
     void fetch() {
+        showFetchButton(false);
         new AttendanceTask(this.getContext(), new OnTaskCompleted() {
             @Override
             public void onTaskCompleted() {
@@ -118,6 +120,13 @@ public class DateWiseFragment extends Fragment {
                 onErrorReceived();
             }
         }, from_date.getDate(), to_date.getDate()).execute();
+    }
+
+    void showFetchButton(boolean show) {
+        if (show)
+            fetch.setVisibility(View.VISIBLE);
+        else
+            fetch.setVisibility(View.GONE);
     }
 
     public void taskCompleted() {
@@ -159,20 +168,53 @@ public class DateWiseFragment extends Fragment {
 //            mCursor.moveToNext();
 //        }
 //        mCursor.close();
-        int i = 0;
-        List<Record> temp = new Select()
-                .distinct()
-                .from(Record.class)
-                .groupBy("SUBJECT_NAME")
-                .orderBy("SUBJECT_NAME ASC")
-                .execute();
-        for (Record record : temp) {
-            System.out.println(record.KEY);
-            System.out.println(record.SUBJECT_NAME);
-            i++;
-        }
-        System.out.println(String.valueOf(i));
+//        int i = 0;
+//        List<Record> temp = new Select()
+//                .distinct()
+//                .from(Record.class)
+//                .groupBy("SUBJECT_NAME")
+//                .orderBy("SUBJECT_NAME ASC")
+//                .execute();
+//        List<Record> temp = new Select()
+//                .from(Record.class)
+//                .where("SEMESTER = ?", "Sem VII")
+//                .orderBy("KEY ASC")
+//                .execute();
+//        for (Record record : temp) {
+////            System.out.println(record.KEY);
+////            System.out.println(record.SUBJECT_NAME);
+//            i++;
+//        }
+//        System.out.println("Total" + i);
 
+//        int k = 0;
+//        temp = new Select()
+//                .from(Record.class)
+//                .where("STATUS = ?", "P")
+//                .orderBy("KEY ASC")
+//                .execute();
+
+//        for (Record record : temp) {
+////            System.out.println(record.KEY);
+////            System.out.println(record.SUBJECT_NAME);
+//            k++;
+//        }
+
+//        System.out.println("Present" + k);
+
+//        int i = 0;
+//        List<Record> temp = new Select()
+//                .from(Record.class)
+//                .where("DATE >= ?", "20161101")
+//                .and("DATE <= ?", "20161109")
+//                .execute();
+//
+//        for (Record record : temp) {
+//            System.out.println(record.KEY);
+//            System.out.println(record.SUBJECT_NAME);
+//            i++;
+//        }
+//        System.out.println("Total" + i);
     }
 
     public void onErrorReceived() {
@@ -199,6 +241,7 @@ public class DateWiseFragment extends Fragment {
 //            dateWiseAdapter.notifyDataSetChanged();
 //            return;
 //        }
+        showFetchButton(true);
         taskCompleted();
     }
 
@@ -240,7 +283,7 @@ public class DateWiseFragment extends Fragment {
                         from_date.setYear(year);
                         Log.d("FROM_DATE", from_date.getDate());
                         setFromButtonText();
-                        fetch();
+                        showFetchButton(true);
                     }
                 })
                 .setFirstDayOfWeek(Calendar.SUNDAY)
@@ -261,7 +304,7 @@ public class DateWiseFragment extends Fragment {
                         to_date.setYear(year);
                         Log.d("TO_DATE", to_date.getDate());
                         setToButtonText();
-                        fetch();
+                        showFetchButton(true);
                     }
                 })
                 .setFirstDayOfWeek(Calendar.SUNDAY)
