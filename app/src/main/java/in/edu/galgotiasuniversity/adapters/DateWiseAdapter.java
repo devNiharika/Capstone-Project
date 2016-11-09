@@ -8,52 +8,49 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.edu.galgotiasuniversity.R;
+import in.edu.galgotiasuniversity.data.Record;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 public class DateWiseAdapter extends RecyclerView.Adapter<DateWiseAdapter.ViewHolder> {
 
-    private ArrayList<String> titles, contents1, contents2, contents3, contents4;
+    private List<Record> records;
     private Context mContext;
 
-    public DateWiseAdapter(Context context, ArrayList<String> titles, ArrayList<String> contents1, ArrayList<String> contents2, ArrayList<String> contents3, ArrayList<String> contents4) {
+    public DateWiseAdapter(Context context, List<Record> records) {
         this.mContext = context;
-        this.titles = titles;
-        this.contents1 = contents1;
-        this.contents2 = contents2;
-        this.contents3 = contents3;
-        this.contents4 = contents4;
+        this.records = records;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_day_by_day, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_date_wise, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String attendance = contents4.get(position);
+        String attendance = records.get(position).STATUS;
 
         if (attendance.equals("P") || attendance.equals("p"))
             holder.cardColor.setBackgroundColor(ContextCompat.getColor(mContext, R.color.dark_green));
         else if (attendance.equals("A") || attendance.equals("a"))
             holder.cardColor.setBackgroundColor(ContextCompat.getColor(mContext, R.color.dark_red));
 
-        holder.title.setText(titles.get(position));
-        holder.content1.setText(contents1.get(position));
-        holder.content2.setText(contents2.get(position));
-        holder.content3.setText(contents3.get(position));
+        holder.title.setText(records.get(position).SUBJECT_NAME);
+        holder.content1.setText(records.get(position).ATTENDANCE_TYPE);
+        holder.content2.setText(records.get(position).TIME_SLOT);
+        holder.content3.setText(records.get(position).SEMESTER);
         holder.content4.setText(attendance);
     }
 
     @Override
     public int getItemCount() {
-        return titles.size();
+        return records.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

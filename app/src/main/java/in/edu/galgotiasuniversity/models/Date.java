@@ -3,6 +3,11 @@ package in.edu.galgotiasuniversity.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Locale;
+
 /**
  * Created on 25-01-2016.
  */
@@ -21,6 +26,13 @@ public class Date implements Parcelable {
     };
     private int day, month, year;
 
+    public Date() {
+        Calendar c = Calendar.getInstance();
+        day = c.get(Calendar.DATE);
+        month = c.get(Calendar.MONTH);
+        year = c.get(Calendar.YEAR);
+    }
+
     public Date(int day, int month, int year) {
         this.day = day;
         this.month = month;
@@ -34,14 +46,31 @@ public class Date implements Parcelable {
     }
 
     public String getDate() {
-        return (Integer.toString(day) + "/" + Integer.toString(month + 1) + "/" + Integer.toString(year));
+        return (String.format(Locale.ENGLISH, "%02d", day) + "/" + String.format(Locale.ENGLISH, "%02d", month + 1) + "/" + String.format(Locale.ENGLISH, "%04d", year));
     }
 
-    public void setDate(String date) {
-        String split[] = date.split("/");
-        this.day = Integer.valueOf(split[0]);
-        this.month = Integer.valueOf(split[1]) - 1;
-        this.year = Integer.valueOf(split[2]);
+    public void setDate(String date, DateFormat dateFormat) throws ParseException {
+        Calendar c = Calendar.getInstance();
+        c.setTime(dateFormat.parse(date));
+        day = c.get(Calendar.DATE);
+        month = c.get(Calendar.MONTH);
+        year = c.get(Calendar.YEAR);
+    }
+
+    public long getNumericDate() {
+        return Long.parseLong(String.format(Locale.ENGLISH, "%04d", year) + String.format(Locale.ENGLISH, "%02d", month + 1) + String.format(Locale.ENGLISH, "%02d", day));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(day);
+        parcel.writeInt(month);
+        parcel.writeInt(year);
     }
 
     public int getDay() {
@@ -53,7 +82,7 @@ public class Date implements Parcelable {
     }
 
     public int getMonth() {
-        return month;
+        return month + 1;
     }
 
     public void setMonth(int month) {
@@ -66,17 +95,5 @@ public class Date implements Parcelable {
 
     public void setYear(int year) {
         this.year = year;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(day);
-        dest.writeInt(month);
-        dest.writeInt(year);
     }
 }

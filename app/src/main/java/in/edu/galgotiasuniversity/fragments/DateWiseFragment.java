@@ -17,14 +17,15 @@ import android.widget.Toast;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.adapters.DateWiseAdapter;
+import in.edu.galgotiasuniversity.data.Record;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 import in.edu.galgotiasuniversity.models.Date;
@@ -40,15 +41,13 @@ import in.edu.galgotiasuniversity.utils.Utils;
 public class DateWiseFragment extends Fragment {
 
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
-    //    private static final int CURSOR_LOADER_ID = 0;
     View view;
-    ArrayList<String> titles, contents1, contents2, contents3, contents4;
-    LinearLayoutManager layoutManager;
     SharedPreferences sp;
-    View recyclerView;
+    RecyclerView recyclerView;
     DateWiseAdapter dateWiseAdapter;
-    Date from_date, to_date;
-    Calendar c;
+    Date FROM_DATE, TO_DATE;
+    List<Record> records;
+
     @BindView(R.id.fetch)
     Button fetch;
 
@@ -59,32 +58,22 @@ public class DateWiseFragment extends Fragment {
         if (container == null) return null;
         view = inflater.inflate(R.layout.fragment_day_by_day, container, false);
         ButterKnife.bind(this, view);
-        titles = new ArrayList<>();
-        contents1 = new ArrayList<>();
-        contents2 = new ArrayList<>();
-        contents3 = new ArrayList<>();
-        contents4 = new ArrayList<>();
         recyclerView = ButterKnife.findById(view, R.id.dayByDay_content_list);
-        assert recyclerView != null;
 
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-        c = Calendar.getInstance();
-        from_date = new Date(c.get(Calendar.DATE), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
-        to_date = new Date(c.get(Calendar.DATE), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
+        FROM_DATE = new Date();
+        TO_DATE = new Date();
 
         if (savedInstanceState != null) {
-            titles = savedInstanceState.getStringArrayList("titles");
-            contents1 = savedInstanceState.getStringArrayList("contents1");
-            contents2 = savedInstanceState.getStringArrayList("contents2");
-            contents3 = savedInstanceState.getStringArrayList("contents3");
-            contents4 = savedInstanceState.getStringArrayList("contents4");
-            from_date = savedInstanceState.getParcelable("from_date");
-            to_date = savedInstanceState.getParcelable("to_date");
-            setupRecyclerView((RecyclerView) recyclerView);
+            FROM_DATE = savedInstanceState.getParcelable("FROM_DATE");
+            TO_DATE = savedInstanceState.getParcelable("TO_DATE");
+            records = Record.getAttendance(FROM_DATE, TO_DATE);
+            showFetchButton(false);
+            setupRecyclerView(recyclerView);
         } else {
-            setupRecyclerView((RecyclerView) recyclerView);
-            Log.d("FROM_DATE", from_date.getDate());
+            records = Record.getAttendance(FROM_DATE, TO_DATE);
+            setupRecyclerView(recyclerView);
             fetch();
         }
 
@@ -96,13 +85,13 @@ public class DateWiseFragment extends Fragment {
 
     void setFromButtonText() {
         Button button = ButterKnife.findById(view, R.id.from_date);
-        String string = "FROM: " + from_date.getDate();
+        String string = "FROM: " + FROM_DATE.getDate();
         button.setText(string);
     }
 
     void setToButtonText() {
         Button button = ButterKnife.findById(view, R.id.to_date);
-        String string = "TO: " + to_date.getDate();
+        String string = "TO: " + TO_DATE.getDate();
         button.setText(string);
     }
 
@@ -119,7 +108,7 @@ public class DateWiseFragment extends Fragment {
             public void onError() {
                 onErrorReceived();
             }
-        }, from_date.getDate(), to_date.getDate()).execute();
+        }, FROM_DATE.getDate(), TO_DATE.getDate()).execute();
     }
 
     void showFetchButton(boolean show) {
@@ -130,91 +119,9 @@ public class DateWiseFragment extends Fragment {
     }
 
     public void taskCompleted() {
-//        try {
-//            JSONObject subjectWiseList = new JSONObject(sp.getString("dayByDayList", ""));
-//            titles.clear();
-//            contents1.clear();
-//            contents2.clear();
-//            contents3.clear();
-//            contents4.clear();
-//            for (int i = 0; i < subjectWiseList.length(); i++) {
-//                JSONArray data = subjectWiseList.getJSONArray(Integer.toString(i));
-//                titles.add(data.getString(1));
-//                contents1.add(data.getString(0));
-//                contents2.add(data.getString(2));
-//                contents3.add(data.getString(3));
-//                contents4.add(data.getString(4));
-//            }
-//            from_date.setDate(sp.getString("from_date", from_date.getDate()));
-//            to_date.setDate(sp.getString("to_date", to_date.getDate()));
-//            setFromButtonText();
-//            setToButtonText();
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        dateWiseAdapter.notifyDataSetChanged();
-//        getActivity().getLoaderManager().initLoader(CURSOR_LOADER_ID, null, this);
-
-//        Cursor mCursor = getContext().getContentResolver().query(AttendanceProvider.Attendance.CONTENT_URI,
-//                new String[]{Record.KEY, Record.SEMESTER, Record.DATE, Record.SUBJECT_NAME, Record.TIME_SLOT, Record.ATTENDANCE_TYPE, Record.STATUS},
-//                null,
-//                null,
-//                null);
-//
-//        mCursor.moveToFirst();
-//        Log.d("DWF", String.valueOf(mCursor.getCount()));
-//        for (int i = 0; i < mCursor.getCount(); i++) {
-//            Log.d("DWF", mCursor.getString(mCursor.getColumnIndex(Record.SEMESTER)) + mCursor.getString(mCursor.getColumnIndex(Record.DATE)) + mCursor.getString(mCursor.getColumnIndex(Record.SUBJECT_NAME)) + mCursor.getString(mCursor.getColumnIndex(Record.TIME_SLOT)) + mCursor.getString(mCursor.getColumnIndex(Record.ATTENDANCE_TYPE)) + mCursor.getString(mCursor.getColumnIndex(Record.STATUS)));
-//            mCursor.moveToNext();
-//        }
-//        mCursor.close();
-//        int i = 0;
-//        List<Record> temp = new Select()
-//                .distinct()
-//                .from(Record.class)
-//                .groupBy("SUBJECT_NAME")
-//                .orderBy("SUBJECT_NAME ASC")
-//                .execute();
-//        List<Record> temp = new Select()
-//                .from(Record.class)
-//                .where("SEMESTER = ?", "Sem VII")
-//                .orderBy("KEY ASC")
-//                .execute();
-//        for (Record record : temp) {
-////            System.out.println(record.KEY);
-////            System.out.println(record.SUBJECT_NAME);
-//            i++;
-//        }
-//        System.out.println("Total" + i);
-
-//        int k = 0;
-//        temp = new Select()
-//                .from(Record.class)
-//                .where("STATUS = ?", "P")
-//                .orderBy("KEY ASC")
-//                .execute();
-
-//        for (Record record : temp) {
-////            System.out.println(record.KEY);
-////            System.out.println(record.SUBJECT_NAME);
-//            k++;
-//        }
-
-//        System.out.println("Present" + k);
-
-//        int i = 0;
-//        List<Record> temp = new Select()
-//                .from(Record.class)
-//                .where("DATE >= ?", "20161101")
-//                .and("DATE <= ?", "20161109")
-//                .execute();
-//
-//        for (Record record : temp) {
-//            System.out.println(record.KEY);
-//            System.out.println(record.SUBJECT_NAME);
-//            i++;
-//        }
-//        System.out.println("Total" + i);
+        records = Record.getAttendance(FROM_DATE, TO_DATE);
+        dateWiseAdapter = new DateWiseAdapter(this.getContext(), records);
+        recyclerView.setAdapter(dateWiseAdapter);
     }
 
     public void onErrorReceived() {
@@ -227,20 +134,6 @@ public class DateWiseFragment extends Fragment {
             showToast("Aw, Snap! Please try again", Toast.LENGTH_SHORT);
         else
             showToast("Offline!", Toast.LENGTH_SHORT);
-//        if (!(sp.getBoolean("isDayByDayListLoaded", false))) {
-//            titles.clear();
-//            contents1.clear();
-//            contents2.clear();
-//            contents3.clear();
-//            contents4.clear();
-//            titles.add("Aw, Snap!");
-//            contents1.add("");
-//            contents2.add("Error connecting to the server");
-//            contents3.add("");
-//            contents4.add("");
-//            dateWiseAdapter.notifyDataSetChanged();
-//            return;
-//        }
         showFetchButton(true);
         taskCompleted();
     }
@@ -252,24 +145,18 @@ public class DateWiseFragment extends Fragment {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        layoutManager = new LinearLayoutManager(this.getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        dateWiseAdapter = new DateWiseAdapter(this.getContext(), titles, contents1, contents2, contents3, contents4);
+        dateWiseAdapter = new DateWiseAdapter(this.getContext(), records);
         recyclerView.setAdapter(dateWiseAdapter);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putStringArrayList("titles", titles);
-        outState.putStringArrayList("contents1", contents1);
-        outState.putStringArrayList("contents2", contents2);
-        outState.putStringArrayList("contents3", contents3);
-        outState.putStringArrayList("contents4", contents4);
-        outState.putParcelable("from_date", from_date);
-        outState.putParcelable("to_date", to_date);
+        outState.putParcelable("FROM_DATE", FROM_DATE);
+        outState.putParcelable("TO_DATE", TO_DATE);
     }
 
     @OnClick(R.id.from_date)
@@ -278,16 +165,16 @@ public class DateWiseFragment extends Fragment {
                 .setOnDateSetListener(new CalendarDatePickerDialogFragment.OnDateSetListener() {
                     @Override
                     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
-                        from_date.setDay(dayOfMonth);
-                        from_date.setMonth(monthOfYear);
-                        from_date.setYear(year);
-                        Log.d("FROM_DATE", from_date.getDate());
+                        FROM_DATE.setDay(dayOfMonth);
+                        FROM_DATE.setMonth(monthOfYear);
+                        FROM_DATE.setYear(year);
+                        Log.d("FROM_DATE", FROM_DATE.getDate());
                         setFromButtonText();
                         showFetchButton(true);
                     }
                 })
                 .setFirstDayOfWeek(Calendar.SUNDAY)
-                .setPreselectedDate(from_date.getYear(), from_date.getMonth(), from_date.getDay())
+                .setPreselectedDate(FROM_DATE.getYear(), FROM_DATE.getMonth(), FROM_DATE.getDay())
                 .setDateRange(null, null)
                 .setThemeDark();
         cdp.show(getActivity().getSupportFragmentManager(), FRAG_TAG_DATE_PICKER);
@@ -299,16 +186,16 @@ public class DateWiseFragment extends Fragment {
                 .setOnDateSetListener(new CalendarDatePickerDialogFragment.OnDateSetListener() {
                     @Override
                     public void onDateSet(CalendarDatePickerDialogFragment dialog, int year, int monthOfYear, int dayOfMonth) {
-                        to_date.setDay(dayOfMonth);
-                        to_date.setMonth(monthOfYear);
-                        to_date.setYear(year);
-                        Log.d("TO_DATE", to_date.getDate());
+                        TO_DATE.setDay(dayOfMonth);
+                        TO_DATE.setMonth(monthOfYear);
+                        TO_DATE.setYear(year);
+                        Log.d("TO_DATE", TO_DATE.getDate());
                         setToButtonText();
                         showFetchButton(true);
                     }
                 })
                 .setFirstDayOfWeek(Calendar.SUNDAY)
-                .setPreselectedDate(to_date.getYear(), to_date.getMonth(), to_date.getDay())
+                .setPreselectedDate(TO_DATE.getYear(), TO_DATE.getMonth(), TO_DATE.getDay())
                 .setDateRange(null, null)
                 .setThemeDark();
         cdp.show(getActivity().getSupportFragmentManager(), FRAG_TAG_DATE_PICKER);

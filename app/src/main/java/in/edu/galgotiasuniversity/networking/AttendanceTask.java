@@ -22,8 +22,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
@@ -34,6 +32,7 @@ import in.edu.galgotiasuniversity.data.Record;
 import in.edu.galgotiasuniversity.data.Utils;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
+import in.edu.galgotiasuniversity.models.Date;
 
 /**
  * Created on 25-01-2016.
@@ -119,7 +118,7 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
             for (LocalDate date = START_DATE; !date.isAfter(END_DATE); date = date.plusDays(Constants.MAX_DIFFERENCE)) {
                 POST_DATA.put("ctl00$ctl00$MCPH1$SCPH$txtFrom", df.format(date.toDate()));
                 POST_DATA.put("ctl00$ctl00$MCPH1$SCPH$txtTo", df.format(date.plusDays(Constants.MAX_DIFFERENCE).toDate()));
-                System.out.println(POST_DATA);
+//                System.out.println(POST_DATA);
                 res = Jsoup
                         .connect(Constants.ATTENDANCE_URL)
                         .userAgent(Constants.USER_AGENT)
@@ -149,25 +148,20 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
 
     private void addToRecords() {
         Iterator<Element> i = document.select("span[id*=lblSubjectName],span[id*=lblDate],span[id*=lblNAME],span[id*=lblTimeSlot],span[id*=lblAttType],span[id*=lblProgram]").iterator();
-        Calendar c = Calendar.getInstance();
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-        String YYYY, MM, DD;
+        Date date = new Date();
         try {
             while (i.hasNext()) {
                 Record record = new Record();
                 record.SEMESTER = i.next().text();
-                Date date = df.parse(i.next().text());
-                c.setTime(date);
-                YYYY = String.format(Locale.ENGLISH, "%04d", c.get(Calendar.YEAR));
-                MM = String.format(Locale.ENGLISH, "%02d", c.get(Calendar.MONTH) + 1);
-                DD = String.format(Locale.ENGLISH, "%02d", c.get(Calendar.DATE));
-                record.DATE = Long.parseLong(YYYY + MM + DD);
-                record.MM = Integer.parseInt(MM);
+                date.setDate(i.next().text(), df);
+                record.DATE = date.getNumericDate();
+                record.MM = date.getMonth();
                 record.SUBJECT_NAME = i.next().text();
                 record.TIME_SLOT = i.next().text();
                 record.ATTENDANCE_TYPE = i.next().text();
                 record.STATUS = i.next().text();
-                record.KEY = YYYY + MM + DD + record.TIME_SLOT;
+                record.KEY = date.getNumericDate() + record.TIME_SLOT;
                 records.add(record);
             }
         } catch (ParseException e) {
@@ -184,7 +178,6 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
             try {
                 System.out.println(String.valueOf(records.size()));
                 for (Record record : records) {
-                    System.out.println(record.DATE);
                     record.save();
                 }
                 ActiveAndroid.setTransactionSuccessful();
