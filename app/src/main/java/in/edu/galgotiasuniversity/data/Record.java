@@ -19,7 +19,9 @@ public class Record extends Model {
     @Column
     public String SEMESTER;
     @Column
-    public long DATE;
+    public long NUMERIC_DATE;
+    @Column
+    public String STRING_DATE;
     @Column
     public String SUBJECT_NAME;
     @Column
@@ -39,8 +41,8 @@ public class Record extends Model {
     public static List<Record> getAttendance(Date FROM_DATE, Date TO_DATE) {
         return new Select()
                 .from(Record.class)
-                .where("DATE >= ?", FROM_DATE.getNumericDate())
-                .and("DATE <= ?", TO_DATE.getNumericDate())
+                .where("NUMERIC_DATE >= ?", FROM_DATE.getNumericDate())
+                .and("NUMERIC_DATE <= ?", TO_DATE.getNumericDate())
                 .execute();
     }
 

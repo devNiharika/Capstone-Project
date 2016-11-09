@@ -44,7 +44,7 @@ public class DateWiseAdapter extends RecyclerView.Adapter<DateWiseAdapter.ViewHo
         holder.title.setText(records.get(position).SUBJECT_NAME);
         holder.content1.setText(records.get(position).ATTENDANCE_TYPE);
         holder.content2.setText(records.get(position).TIME_SLOT);
-        holder.content3.setText(records.get(position).SEMESTER);
+        holder.content3.setText(records.get(position).STRING_DATE);
         holder.content4.setText(attendance);
     }
 

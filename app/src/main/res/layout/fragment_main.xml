@@ -30,12 +30,10 @@
                     android:id="@+id/topMessageText1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/green"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:text="Welcome to the official app of Galgotias University!\n◕‿◕\nUse navigation drawer ☰ on the top left corner to visit various parts of the app."
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="@color/white" />
+                    android:text="Bonjour!\n=)\nUse the hamburger icon ☰ on the top left corner to open the navigation drawer."
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
             </LinearLayout>
 
             <RelativeLayout
@@ -51,11 +49,11 @@
                     android:id="@+id/waveLoadingView"
                     android:layout_width="280dp"
                     android:layout_height="280dp"
-                    android:background="@drawable/square"
+                    android:background="@drawable/circle"
                     app:wlv_borderColor="@color/primary_dark"
                     app:wlv_borderWidth="4dp"
                     app:wlv_progressValue="0"
-                    app:wlv_shapeType="square"
+                    app:wlv_shapeType="circle"
                     app:wlv_waveAmplitude="15"
                     app:wlv_waveColor="@color/primary_dark" />
 
@@ -213,7 +211,7 @@
                         android:gravity="center|bottom"
                         android:lines="2"
                         android:padding="8dp"
-                        android:text="LIBRARY FINE"
+                        android:text="LIBRARY"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@color/secondary_text" />
 

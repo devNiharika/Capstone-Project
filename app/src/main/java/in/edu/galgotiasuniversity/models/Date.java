@@ -82,7 +82,7 @@ public class Date implements Parcelable {
     }
 
     public int getMonth() {
-        return month + 1;
+        return month;
     }
 
     public void setMonth(int month) {

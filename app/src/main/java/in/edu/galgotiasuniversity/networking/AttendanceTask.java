@@ -42,7 +42,6 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
     private final String TAG = "ATTENDANCE_TASK";
     private Context context;
     private Map<String, String> cookies;
-    private Connection.Response res;
     private ProgressDialog dialog;
     private Document document;
     private int progress;
@@ -118,8 +117,7 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
             for (LocalDate date = START_DATE; !date.isAfter(END_DATE); date = date.plusDays(Constants.MAX_DIFFERENCE)) {
                 POST_DATA.put("ctl00$ctl00$MCPH1$SCPH$txtFrom", df.format(date.toDate()));
                 POST_DATA.put("ctl00$ctl00$MCPH1$SCPH$txtTo", df.format(date.plusDays(Constants.MAX_DIFFERENCE).toDate()));
-//                System.out.println(POST_DATA);
-                res = Jsoup
+                Connection.Response res = Jsoup
                         .connect(Constants.ATTENDANCE_URL)
                         .userAgent(Constants.USER_AGENT)
                         .referrer(Constants.REFERRER)
@@ -154,9 +152,10 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
             while (i.hasNext()) {
                 Record record = new Record();
                 record.SEMESTER = i.next().text();
-                date.setDate(i.next().text(), df);
-                record.DATE = date.getNumericDate();
-                record.MM = date.getMonth();
+                record.STRING_DATE = i.next().text();
+                date.setDate(record.STRING_DATE, df);
+                record.NUMERIC_DATE = date.getNumericDate();
+                record.MM = date.getMonth() + 1;
                 record.SUBJECT_NAME = i.next().text();
                 record.TIME_SLOT = i.next().text();
                 record.ATTENDANCE_TYPE = i.next().text();
