@@ -28,6 +28,7 @@ public class JobsFragment extends Fragment implements AdvancedWebView.Listener {
     AdvancedWebView mWebView;
     ProgressDialog dialog;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class JobsFragment extends Fragment implements AdvancedWebView.Listener {
         mWebView.setListener(getActivity(), this);
 //        mWebView.setVerticalScrollBarEnabled(true);
 //        mWebView.setHorizontalScrollBarEnabled(false);
-        mWebView.loadUrl("http://m.monsterindia.com/");
+        mWebView.loadUrl("http://m.timesjobs.com/");
         return view;
     }
 
@@ -76,7 +77,7 @@ public class JobsFragment extends Fragment implements AdvancedWebView.Listener {
 
     @OnClick(R.id.fab)
     void refresh() {
-        if (mWebView != null) mWebView.loadUrl("http://m.monsterindia.com/");
+        if (mWebView != null) mWebView.loadUrl("http://m.timesjobs.com/");
     }
 
     void showToast(String msg, int duration) {

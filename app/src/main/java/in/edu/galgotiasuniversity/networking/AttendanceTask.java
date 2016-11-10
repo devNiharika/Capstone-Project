@@ -2,9 +2,7 @@ package in.edu.galgotiasuniversity.networking;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.activeandroid.ActiveAndroid;
@@ -183,11 +181,6 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
             } finally {
                 ActiveAndroid.endTransaction();
             }
-
-            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-            editor.putString("FROM_DATE", FROM_DATE);
-            editor.putString("TO_DATE", TO_DATE);
-            editor.apply();
             listener.onTaskCompleted();
         }
         dialog.dismiss();

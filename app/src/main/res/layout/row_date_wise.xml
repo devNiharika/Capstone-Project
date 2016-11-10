@@ -84,6 +84,7 @@
                     android:layout_weight="0.4"
                     android:gravity="center"
                     android:padding="8dp"
+                    android:text="C4"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
             </LinearLayout>
         </LinearLayout>
