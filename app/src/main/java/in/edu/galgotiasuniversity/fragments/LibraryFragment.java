@@ -93,10 +93,17 @@ public class LibraryFragment extends Fragment {
         try {
             JSONObject library = new JSONObject(sp.getString("library", ""));
             JSONArray data = library.getJSONArray("0");
-            titles.add(data.getString(0));
-            contents1.add(data.getString(1));
-            contents2.add("Fine: " + data.getString(2));
-            contents3.add("Balance: " + data.getString(3));
+            if (data.getString(0).equals("")) {
+                titles.add("No data available");
+                contents1.add("--");
+                contents2.add("--");
+                contents3.add("--");
+            } else {
+                titles.add(data.getString(0));
+                contents1.add(data.getString(1));
+                contents2.add("Fine: " + data.getString(2));
+                contents3.add("Balance: " + data.getString(3));
+            }
             for (int i = 1; i < library.length(); i++) {
                 data = library.getJSONArray(Integer.toString(i));
                 titles.add(data.getString(0));
