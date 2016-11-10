@@ -53,7 +53,7 @@ public class DateWiseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (container == null) return null;
-        view = inflater.inflate(R.layout.fragment_day_by_day, container, false);
+        view = inflater.inflate(R.layout.fragment_date_wise, container, false);
         ButterKnife.bind(this, view);
         recyclerView = ButterKnife.findById(view, R.id.dayByDay_content_list);
 

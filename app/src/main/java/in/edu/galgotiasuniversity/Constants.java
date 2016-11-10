@@ -20,7 +20,7 @@ public class Constants {
     public static int MAX_DIFFERENCE = 29;
     public static String SEM_START_DATE = "26/07/2016";
 
-    //    GU
+    //GU
     public static String LOGIN_URL = "http://182.71.87.38/iSIM/Login";
     public static String HOME_URL = "http://182.71.87.38/iSIM/Home";
     public static String INFO_URL = "http://182.71.87.38/iSIM/Student/Course";
@@ -30,5 +30,4 @@ public class Constants {
     public static String ATTENDANCE_URL = "http://182.71.87.38/iSIM/Student/TodayAttendence";
     public static String CAPTCHA_URL = "http://182.71.87.38/iSIM/Student/capimage";
     static boolean isCaptchaRequired = true;
-
 }

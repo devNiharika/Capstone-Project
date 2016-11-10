@@ -46,7 +46,7 @@ import in.edu.galgotiasuniversity.fragments.DateWiseFragment;
 import in.edu.galgotiasuniversity.fragments.JobsFragment;
 import in.edu.galgotiasuniversity.fragments.LibraryFragment;
 import in.edu.galgotiasuniversity.fragments.MainFragment;
-import in.edu.galgotiasuniversity.fragments.MonthlyFragment;
+import in.edu.galgotiasuniversity.fragments.MonthWiseFragment;
 import in.edu.galgotiasuniversity.fragments.ProfileFragment;
 import in.edu.galgotiasuniversity.fragments.SubjectWiseFragment;
 import in.edu.galgotiasuniversity.interfaces.OnError;
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity
 //                public void onError() {
 //                }
 //            }).execute();
-            syncLibrary(null);
+//            syncLibrary(null);
         }
 
         setupDrawerLayout();
@@ -356,7 +356,7 @@ public class MainActivity extends AppCompatActivity
             //}
         } else if (id == R.id.monthly) {
             //if (!item.isChecked()) {
-            switchContent(new MonthlyFragment());
+            switchContent(new MonthWiseFragment());
             item.setChecked(true);
             //}
         } else if (id == R.id.subjectWise) {

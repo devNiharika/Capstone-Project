@@ -5,10 +5,12 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
 import in.edu.galgotiasuniversity.models.Date;
+import in.edu.galgotiasuniversity.models.Month;
 import in.edu.galgotiasuniversity.models.Subject;
 
 /**
@@ -81,5 +83,35 @@ public class Record extends Model {
         return subjects;
     }
 
+    public static List<Month> getMonths() {
+        List<Month> months = new ArrayList<>();
+        List<Record> records = new Select()
+                .distinct()
+                .from(Record.class)
+                .groupBy("MM")
+                .orderBy("MM ASC")
+                .execute();
 
+        for (Record record : records) {
+            Month month = new Month();
+            month.NAME = new DateFormatSymbols().getMonths()[record.MM];
+
+            month.PRESENT = new Select()
+                    .from(Record.class)
+                    .where("MM = ?", record.MM)
+                    .and("STATUS = ?", "P")
+                    .execute().size();
+
+            month.ABSENT = new Select()
+                    .from(Record.class)
+                    .where("MM = ?", record.MM)
+                    .and("STATUS = ?", "A")
+                    .execute().size();
+
+            month.PERCENTAGE = (100f * month.PRESENT) / (month.PRESENT + month.ABSENT);
+            months.add(month);
+        }
+
+        return months;
+    }
 }
