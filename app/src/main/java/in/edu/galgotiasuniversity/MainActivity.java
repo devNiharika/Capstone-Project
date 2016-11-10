@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity
 
     public static boolean isCookieRefreshed;
     public static boolean isSubjectWiseRefreshed;
-    public static boolean isMonthlyRefreshed;
+    public static boolean isMonthWiseRefreshed;
     public static boolean isLibraryRefreshed;
     SharedPreferences sp;
     Fragment fragment;
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity
         super.onDestroy();
         isCookieRefreshed = false;
         isSubjectWiseRefreshed = false;
-        isMonthlyRefreshed = false;
+        isMonthWiseRefreshed = false;
         isLibraryRefreshed = false;
         System.gc();
     }
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
 //            new MonthlyTask(this, new OnTaskCompleted() {
 //                @Override
 //                public void onTaskCompleted() {
-//                    isMonthlyRefreshed = true;
+//                    isMonthWiseRefreshed = true;
 //                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 //                    ft.detach(fragment);
 //                    ft.attach(fragment);

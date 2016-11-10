@@ -94,7 +94,7 @@ public class Record extends Model {
 
         for (Record record : records) {
             Month month = new Month();
-            month.NAME = new DateFormatSymbols().getMonths()[record.MM];
+            month.NAME = new DateFormatSymbols().getMonths()[record.MM - 1];
 
             month.PRESENT = new Select()
                     .from(Record.class)

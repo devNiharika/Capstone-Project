@@ -115,6 +115,7 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
             for (LocalDate date = START_DATE; !date.isAfter(END_DATE); date = date.plusDays(Constants.MAX_DIFFERENCE)) {
                 POST_DATA.put("ctl00$ctl00$MCPH1$SCPH$txtFrom", df.format(date.toDate()));
                 POST_DATA.put("ctl00$ctl00$MCPH1$SCPH$txtTo", df.format(date.plusDays(Constants.MAX_DIFFERENCE).toDate()));
+                System.out.println(POST_DATA);
                 Connection.Response res = Jsoup
                         .connect(Constants.ATTENDANCE_URL)
                         .userAgent(Constants.USER_AGENT)

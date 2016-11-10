@@ -47,6 +47,7 @@ public class SubjectWiseFragment extends Fragment {
     List<Subject> subjects;
     Date FROM_DATE, TO_DATE;
     DateFormat df;
+    SharedPreferences sp;
 
     @Nullable
     @Override
@@ -62,7 +63,7 @@ public class SubjectWiseFragment extends Fragment {
         TO_DATE = new Date();
         subjects = new ArrayList<>();
 
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         try {
             if (sp.getString("FROM_DATE", "").equals(Constants.SEM_START_DATE)) {
                 FROM_DATE.setDate(sp.getString("TO_DATE", ""), df);
@@ -77,6 +78,7 @@ public class SubjectWiseFragment extends Fragment {
         if (savedInstanceState != null) {
             FROM_DATE = savedInstanceState.getParcelable("FROM_DATE");
             TO_DATE = savedInstanceState.getParcelable("TO_DATE");
+            subjects = Record.getSubjects();
             setupRecyclerView(recyclerView);
         } else {
             setupRecyclerView(recyclerView);
@@ -101,6 +103,11 @@ public class SubjectWiseFragment extends Fragment {
 
     public void taskCompleted() {
         MainActivity.isSubjectWiseRefreshed = false;
+        SharedPreferences.Editor editor = sp.edit();
+        if (!sp.getString("FROM_DATE", "").equals(Constants.SEM_START_DATE))
+            editor.putString("FROM_DATE", FROM_DATE.getDate());
+        editor.putString("TO_DATE", TO_DATE.getDate());
+        editor.apply();
         display();
     }
 

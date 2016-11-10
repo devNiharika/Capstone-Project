@@ -1,6 +1,8 @@
 package in.edu.galgotiasuniversity.fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,12 +17,17 @@ import android.widget.Toast;
 
 import com.codetroopers.betterpickers.calendardatepicker.CalendarDatePickerDialogFragment;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import in.edu.galgotiasuniversity.Constants;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.adapters.DateWiseAdapter;
 import in.edu.galgotiasuniversity.data.Record;
@@ -42,7 +49,7 @@ public class DateWiseFragment extends Fragment {
     View view;
     RecyclerView recyclerView;
     DateWiseAdapter dateWiseAdapter;
-    Date FROM_DATE, TO_DATE;
+    Date FROM_DATE, TO_DATE, Q_FROM_DATE;
     List<Record> records;
 
     @BindView(R.id.fetch)
@@ -59,6 +66,7 @@ public class DateWiseFragment extends Fragment {
 
         FROM_DATE = new Date();
         TO_DATE = new Date();
+        Q_FROM_DATE = new Date();
 
         if (savedInstanceState != null) {
             FROM_DATE = savedInstanceState.getParcelable("FROM_DATE");
@@ -93,6 +101,15 @@ public class DateWiseFragment extends Fragment {
     @OnClick(R.id.fetch)
     void fetch() {
         showFetchButton(false);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        if (sp.getString("FROM_DATE", "").equals(Constants.SEM_START_DATE)) {
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+            try {
+                Q_FROM_DATE.setDate(sp.getString("TO_DATE", ""), df);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         new AttendanceTask(this.getContext(), new OnTaskCompleted() {
             @Override
             public void onTaskCompleted() {
@@ -103,7 +120,7 @@ public class DateWiseFragment extends Fragment {
             public void onError() {
                 onErrorReceived();
             }
-        }, FROM_DATE.getDate(), TO_DATE.getDate()).execute();
+        }, Q_FROM_DATE.getDate(), TO_DATE.getDate()).execute();
     }
 
     void showFetchButton(boolean show) {

@@ -47,6 +47,7 @@ public class MonthWiseFragment extends Fragment {
     List<Month> months;
     Date FROM_DATE, TO_DATE;
     DateFormat df;
+    SharedPreferences sp;
 
     @Nullable
     @Override
@@ -63,7 +64,7 @@ public class MonthWiseFragment extends Fragment {
         TO_DATE = new Date();
         months = new ArrayList<>();
 
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         try {
             if (sp.getString("FROM_DATE", "").equals(Constants.SEM_START_DATE)) {
@@ -79,10 +80,11 @@ public class MonthWiseFragment extends Fragment {
         if (savedInstanceState != null) {
             FROM_DATE = savedInstanceState.getParcelable("FROM_DATE");
             TO_DATE = savedInstanceState.getParcelable("TO_DATE");
+            months = Record.getMonths();
             setupRecyclerView(recyclerView);
         } else {
             setupRecyclerView(recyclerView);
-            if (!MainActivity.isSubjectWiseRefreshed) {
+            if (!MainActivity.isMonthWiseRefreshed) {
                 new AttendanceTask(this.getContext(), new OnTaskCompleted() {
                     @Override
                     public void onTaskCompleted() {
@@ -102,7 +104,12 @@ public class MonthWiseFragment extends Fragment {
     }
 
     public void taskCompleted() {
-        MainActivity.isMonthlyRefreshed = true;
+        MainActivity.isMonthWiseRefreshed = true;
+        SharedPreferences.Editor editor = sp.edit();
+        if (!sp.getString("FROM_DATE", "").equals(Constants.SEM_START_DATE))
+            editor.putString("FROM_DATE", FROM_DATE.getDate());
+        editor.putString("TO_DATE", TO_DATE.getDate());
+        editor.apply();
         display();
     }
 
