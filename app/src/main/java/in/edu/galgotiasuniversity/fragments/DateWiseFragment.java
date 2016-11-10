@@ -1,8 +1,6 @@
 package in.edu.galgotiasuniversity.fragments;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -42,7 +40,6 @@ public class DateWiseFragment extends Fragment {
 
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
     View view;
-    SharedPreferences sp;
     RecyclerView recyclerView;
     DateWiseAdapter dateWiseAdapter;
     Date FROM_DATE, TO_DATE;
@@ -59,8 +56,6 @@ public class DateWiseFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_day_by_day, container, false);
         ButterKnife.bind(this, view);
         recyclerView = ButterKnife.findById(view, R.id.dayByDay_content_list);
-
-        sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         FROM_DATE = new Date();
         TO_DATE = new Date();

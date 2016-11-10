@@ -8,25 +8,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.edu.galgotiasuniversity.R;
-import in.edu.galgotiasuniversity.utils.ColorUtils;
+import in.edu.galgotiasuniversity.models.Subject;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 public class SubjectWiseAdapter extends RecyclerView.Adapter<SubjectWiseAdapter.ViewHolder> {
 
-    private ArrayList<String> titles, contents1, contents2, contents3;
+    private List<Subject> subjects;
     private Context mContext;
 
-    public SubjectWiseAdapter(Context context, ArrayList<String> titles, ArrayList<String> contents1, ArrayList<String> contents2, ArrayList<String> contents3) {
+    public SubjectWiseAdapter(Context context, List<Subject> subjects) {
         this.mContext = context;
-        this.titles = titles;
-        this.contents1 = contents1;
-        this.contents2 = contents2;
-        this.contents3 = contents3;
+        this.subjects = subjects;
     }
 
     @Override
@@ -37,31 +35,30 @@ public class SubjectWiseAdapter extends RecyclerView.Adapter<SubjectWiseAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String sPercentage = contents3.get(position);
-        String color = contents3.get(position);
-        try {
+        Float percentage = subjects.get(position).PERCENTAGE;
+//        String color = contents3.get(position);
+
 //            float percentage = Float.valueOf(sPercentage);
-//            if (percentage >= 75)
-            if (color.equals("DarkGreen") || color.equals("Green") || color.equals("Lime"))
-                holder.cardColor.setBackgroundColor(ContextCompat.getColor(mContext, R.color.dark_green));
-            else
-                holder.cardColor.setBackgroundColor(ContextCompat.getColor(mContext, R.color.dark_red));
-//            sPercentage += "%";
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        holder.title.setText(titles.get(position));
-        holder.content1.setText(contents1.get(position));
-        holder.content2.setText(contents2.get(position));
-        holder.content3.setText(ColorUtils.getAttendanceRange(color));
+//            if (color.equals("DarkGreen") || color.equals("Green") || color.equals("Lime"))
+
+        if (percentage >= 75f)
+            holder.cardColor.setBackgroundColor(ContextCompat.getColor(mContext, R.color.dark_green));
+        else
+            holder.cardColor.setBackgroundColor(ContextCompat.getColor(mContext, R.color.dark_red));
+
+        holder.title.setText(subjects.get(position).NAME);
+        holder.content1.setText("Present :" + subjects.get(position).PRESENT);
+        holder.content2.setText("Absent :" + subjects.get(position).ABSENT);
+//        holder.content3.setText(ColorUtils.getAttendanceRange(color));
+        holder.content3.setText(String.format(Locale.ENGLISH, "%.2f", percentage) + "%");
     }
 
     @Override
     public int getItemCount() {
-        return titles.size();
+        return subjects.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.title)
         TextView title;
         @BindView(R.id.content1)
@@ -73,7 +70,7 @@ public class SubjectWiseAdapter extends RecyclerView.Adapter<SubjectWiseAdapter.
         @BindView(R.id.cardColor)
         View cardColor;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             Utils.setFontAllView((ViewGroup) view);

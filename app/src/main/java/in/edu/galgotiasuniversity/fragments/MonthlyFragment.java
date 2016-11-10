@@ -148,7 +148,7 @@ public class MonthlyFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        subjectWiseAdapter = new SubjectWiseAdapter(this.getContext(), titles, contents1, contents2, contents3);
+//        subjectWiseAdapter = new SubjectWiseAdapter(this.getContext(), titles, contents1, contents2, contents3);
         recyclerView.setAdapter(subjectWiseAdapter);
     }
 

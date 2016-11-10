@@ -18,6 +18,7 @@ public class Constants {
     public static String[] HEADER3 = {"Accept-Language", "en-US,en;q=0.8"};
     public static String UPDATES_URL = "http://galgotias.ga/UpdatesGU";
     public static int MAX_DIFFERENCE = 29;
+    public static String SEM_START_DATE = "26/07/2016";
 
     //    GU
     public static String LOGIN_URL = "http://182.71.87.38/iSIM/Login";

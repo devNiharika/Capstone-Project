@@ -13,16 +13,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import butterknife.ButterKnife;
+import in.edu.galgotiasuniversity.Constants;
 import in.edu.galgotiasuniversity.MainActivity;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.adapters.SubjectWiseAdapter;
+import in.edu.galgotiasuniversity.data.Record;
+import in.edu.galgotiasuniversity.interfaces.OnError;
+import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
+import in.edu.galgotiasuniversity.models.Date;
+import in.edu.galgotiasuniversity.models.Subject;
+import in.edu.galgotiasuniversity.networking.AttendanceTask;
 import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
@@ -34,11 +42,11 @@ import in.edu.galgotiasuniversity.utils.Utils;
 public class SubjectWiseFragment extends Fragment {
 
     View view;
-    ArrayList<String> titles, contents1, contents2, contents3;
-    LinearLayoutManager layoutManager;
-    SharedPreferences sp;
-    View recyclerView;
+    RecyclerView recyclerView;
     SubjectWiseAdapter subjectWiseAdapter;
+    List<Subject> subjects;
+    Date FROM_DATE, TO_DATE;
+    DateFormat df;
 
     @Nullable
     @Override
@@ -47,36 +55,44 @@ public class SubjectWiseFragment extends Fragment {
         if (container == null) return null;
         view = inflater.inflate(R.layout.fragment_subject_wise, container, false);
         ButterKnife.bind(this, view);
-        titles = new ArrayList<>();
-        contents1 = new ArrayList<>();
-        contents2 = new ArrayList<>();
-        contents3 = new ArrayList<>();
         recyclerView = ButterKnife.findById(view, R.id.subjectWise_content_list);
-        assert recyclerView != null;
+        df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
 
-        sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        FROM_DATE = new Date();
+        TO_DATE = new Date();
+        subjects = new ArrayList<>();
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        try {
+            if (sp.getString("FROM_DATE", "").equals(Constants.SEM_START_DATE)) {
+                FROM_DATE.setDate(sp.getString("TO_DATE", ""), df);
+            } else {
+                // Init
+                FROM_DATE.setDate(Constants.SEM_START_DATE, df);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         if (savedInstanceState != null) {
-            titles = savedInstanceState.getStringArrayList("titles");
-            contents1 = savedInstanceState.getStringArrayList("contents1");
-            contents2 = savedInstanceState.getStringArrayList("contents2");
-            contents3 = savedInstanceState.getStringArrayList("contents3");
-            setupRecyclerView((RecyclerView) recyclerView);
+            FROM_DATE = savedInstanceState.getParcelable("FROM_DATE");
+            TO_DATE = savedInstanceState.getParcelable("TO_DATE");
+            setupRecyclerView(recyclerView);
         } else {
-//            setupRecyclerView((RecyclerView) recyclerView);
-//            if (!MainActivity.isSubjectWiseRefreshed) {
-//                new SubjectWiseTask((MainActivity) this.getContext(), new OnTaskCompleted() {
-//                    @Override
-//                    public void onTaskCompleted() {
-//                        taskCompleted();
-//                    }
-//                }, new OnError() {
-//                    @Override
-//                    public void onError() {
-//                        onErrorReceived();
-//                    }
-//                }).execute();
-//            } else display();
+            setupRecyclerView(recyclerView);
+            if (!MainActivity.isSubjectWiseRefreshed) {
+                new AttendanceTask(this.getContext(), new OnTaskCompleted() {
+                    @Override
+                    public void onTaskCompleted() {
+                        taskCompleted();
+                    }
+                }, new OnError() {
+                    @Override
+                    public void onError() {
+                        onErrorReceived();
+                    }
+                }, FROM_DATE.getDate(), TO_DATE.getDate()).execute();
+            } else display();
         }
 
         Utils.setFontAllView((ViewGroup) view);
@@ -89,19 +105,9 @@ public class SubjectWiseFragment extends Fragment {
     }
 
     void display() {
-        try {
-            JSONObject subjectWiseList = new JSONObject(sp.getString("subjectWiseList", ""));
-            for (int i = 0; i < subjectWiseList.length(); i++) {
-                JSONArray data = subjectWiseList.getJSONArray(Integer.toString(i));
-                titles.add(data.getString(0));
-                contents1.add("Present: " + data.getString(1));
-                contents2.add("Absent: " + data.getString(2));
-                contents3.add(data.getString(3));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        subjectWiseAdapter.notifyDataSetChanged();
+        subjects = Record.getSubjects();
+        subjectWiseAdapter = new SubjectWiseAdapter(this.getContext(), subjects);
+        recyclerView.setAdapter(subjectWiseAdapter);
     }
 
 //    @Override
@@ -123,15 +129,7 @@ public class SubjectWiseFragment extends Fragment {
         if (new NetworkStatus(getActivity()).isOnline())
             showToast("Aw, Snap! Please try again", Toast.LENGTH_SHORT);
         else
-            showToast("Offline mode", Toast.LENGTH_SHORT);
-        if (!(sp.getBoolean("isSubjectWiseListLoaded", false))) {
-            titles.add("Aw, Snap!");
-            contents1.add("");
-            contents2.add("Error connecting to the server");
-            contents3.add("");
-            subjectWiseAdapter.notifyDataSetChanged();
-            return;
-        }
+            showToast("Offline!", Toast.LENGTH_SHORT);
         display();
     }
 
@@ -142,20 +140,17 @@ public class SubjectWiseFragment extends Fragment {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        layoutManager = new LinearLayoutManager(this.getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        subjectWiseAdapter = new SubjectWiseAdapter(this.getContext(), titles, contents1, contents2, contents3);
+        subjectWiseAdapter = new SubjectWiseAdapter(this.getContext(), subjects);
         recyclerView.setAdapter(subjectWiseAdapter);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putStringArrayList("titles", titles);
-        outState.putStringArrayList("contents1", contents1);
-        outState.putStringArrayList("contents2", contents2);
-        outState.putStringArrayList("contents3", contents3);
+        outState.putParcelable("FROM_DATE", FROM_DATE);
+        outState.putParcelable("TO_DATE", TO_DATE);
     }
 }

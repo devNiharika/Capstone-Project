@@ -185,8 +185,8 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
             }
 
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-            editor.putString("from_date", FROM_DATE);
-            editor.putString("to_date", TO_DATE);
+            editor.putString("FROM_DATE", FROM_DATE);
+            editor.putString("TO_DATE", TO_DATE);
             editor.apply();
             listener.onTaskCompleted();
         }
