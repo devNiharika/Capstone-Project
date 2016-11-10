@@ -47,10 +47,11 @@ public class SubjectWiseAdapter extends RecyclerView.Adapter<SubjectWiseAdapter.
             holder.cardColor.setBackgroundColor(ContextCompat.getColor(mContext, R.color.dark_red));
 
         holder.title.setText(subjects.get(position).NAME);
-        holder.content1.setText("Present :" + subjects.get(position).PRESENT);
-        holder.content2.setText("Absent :" + subjects.get(position).ABSENT);
+        holder.content1.setText(subjects.get(position).ATTENDANCE_TYPE);
+        holder.content2.setText("Present :" + subjects.get(position).PRESENT);
+        holder.content3.setText("Absent :" + subjects.get(position).ABSENT);
 //        holder.content3.setText(ColorUtils.getAttendanceRange(color));
-        holder.content3.setText(String.format(Locale.ENGLISH, "%.2f", percentage) + "%");
+        holder.content4.setText(String.format(Locale.ENGLISH, "%.2f", percentage) + "%");
     }
 
     @Override
@@ -67,6 +68,8 @@ public class SubjectWiseAdapter extends RecyclerView.Adapter<SubjectWiseAdapter.
         TextView content2;
         @BindView(R.id.content3)
         TextView content3;
+        @BindView(R.id.content4)
+        TextView content4;
         @BindView(R.id.cardColor)
         View cardColor;
 
