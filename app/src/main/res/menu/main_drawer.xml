@@ -18,10 +18,10 @@
             android:id="@+id/monthly"
             android:icon="@drawable/ic_poll_white_48dp"
             android:title="Attendance: Month-wise" />
-        <item
-            android:id="@+id/holiday_planner"
-            android:icon="@drawable/ic_star_white_48dp"
-            android:title="Holiday Planner" />
+        <!--<item-->
+        <!--android:id="@+id/holiday_planner"-->
+        <!--android:icon="@drawable/ic_star_white_48dp"-->
+        <!--android:title="Holiday Planner" />-->
         <item
             android:id="@+id/library"
             android:icon="@drawable/ic_local_library_white_48dp"
