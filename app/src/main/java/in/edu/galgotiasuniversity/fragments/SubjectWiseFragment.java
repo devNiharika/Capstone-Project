@@ -102,7 +102,7 @@ public class SubjectWiseFragment extends Fragment {
     }
 
     public void taskCompleted() {
-        MainActivity.isSubjectWiseRefreshed = false;
+        MainActivity.isSubjectWiseRefreshed = true;
         SharedPreferences.Editor editor = sp.edit();
         if (!sp.getString("FROM_DATE", "").equals(Constants.SEM_START_DATE))
             editor.putString("FROM_DATE", FROM_DATE.getDate());

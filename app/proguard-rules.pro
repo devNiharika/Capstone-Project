@@ -48,3 +48,6 @@ public *;
 -dontwarn im.delight.android.webview.**
 
 -dontwarn okio.**
+
+-dontwarn org.joda.convert.FromString
+-dontwarn org.joda.convert.ToString

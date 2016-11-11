@@ -11,7 +11,6 @@
         android:layout_gravity="center|top"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"
-        app:cardBackgroundColor="@color/gray_35"
         app:cardCornerRadius="@dimen/card_corner_radius"
         app:cardElevation="@dimen/card_elevation"
         app:cardUseCompatPadding="true">
@@ -34,8 +33,7 @@
                     android:gravity="center"
                     android:padding="8dp"
                     android:text="Bonjour!\n=)\nUse the hamburger icon ☰ on the top left corner to open the navigation drawer."
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="@color/offwhite" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
             </LinearLayout>
 
             <RelativeLayout
@@ -100,7 +98,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -129,7 +128,7 @@
                         android:padding="8dp"
                         android:text="ABSENT"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/offwhite" />
+                        android:textColor="@color/secondary_text" />
 
                     <TextView
                         android:id="@+id/data1"
@@ -142,8 +141,7 @@
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
                         android:text="--"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                        android:textColor="@color/white" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -173,7 +171,7 @@
                         android:padding="8dp"
                         android:text="PRESENT"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/offwhite" />
+                        android:textColor="@color/secondary_text" />
 
                     <TextView
                         android:id="@+id/data2"
@@ -186,8 +184,7 @@
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
                         android:text="--"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                        android:textColor="@color/white" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -217,7 +214,7 @@
                         android:padding="8dp"
                         android:text="LIBRARY"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/offwhite" />
+                        android:textColor="@color/secondary_text" />
 
                     <TextView
                         android:id="@+id/data3"
@@ -230,8 +227,7 @@
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
                         android:text="--"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                        android:textColor="@color/white" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

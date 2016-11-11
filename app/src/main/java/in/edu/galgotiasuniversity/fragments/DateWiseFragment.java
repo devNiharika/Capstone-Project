@@ -102,13 +102,14 @@ public class DateWiseFragment extends Fragment {
     void fetch() {
         showFetchButton(false);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        if (sp.getString("FROM_DATE", "").equals(Constants.SEM_START_DATE)) {
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-            try {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        try {
+            if (sp.getString("FROM_DATE", "").equals(Constants.SEM_START_DATE))
                 Q_FROM_DATE.setDate(sp.getString("TO_DATE", ""), df);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            else
+                Q_FROM_DATE.setDate(FROM_DATE.getDate(), df);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         new AttendanceTask(this.getContext(), new OnTaskCompleted() {
             @Override
