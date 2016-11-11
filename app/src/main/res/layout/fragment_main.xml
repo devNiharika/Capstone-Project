@@ -102,11 +102,12 @@
                 android:visibility="visible">
 
                 <LinearLayout
+                    android:id="@+id/subContainer1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="match_parent"
@@ -145,11 +146,12 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/subContainer2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="match_parent"
@@ -188,11 +190,12 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/subContainer3"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="match_parent"

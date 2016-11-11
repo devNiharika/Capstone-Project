@@ -14,7 +14,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -33,6 +32,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.stetho.Stetho;
 import com.github.javiersantos.appupdater.AppUpdater;
 
 import org.json.JSONArray;
@@ -41,6 +41,7 @@ import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 import dev.rg.VersionManager.WVersionManager;
+import in.edu.galgotiasuniversity.data.Record;
 import in.edu.galgotiasuniversity.fragments.DateWiseFragment;
 import in.edu.galgotiasuniversity.fragments.JobsFragment;
 import in.edu.galgotiasuniversity.fragments.LibraryFragment;
@@ -48,9 +49,6 @@ import in.edu.galgotiasuniversity.fragments.MainFragment;
 import in.edu.galgotiasuniversity.fragments.MonthWiseFragment;
 import in.edu.galgotiasuniversity.fragments.ProfileFragment;
 import in.edu.galgotiasuniversity.fragments.SubjectWiseFragment;
-import in.edu.galgotiasuniversity.interfaces.OnError;
-import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
-import in.edu.galgotiasuniversity.networking.LibraryTask;
 import in.edu.galgotiasuniversity.utils.CustomTypefaceSpan;
 import in.edu.galgotiasuniversity.utils.Utils;
 
@@ -85,7 +83,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Stetho.initializeWithDefaults(this);
+        Stetho.initializeWithDefaults(this);
 
         currentActivity = this;
         ButterKnife.bind(currentActivity);
@@ -97,26 +95,10 @@ public class MainActivity extends AppCompatActivity
             switchContent(getSupportFragmentManager().getFragment(savedInstanceState, "fragment"));
         } else {
             switchContent(new MainFragment());
-//            new MonthlyTask(this, new OnTaskCompleted() {
-//                @Override
-//                public void onTaskCompleted() {
-//                    isMonthWiseRefreshed = true;
-//                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//                    ft.detach(fragment);
-//                    ft.attach(fragment);
-//                    ft.commit();
-//                }
-//            }, new OnError() {
-//                @Override
-//                public void onError() {
-//                }
-//            }).execute();
-//            syncLibrary(null);
         }
 
         setupDrawerLayout();
         setupNavigationView();
-
         showBannerAds();
     }
 
@@ -154,7 +136,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
-
 
     private void checkUpdate() {
 //        WVersionManager versionManager = new WVersionManager(currentActivity);
@@ -205,24 +186,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     void showBannerAds() {
-    }
-
-    public void syncLibrary(View view) {
-        new LibraryTask(this, new OnTaskCompleted() {
-            @Override
-            public void onTaskCompleted() {
-                isLibraryRefreshed = true;
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.detach(fragment);
-                ft.attach(fragment);
-                ft.commit();
-            }
-        }, new OnError() {
-            @Override
-            public void onError() {
-                showToast(getString(R.string.syncFailed), Toast.LENGTH_SHORT);
-            }
-        }).execute();
     }
 
     private void like() {
@@ -315,6 +278,7 @@ public class MainActivity extends AppCompatActivity
 
     public void logout() {
         sp.edit().clear().apply();
+        Record.truncate(Record.class);
         finish();
         startActivity(new Intent(currentActivity, LoginActivity.class));
         overridePendingTransition(R.anim.push_left_in, R.anim.push_right_out);

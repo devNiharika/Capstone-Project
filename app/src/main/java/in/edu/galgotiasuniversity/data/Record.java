@@ -1,6 +1,5 @@
 package in.edu.galgotiasuniversity.data;
 
-import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
@@ -18,7 +17,7 @@ import in.edu.galgotiasuniversity.models.Subject;
  */
 
 @Table(name = "Records")
-public class Record extends Model {
+public class Record extends TruncatableModel {
 
     @Column
     public String SEMESTER;

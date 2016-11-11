@@ -15,11 +15,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import butterknife.BindView;
+import java.util.List;
+import java.util.Locale;
+
 import butterknife.ButterKnife;
 import dev.rg.WaveProgress.WaveLoadingView;
+import in.edu.galgotiasuniversity.Constants;
 import in.edu.galgotiasuniversity.R;
-import in.edu.galgotiasuniversity.utils.ColorUtils;
+import in.edu.galgotiasuniversity.data.Record;
+import in.edu.galgotiasuniversity.models.Month;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 /**
@@ -27,14 +31,7 @@ import in.edu.galgotiasuniversity.utils.Utils;
  */
 public class MainFragment extends Fragment {
 
-    @BindView(R.id.dataContainer)
-    View dataContainer;
-    @BindView(R.id.waveLoadingView)
-    WaveLoadingView waveLoadingView;
-    @BindView(R.id.waveProgressCenter)
-    TextView waveProgressCenter;
-    @BindView(R.id.topMessageText1)
-    TextView topMessageText1;
+    SharedPreferences sp;
 
     View view;
 
@@ -46,43 +43,59 @@ public class MainFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
 
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        if (sp.getBoolean("isMonthlyListLoaded", false)) {
-            try {
-                JSONObject list = new JSONObject(sp.getString("monthlyList", ""));
-                JSONArray data = list.getJSONArray(Integer.toString(list.length() - 1));
-//                int percentage = Float.valueOf(data.getString(3)).intValue();
-                String color = data.getString(3);
+        sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-//                if (percentage >= 75) {
-                if (color.equals("DarkGreen") || color.equals("Green") || color.equals("Lime")) {
-                    topMessageText1.setText("TIP: Good going!");
-                } else {
-                    topMessageText1.setText("TIP: Attendance below 75%!");
-                    topMessageText1.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tipRed));
-                }
-
-                waveProgressCenter.setText("Attendance: " + ColorUtils.getAttendanceRange(color));
-                waveLoadingView.setProgressValue(ColorUtils.getAttendanceValue(color));
-                dataContainer.setVisibility(View.VISIBLE);
-                TextView data1 = ButterKnife.findById(dataContainer, R.id.data1);
-                data1.setText(data.getString(2));
-                TextView data2 = ButterKnife.findById(dataContainer, R.id.data2);
-                data2.setText(data.getString(1));
-
-                if (sp.getBoolean("isLibraryLoaded", false)) {
-                    JSONObject library = new JSONObject(sp.getString("library", ""));
-                    JSONArray libData = library.getJSONArray("0");
-                    TextView data3 = ButterKnife.findById(dataContainer, R.id.data3);
-                    data3.setText(libData.getString(3));
-                }
-            } catch (JSONException | NumberFormatException e) {
-                e.printStackTrace();
-            }
+        try {
+            showData();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
         Utils.setFontAllView((ViewGroup) view);
         return view;
     }
-}
 
+    void showData() throws JSONException {
+        if (sp.getString("FROM_DATE", "").equals(Constants.SEM_START_DATE)) {
+            int present = 0, absent = 0;
+            List<Month> months = Record.getMonths();
+            for (Month month : months) {
+                present += month.PRESENT;
+                absent += month.ABSENT;
+            }
+            View subContainer1 = ButterKnife.findById(view, R.id.subContainer1);
+            View subContainer2 = ButterKnife.findById(view, R.id.subContainer2);
+            TextView a = ButterKnife.findById(subContainer1, R.id.data1);
+            TextView p = ButterKnife.findById(subContainer2, R.id.data2);
+            a.setText("" + absent);
+            p.setText("" + present);
+            subContainer1.setVisibility(View.VISIBLE);
+            subContainer2.setVisibility(View.VISIBLE);
+            float percentage = (100f * present) / (present + absent);
+            WaveLoadingView waveLoadingView = ButterKnife.findById(view, R.id.waveLoadingView);
+            TextView waveProgressCenter = ButterKnife.findById(view, R.id.waveProgressCenter);
+            TextView topMessageText1 = ButterKnife.findById(view, R.id.topMessageText1);
+            topMessageText1.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
+            waveProgressCenter.setText("Attendance: " + String.format(Locale.ENGLISH, "%.2f", percentage) + "%");
+            waveLoadingView.setProgressValue((int) percentage);
+            if ((int) percentage > 75) {
+                topMessageText1.setText("TIP: Good going!");
+                topMessageText1.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green));
+            } else {
+                topMessageText1.setText("TIP: Attendance below 75%!");
+                topMessageText1.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tipRed));
+            }
+        }
+        if (sp.getBoolean("isLibraryLoaded", false)) {
+            JSONObject library = new JSONObject(sp.getString("library", ""));
+            JSONArray libData = library.getJSONArray("0");
+            View subContainer3 = ButterKnife.findById(view, R.id.subContainer3);
+            TextView data3 = ButterKnife.findById(subContainer3, R.id.data3);
+            if (libData.getString(0).equals(""))
+                data3.setText("0");
+            else
+                data3.setText(libData.getString(3));
+            subContainer3.setVisibility(View.VISIBLE);
+        }
+    }
+}
