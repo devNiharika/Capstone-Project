@@ -21,7 +21,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
-import in.edu.galgotiasuniversity.MainActivity;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.adapters.ProfileAdapter;
 import in.edu.galgotiasuniversity.interfaces.OnError;
@@ -57,7 +56,7 @@ public class ProfileFragment extends Fragment {
 
         sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         if (!(sp.getBoolean("isProfileLoaded", false))) {
-            new ProfileTask((MainActivity) this.getContext(), new OnTaskCompleted() {
+            new ProfileTask(getActivity(), new OnTaskCompleted() {
                 @Override
                 public void onTaskCompleted() {
                     taskCompleted();

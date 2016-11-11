@@ -1,7 +1,10 @@
 package in.edu.galgotiasuniversity.networking;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -19,7 +22,6 @@ import java.io.ObjectInputStream;
 import java.util.Map;
 
 import in.edu.galgotiasuniversity.Constants;
-import in.edu.galgotiasuniversity.MainActivity;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 
@@ -29,7 +31,7 @@ import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 public class ProfileTask extends AsyncTask<Void, Integer, Void> {
 
     private final String TAG = "PROFILE_TASK";
-    private MainActivity context;
+    private Activity context;
     private Map<String, String> cookies;
     private Connection.Response res;
     private ProgressDialog dialog;
@@ -38,7 +40,7 @@ public class ProfileTask extends AsyncTask<Void, Integer, Void> {
     private OnTaskCompleted listener;
     private OnError error_listener;
 
-    public ProfileTask(MainActivity context, OnTaskCompleted listener, OnError error_listener) {
+    public ProfileTask(Activity context, OnTaskCompleted listener, OnError error_listener) {
         this.context = context;
         this.listener = listener;
         this.error_listener = error_listener;
@@ -57,7 +59,12 @@ public class ProfileTask extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-//        context.setRequestedOrientation(context.getResources().getConfiguration().orientation);
+        int currentOrientation = context.getResources().getConfiguration().orientation;
+        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        } else {
+            context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        }
         dialog = ProgressDialog.show(context, "", "Loading...", true);
         cookies = (Map<String, String>) readObjectFromMemory("cookies");
         progress = 0;
@@ -112,7 +119,7 @@ public class ProfileTask extends AsyncTask<Void, Integer, Void> {
             listener.onTaskCompleted();
         }
         dialog.dismiss();
-//        context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+        context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
     }
 
     private Object readObjectFromMemory(String filename) {

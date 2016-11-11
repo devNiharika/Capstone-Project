@@ -83,7 +83,7 @@ public class SubjectWiseFragment extends Fragment {
         } else {
             setupRecyclerView(recyclerView);
             if (!MainActivity.isSubjectWiseRefreshed) {
-                new AttendanceTask(this.getContext(), new OnTaskCompleted() {
+                new AttendanceTask(getActivity(), new OnTaskCompleted() {
                     @Override
                     public void onTaskCompleted() {
                         taskCompleted();

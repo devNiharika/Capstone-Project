@@ -66,7 +66,7 @@ public class LibraryFragment extends Fragment {
         } else {
             setupRecyclerView((RecyclerView) recyclerView);
             if (!MainActivity.isLibraryRefreshed) {
-                new LibraryTask((MainActivity) this.getContext(), new OnTaskCompleted() {
+                new LibraryTask(getActivity(), new OnTaskCompleted() {
                     @Override
                     public void onTaskCompleted() {
                         taskCompleted();

@@ -2,6 +2,8 @@ package in.edu.galgotiasuniversity.networking;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -57,7 +59,12 @@ public class CaptchaTask extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-//        context.setRequestedOrientation(context.getResources().getConfiguration().orientation);
+        int currentOrientation = context.getResources().getConfiguration().orientation;
+        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        } else {
+            context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        }
         progress = 1;
         context.loginButton.setProgress(progress);
         context.loginButton.setEnabled(false);
@@ -173,7 +180,7 @@ public class CaptchaTask extends AsyncTask<Void, Integer, Void> {
             });
             if (dialog != null) dialog.show();
         } else if (!isCaptchaRequired) onCaptchaButtonClick();
-//        context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+        context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
     }
 
     private void onCaptchaButtonClick() {

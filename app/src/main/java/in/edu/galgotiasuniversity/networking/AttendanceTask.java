@@ -1,7 +1,9 @@
 package in.edu.galgotiasuniversity.networking;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -38,7 +40,7 @@ import in.edu.galgotiasuniversity.models.Date;
 public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
 
     private final String TAG = "ATTENDANCE_TASK";
-    private Context context;
+    private Activity context;
     private Map<String, String> cookies;
     private ProgressDialog dialog;
     private Document document;
@@ -48,7 +50,7 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
     private OnError error_listener;
     private ArrayList<Record> records = new ArrayList<>();
 
-    public AttendanceTask(Context context, OnTaskCompleted listener, OnError error_listener, String FROM_DATE, String TO_DATE) {
+    public AttendanceTask(Activity context, OnTaskCompleted listener, OnError error_listener, String FROM_DATE, String TO_DATE) {
         this.context = context;
         this.listener = listener;
         this.error_listener = error_listener;
@@ -69,6 +71,12 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        int currentOrientation = context.getResources().getConfiguration().orientation;
+        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        } else {
+            context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        }
         dialog = ProgressDialog.show(context, "", "Loading...", true);
         cookies = Utils.readObjectFromMemory(context, "cookies");
         progress = 0;
@@ -185,5 +193,6 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
             listener.onTaskCompleted();
         }
         dialog.dismiss();
+        context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
     }
 }

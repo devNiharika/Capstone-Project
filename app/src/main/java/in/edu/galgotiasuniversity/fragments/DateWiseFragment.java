@@ -111,7 +111,7 @@ public class DateWiseFragment extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        new AttendanceTask(this.getContext(), new OnTaskCompleted() {
+        new AttendanceTask(getActivity(), new OnTaskCompleted() {
             @Override
             public void onTaskCompleted() {
                 taskCompleted();

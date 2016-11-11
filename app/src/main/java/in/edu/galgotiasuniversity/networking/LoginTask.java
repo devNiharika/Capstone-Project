@@ -3,6 +3,8 @@ package in.edu.galgotiasuniversity.networking;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -60,7 +62,12 @@ public class LoginTask extends AsyncTask<Void, Integer, Void> {
 
     @Override
     protected void onPreExecute() {
-//        context.setRequestedOrientation(context.getResources().getConfiguration().orientation);
+        int currentOrientation = context.getResources().getConfiguration().orientation;
+        if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        } else {
+            context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        }
         if (context.loginID != null) {
             context.loginID.setEnabled(false);
             context.password.setEnabled(false);
@@ -240,7 +247,7 @@ public class LoginTask extends AsyncTask<Void, Integer, Void> {
             MainActivity.isCookieRefreshed = true;
             context.finish();
         }
-//        context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+        context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
     }
 
     private void showToast(String msg, int duration) {
