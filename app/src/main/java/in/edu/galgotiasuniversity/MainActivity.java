@@ -57,6 +57,7 @@ import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 import in.edu.galgotiasuniversity.models.Date;
 import in.edu.galgotiasuniversity.networking.AttendanceTask;
+import in.edu.galgotiasuniversity.networking.LibraryTask;
 import in.edu.galgotiasuniversity.utils.CustomTypefaceSpan;
 import in.edu.galgotiasuniversity.utils.Utils;
 
@@ -103,29 +104,7 @@ public class MainActivity extends AppCompatActivity
             switchContent(getSupportFragmentManager().getFragment(savedInstanceState, "fragment"));
         } else {
             if (sp.getString("FROM_DATE", "").equals(Constants.SEM_START_DATE)) {
-                Date FROM_DATE = new Date();
-                final Date TO_DATE = new Date();
-                try {
-                    FROM_DATE.setDate(sp.getString("TO_DATE", ""), new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                new AttendanceTask(this, new OnTaskCompleted() {
-                    @Override
-                    public void onTaskCompleted() {
-                        isMonthWiseRefreshed = true;
-                        isSubjectWiseRefreshed = true;
-                        SharedPreferences.Editor editor = sp.edit();
-                        editor.putString("TO_DATE", TO_DATE.getDate());
-                        editor.apply();
-                        switchContent(new MainFragment());
-                    }
-                }, new OnError() {
-                    @Override
-                    public void onError() {
-                        showToast("Oops! Connection timed out", Toast.LENGTH_SHORT);
-                    }
-                }, FROM_DATE.getDate(), TO_DATE.getDate()).execute();
+                syncData();
             }
             switchContent(new MainFragment());
         }
@@ -133,6 +112,48 @@ public class MainActivity extends AppCompatActivity
         setupDrawerLayout();
         setupNavigationView();
         showBannerAds();
+    }
+
+    void syncData() {
+        Date FROM_DATE = new Date();
+        final Date TO_DATE = new Date();
+        try {
+            FROM_DATE.setDate(sp.getString("TO_DATE", ""), new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        new AttendanceTask(this, new OnTaskCompleted() {
+            @Override
+            public void onTaskCompleted() {
+                isMonthWiseRefreshed = true;
+                isSubjectWiseRefreshed = true;
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("TO_DATE", TO_DATE.getDate());
+                editor.apply();
+                syncLibrary();
+                switchContent(new MainFragment());
+            }
+        }, new OnError() {
+            @Override
+            public void onError() {
+                showToast("Oops! Connection timed out", Toast.LENGTH_SHORT);
+            }
+        }, FROM_DATE.getDate(), TO_DATE.getDate()).execute();
+    }
+
+    void syncLibrary() {
+        new LibraryTask(this, new OnTaskCompleted() {
+            @Override
+            public void onTaskCompleted() {
+                isLibraryRefreshed = true;
+                switchContent(new MainFragment());
+            }
+        }, new OnError() {
+            @Override
+            public void onError() {
+                showToast("Oops! Connection timed out", Toast.LENGTH_SHORT);
+            }
+        }).execute();
     }
 
     void setupDrawerLayout() {
