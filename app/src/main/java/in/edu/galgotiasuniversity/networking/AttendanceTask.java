@@ -62,6 +62,7 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
         progress = values[0];
+        dialog.setProgress(progress);
         if (progress < 0) {
             error_listener.onError();
         }
@@ -77,7 +78,7 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
         } else {
             context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
-        dialog = ProgressDialog.show(context, "", "Loading...", true);
+        dialog = ProgressDialog.show(context, "", "Loading...", false);
         cookies = Utils.readObjectFromMemory(context, "cookies");
         progress = 0;
     }
@@ -105,7 +106,7 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
             document = Constants.ATTENDANCE.parse();
             publishProgress(50);
         } catch (IOException e) {
-            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
             publishProgress(-1);
         }
         try {
@@ -143,7 +144,7 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
             }
             publishProgress(100);
         } catch (IOException e) {
-            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
             publishProgress(-1);
         } catch (ParseException e) {
             e.printStackTrace();

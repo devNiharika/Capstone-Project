@@ -7,7 +7,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,6 +53,7 @@ public class LibraryTask extends AsyncTask<Void, Integer, Void> {
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
         progress = values[0];
+        dialog.setProgress(progress);
         if (progress < 0) {
             error_listener.onError();
         }
@@ -69,7 +69,7 @@ public class LibraryTask extends AsyncTask<Void, Integer, Void> {
         } else {
             context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
-        dialog = ProgressDialog.show(context, "", "Loading...", true);
+        dialog = ProgressDialog.show(context, "", "Loading...", false);
         cookies = (Map<String, String>) readObjectFromMemory("cookies");
         progress = 0;
     }
@@ -95,7 +95,7 @@ public class LibraryTask extends AsyncTask<Void, Integer, Void> {
             document = res.parse();
             publishProgress(50);
         } catch (IOException e) {
-            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
             publishProgress(-1);
         }
         try {
@@ -124,7 +124,7 @@ public class LibraryTask extends AsyncTask<Void, Integer, Void> {
             document = res.parse();
             publishProgress(100);
         } catch (IOException e) {
-            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
             publishProgress(-1);
         }
         return null;
@@ -158,7 +158,7 @@ public class LibraryTask extends AsyncTask<Void, Integer, Void> {
                     k++;
                 }
             } catch (JSONException e) {
-                Log.d(TAG, e.getMessage());
+                e.printStackTrace();
             }
 
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
@@ -180,7 +180,7 @@ public class LibraryTask extends AsyncTask<Void, Integer, Void> {
             defaultObject = is.readObject();
             is.close();
         } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
         }
         return defaultObject;
     }

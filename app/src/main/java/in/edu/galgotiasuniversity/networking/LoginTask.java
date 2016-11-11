@@ -175,7 +175,7 @@ public class LoginTask extends AsyncTask<Void, Integer, Void> {
 
             publishProgress(50);
         } catch (IOException | IndexOutOfBoundsException e) {
-            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
             publishProgress(-1);
             return null;
         }
@@ -199,7 +199,7 @@ public class LoginTask extends AsyncTask<Void, Integer, Void> {
             document = res.parse();
             publishProgress(75);
         } catch (IOException e) {
-            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
             publishProgress(-1);
             return null;
         }
@@ -209,7 +209,7 @@ public class LoginTask extends AsyncTask<Void, Integer, Void> {
             if (!(document.title().equals("SIM Login"))) publishProgress(100);
             else publishProgress(-1);
         } catch (NullPointerException e) {
-            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
             publishProgress(-1);
             return null;
         }
@@ -234,7 +234,7 @@ public class LoginTask extends AsyncTask<Void, Integer, Void> {
                     JSONArray data = profile.getJSONArray("0");
                     name = data.getString(1);
                 } catch (JSONException e) {
-                    Log.d(TAG, e.getMessage());
+                    e.printStackTrace();
                 }
             }
             if (!isShownAsDialog) {
@@ -264,7 +264,7 @@ public class LoginTask extends AsyncTask<Void, Integer, Void> {
             os.writeObject(object);
             os.close();
         } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
         }
     }
 }

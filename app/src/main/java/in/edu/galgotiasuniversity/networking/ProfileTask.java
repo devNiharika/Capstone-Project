@@ -7,7 +7,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +49,7 @@ public class ProfileTask extends AsyncTask<Void, Integer, Void> {
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
         progress = values[0];
+        dialog.setProgress(progress);
         if (progress < 0) {
             error_listener.onError();
         }
@@ -65,7 +65,7 @@ public class ProfileTask extends AsyncTask<Void, Integer, Void> {
         } else {
             context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
-        dialog = ProgressDialog.show(context, "", "Loading...", true);
+        dialog = ProgressDialog.show(context, "", "Loading...", false);
         cookies = (Map<String, String>) readObjectFromMemory("cookies");
         progress = 0;
     }
@@ -91,7 +91,7 @@ public class ProfileTask extends AsyncTask<Void, Integer, Void> {
             document = res.parse();
             publishProgress(100);
         } catch (IOException e) {
-            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
             publishProgress(-1);
         }
         return null;
@@ -105,11 +105,16 @@ public class ProfileTask extends AsyncTask<Void, Integer, Void> {
             try {
                 profile.put("0", new JSONArray().put("Name").put(document.select("label[id*=lblName]").first().text()));
                 profile.put("1", new JSONArray().put("Email").put(document.select("label[id*=lblEmail1]").first().text()));
-                profile.put("2", new JSONArray().put("Mobile").put(document.select("label[id*=lblmob]").first().text()));
+                if (!document.select("label[id*=lblPhone1]").first().text().equals(""))
+                    profile.put("2", new JSONArray().put("Mobile").put(document.select("label[id*=lblPhone1]").first().text()));
+                else if (!document.select("label[id*=lblmob]").first().text().equals(""))
+                    profile.put("2", new JSONArray().put("Mobile").put(document.select("label[id*=lblmob]").first().text()));
+                else
+                    profile.put("2", new JSONArray().put("Mobile").put("No data available"));
                 profile.put("3", new JSONArray().put("Date of Birth").put(document.select("label[id*=lblDOB]").first().text()));
                 profile.put("4", new JSONArray().put("Gender").put(document.select("label[id*=lblGender]").first().text()));
             } catch (JSONException e) {
-                Log.d(TAG, e.getMessage());
+                e.printStackTrace();
             }
 
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
@@ -131,7 +136,7 @@ public class ProfileTask extends AsyncTask<Void, Integer, Void> {
             defaultObject = is.readObject();
             is.close();
         } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
         }
         return defaultObject;
     }

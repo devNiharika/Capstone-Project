@@ -39,6 +39,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import butterknife.ButterKnife;
 import dev.rg.VersionManager.WVersionManager;
 import in.edu.galgotiasuniversity.data.Record;
@@ -49,6 +53,10 @@ import in.edu.galgotiasuniversity.fragments.MainFragment;
 import in.edu.galgotiasuniversity.fragments.MonthWiseFragment;
 import in.edu.galgotiasuniversity.fragments.ProfileFragment;
 import in.edu.galgotiasuniversity.fragments.SubjectWiseFragment;
+import in.edu.galgotiasuniversity.interfaces.OnError;
+import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
+import in.edu.galgotiasuniversity.models.Date;
+import in.edu.galgotiasuniversity.networking.AttendanceTask;
 import in.edu.galgotiasuniversity.utils.CustomTypefaceSpan;
 import in.edu.galgotiasuniversity.utils.Utils;
 
@@ -94,6 +102,31 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState != null) {
             switchContent(getSupportFragmentManager().getFragment(savedInstanceState, "fragment"));
         } else {
+            if (sp.getString("FROM_DATE", "").equals(Constants.SEM_START_DATE)) {
+                Date FROM_DATE = new Date();
+                final Date TO_DATE = new Date();
+                try {
+                    FROM_DATE.setDate(sp.getString("TO_DATE", ""), new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                new AttendanceTask(this, new OnTaskCompleted() {
+                    @Override
+                    public void onTaskCompleted() {
+                        isMonthWiseRefreshed = true;
+                        isSubjectWiseRefreshed = true;
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("TO_DATE", TO_DATE.getDate());
+                        editor.apply();
+                        switchContent(new MainFragment());
+                    }
+                }, new OnError() {
+                    @Override
+                    public void onError() {
+                        showToast("Oops! Connection timed out", Toast.LENGTH_SHORT);
+                    }
+                }, FROM_DATE.getDate(), TO_DATE.getDate()).execute();
+            }
             switchContent(new MainFragment());
         }
 

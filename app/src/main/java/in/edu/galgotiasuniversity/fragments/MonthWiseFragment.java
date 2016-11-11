@@ -72,6 +72,7 @@ public class MonthWiseFragment extends Fragment {
             } else {
                 // Init
                 FROM_DATE.setDate(Constants.SEM_START_DATE, df);
+                showToast("First sync may take a few minutes. Please be patient.", Toast.LENGTH_LONG);
             }
         } catch (ParseException e) {
             e.printStackTrace();

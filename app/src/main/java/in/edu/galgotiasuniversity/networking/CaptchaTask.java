@@ -134,7 +134,7 @@ public class CaptchaTask extends AsyncTask<Void, Integer, Void> {
                     }
                 }
             } catch (IOException | NullPointerException e) {
-                Log.d(TAG, e.getMessage());
+                e.printStackTrace();
             }
         }
 
@@ -155,7 +155,7 @@ public class CaptchaTask extends AsyncTask<Void, Integer, Void> {
                 cookies = res.cookies();
                 publishProgress(100);
             } catch (IOException e) {
-                Log.d(TAG, e.getMessage());
+                e.printStackTrace();
                 publishProgress(-1);
             }
         }
@@ -211,7 +211,7 @@ public class CaptchaTask extends AsyncTask<Void, Integer, Void> {
             defaultObject = is.readObject();
             is.close();
         } catch (Exception e) {
-            Log.d(TAG, e.getMessage());
+            e.printStackTrace();
             return null;
         }
         return defaultObject;
