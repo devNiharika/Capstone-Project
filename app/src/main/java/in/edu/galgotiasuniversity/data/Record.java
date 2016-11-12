@@ -39,6 +39,7 @@ public class Record extends TruncatableModel {
     public String KEY;
 
     public Record() {
+        super();
     }
 
     public static List<Record> getAttendance(Date FROM_DATE, Date TO_DATE) {

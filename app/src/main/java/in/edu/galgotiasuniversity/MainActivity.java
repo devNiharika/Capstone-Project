@@ -32,7 +32,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.stetho.Stetho;
 import com.github.javiersantos.appupdater.AppUpdater;
 
 import org.json.JSONArray;
@@ -92,7 +91,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Stetho.initializeWithDefaults(this);
+//        Stetho.initializeWithDefaults(this);
 
         currentActivity = this;
         ButterKnife.bind(currentActivity);
@@ -279,7 +278,7 @@ public class MainActivity extends AppCompatActivity
             return;
         }
         this.doubleBackToExitPressedOnce = true;
-        Snackbar.make(ButterKnife.findById(currentActivity, R.id.root), getString(R.string.pressAgainToExitMessage), Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(ButterKnife.findById(drawer, R.id.drawer_layout), getString(R.string.pressAgainToExitMessage), Snackbar.LENGTH_SHORT).show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

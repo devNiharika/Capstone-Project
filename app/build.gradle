@@ -10,19 +10,30 @@ repositories {
 }
 
 android {
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    signingConfigs {
+        config {
+            keyAlias 'key'
+            keyPassword 'ROHAN AGG_3470432'
+            storeFile file('C:/Users/Rohan Garg/Desktop/GCET App/Key')
+            storePassword 'ROHAN AGG_3470432'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion "23.0.3"
-
     dataBinding {
         enabled = true
     }
-
     defaultConfig {
         applicationId "in.edu.galgotiasuniversity"
         minSdkVersion 11
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+        signingConfig signingConfigs.config
     }
     buildTypes {
         release {
@@ -35,6 +46,8 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    productFlavors {
     }
 }
 

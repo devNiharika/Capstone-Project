@@ -16,17 +16,14 @@
 #   public *;
 #}
 
--keep class butterknife.** { *; }
--dontwarn butterknife.internal.**
--keep class **$$ViewBinder { *; }
+# Retain generated class which implement Unbinder.
+-keep public class * implements butterknife.Unbinder { public <init>(...); }
 
--keepclasseswithmembernames class * {
-    @butterknife.* <fields>;
-}
-
--keepclasseswithmembernames class * {
-    @butterknife.* <methods>;
-}
+# Prevent obfuscation of types which use ButterKnife annotations since the simple name
+# is used to reflectively look up the generated ViewBinding.
+-keep class butterknife.*
+-keepclasseswithmembernames class * { @butterknife.* <methods>; }
+-keepclasseswithmembernames class * { @butterknife.* <fields>; }
 
 #-keep class com.squareup.okhttp3.** { *; }
 #-keep interface com.squareup.okhttp3.** { *; }
@@ -38,9 +35,6 @@
 public *;
 }
 
-#-keep class dev.rg.** { *; }
-#-keep interface dev.rg.** { *; }
-
 #-keep class com.codetroopers.betterpickers.** { *; }
 #-keep interface com.codetroopers.betterpickers.** { *; }
 
@@ -49,5 +43,16 @@ public *;
 
 -dontwarn okio.**
 
+## Joda Time
 -dontwarn org.joda.convert.FromString
 -dontwarn org.joda.convert.ToString
+
+# ActiveAndroid
+-keep class com.activeandroid.** { *; }
+-keep class com.activeandroid.**.** { *; }
+-keep class * extends com.activeandroid.Model
+-keep class * extends com.activeandroid.serializer.TypeSerializer
+
+-keep class in.edu.galgotiasuniversity.data.Record { *; }
+
+-keepattributes *Annotation*
