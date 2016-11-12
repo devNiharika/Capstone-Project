@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity
     public static boolean isSubjectWiseRefreshed;
     public static boolean isMonthWiseRefreshed;
     public static boolean isLibraryRefreshed;
+    public static boolean isDrawerLocked = false;
     SharedPreferences sp;
     Fragment fragment;
     boolean doubleBackToExitPressedOnce;
@@ -157,12 +159,23 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = ButterKnife.findById(currentActivity, R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = ButterKnife.findById(currentActivity, R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 currentActivity, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        if (drawer != null)
+
+        View view = ButterKnife.findById(currentActivity, R.id.root);
+        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        if (lp.leftMargin >= (int) getResources().getDimension(R.dimen.content_margin_condition)) {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
+            drawer.setScrimColor(ContextCompat.getColor(this, R.color.transparent));
+            isDrawerLocked = true;
+        } else {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             drawer.addDrawerListener(toggle);
-        toggle.syncState();
+            toggle.syncState();
+            drawer.closeDrawer(GravityCompat.START);
+            isDrawerLocked = false;
+        }
     }
 
     void setupNavigationView() {
@@ -272,7 +285,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
             finish();
         }
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START) && !isDrawerLocked) {
             drawer.closeDrawer(GravityCompat.START);
             return;
         }
@@ -404,7 +417,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(currentActivity, AboutActivity.class));
         }
         DrawerLayout drawer = ButterKnife.findById(currentActivity, R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        if (!isDrawerLocked)
+            drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
