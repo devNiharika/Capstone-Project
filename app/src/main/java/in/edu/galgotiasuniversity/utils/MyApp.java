@@ -2,6 +2,8 @@ package in.edu.galgotiasuniversity.utils;
 
 import android.content.Context;
 
+import com.devs.acr.AutoErrorReporter;
+
 public class MyApp extends com.activeandroid.app.Application {
 
     private static MyApp instance;
@@ -22,6 +24,11 @@ public class MyApp extends com.activeandroid.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //Crash Report
+        AutoErrorReporter.get(this)
+                .setEmailAddresses("dev.NiharikaRastogi@gmail.com")
+                .setEmailSubject("GU mSIM Crash Report")
+                .start();
         Utils.loadFonts();
     }
 

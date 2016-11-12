@@ -84,9 +84,10 @@ public class LoginActivity extends Activity {
     private void checkUpdate() {
         WVersionManager versionManager = new WVersionManager(this);
         versionManager.setUpdateNowLabel(getString(R.string.updateNowLabel));
+        versionManager.setTitle("Galgotias University");
         versionManager.setRemindMeLaterLabel(getString(R.string.remindMeLaterLabel));
         versionManager.setIgnoreThisVersionLabel("");
-        versionManager.setReminderTimer(60);
+        versionManager.setReminderTimer(1440);
         // Update content url
         versionManager.setVersionContentUrl(Constants.UPDATES_URL);
         versionManager.checkVersion();

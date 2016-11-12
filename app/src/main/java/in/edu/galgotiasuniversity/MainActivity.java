@@ -32,8 +32,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.javiersantos.appupdater.AppUpdater;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -191,20 +189,21 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void checkUpdate() {
-//        WVersionManager versionManager = new WVersionManager(currentActivity);
-//        versionManager.setUpdateNowLabel(getString(R.string.updateNowLabel));
-//        versionManager.setRemindMeLaterLabel(getString(R.string.remindMeLaterLabel));
-//        versionManager.setIgnoreThisVersionLabel("");
-//        versionManager.setReminderTimer(60);
-//        // Update content url
-//        versionManager.setVersionContentUrl(Constants.UPDATES_URL);
-//        versionManager.checkVersion();
+        WVersionManager versionManager = new WVersionManager(currentActivity);
+        versionManager.setUpdateNowLabel(getString(R.string.updateNowLabel));
+        versionManager.setTitle("Galgotias University");
+        versionManager.setRemindMeLaterLabel(getString(R.string.remindMeLaterLabel));
+        versionManager.setIgnoreThisVersionLabel("");
+        versionManager.setReminderTimer(1440);
+        // Update content url
+        versionManager.setVersionContentUrl(Constants.UPDATES_URL);
+        versionManager.checkVersion();
 
-        AppUpdater appUpdater = new AppUpdater(this);
+//        AppUpdater appUpdater = new AppUpdater(this);
 //                .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
 //                .setDisplay(Display.DIALOG)
 //                .showEvery(5);
-        appUpdater.start();
+//        appUpdater.start();
     }
 
     void showChangelog(boolean checkVersion) {
