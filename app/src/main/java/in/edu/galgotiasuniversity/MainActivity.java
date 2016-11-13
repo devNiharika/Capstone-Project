@@ -166,14 +166,15 @@ public class MainActivity extends AppCompatActivity
         View view = ButterKnife.findById(currentActivity, R.id.root);
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         if (lp.leftMargin >= (int) getResources().getDimension(R.dimen.content_margin_condition)) {
+            drawer.removeDrawerListener(toggle);
             drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN);
             drawer.setScrimColor(ContextCompat.getColor(this, R.color.transparent));
             isDrawerLocked = true;
         } else {
-            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             drawer.addDrawerListener(toggle);
-            toggle.syncState();
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             drawer.closeDrawer(GravityCompat.START);
+            toggle.syncState();
             isDrawerLocked = false;
         }
     }
