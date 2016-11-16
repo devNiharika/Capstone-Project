@@ -69,6 +69,11 @@ public class Record extends TruncatableModel {
                     .and("STATUS = ?", "P")
                     .execute().size();
 
+            System.out.println(new Select()
+                    .from(Record.class)
+                    .where("SUBJECT_NAME = ?", subject.NAME)
+                    .and("STATUS = ?", "P").toSql());
+
             subject.ABSENT = new Select()
                     .from(Record.class)
                     .where("SUBJECT_NAME = ?", subject.NAME)
