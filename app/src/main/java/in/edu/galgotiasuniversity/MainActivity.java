@@ -33,6 +33,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.stetho.Stetho;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Stetho.initializeWithDefaults(this);
+        Stetho.initializeWithDefaults(this);
 
         currentActivity = this;
         ButterKnife.bind(currentActivity);

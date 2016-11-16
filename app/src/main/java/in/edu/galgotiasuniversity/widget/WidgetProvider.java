@@ -7,7 +7,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
 
-import com.sam_chordas.android.stockhawk.R;
+import in.edu.galgotiasuniversity.R;
+
 
 /**
  * Implementation of App Widget functionality.

@@ -51,12 +51,13 @@
 
         <provider
             android:name="com.activeandroid.content.ContentProvider"
-            android:authorities="in.edu.galgotiasuniversity.data.AttendanceProvider"
-            android:exported="true" />
+            android:authorities="in.edu.galgotiasuniversity"
+            android:exported="false" />
 
         <receiver android:name=".widget.WidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
             </intent-filter>
 
             <meta-data

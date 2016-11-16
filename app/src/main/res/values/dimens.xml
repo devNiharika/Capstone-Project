@@ -13,4 +13,6 @@
     <dimen name="content_margin">0dp</dimen>
 
     <dimen name="content_margin_condition">160dp</dimen>
+
+    <dimen name="widget_margin">8dp</dimen>
 </resources>
