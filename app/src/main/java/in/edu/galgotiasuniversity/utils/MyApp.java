@@ -25,10 +25,11 @@ public class MyApp extends com.activeandroid.app.Application {
     public void onCreate() {
         super.onCreate();
         //Crash Report
-        AutoErrorReporter.get(this)
-                .setEmailAddresses("dev.NiharikaRastogi@gmail.com")
-                .setEmailSubject("GU mSIM Crash Report")
-                .start();
+        if (!(new DebugStatus().isDebuggable(getContext())))
+            AutoErrorReporter.get(this)
+                    .setEmailAddresses("dev.NiharikaRastogi@gmail.com")
+                    .setEmailSubject("GU mSIM Crash Report")
+                    .start();
         Utils.loadFonts();
     }
 

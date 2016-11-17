@@ -2,6 +2,9 @@ package in.edu.galgotiasuniversity.networking;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -33,6 +36,7 @@ import in.edu.galgotiasuniversity.data.Utils;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 import in.edu.galgotiasuniversity.models.Date;
+import in.edu.galgotiasuniversity.widget.WidgetProvider;
 
 /**
  * Created on 25-01-2016.
@@ -176,6 +180,16 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
         }
     }
 
+    private void updateWidget() {
+        Intent intent = new Intent(context, WidgetProvider.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
+        // since it seems the onUpdate() is only fired on that:
+        int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, WidgetProvider.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        context.sendBroadcast(intent);
+    }
+
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
@@ -191,6 +205,8 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
             } finally {
                 ActiveAndroid.endTransaction();
             }
+
+            updateWidget();
             listener.onTaskCompleted();
         }
         dialog.dismiss();

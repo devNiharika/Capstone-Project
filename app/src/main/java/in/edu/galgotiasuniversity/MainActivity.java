@@ -33,8 +33,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.stetho.Stetho;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,6 +57,7 @@ import in.edu.galgotiasuniversity.models.Date;
 import in.edu.galgotiasuniversity.networking.AttendanceTask;
 import in.edu.galgotiasuniversity.networking.LibraryTask;
 import in.edu.galgotiasuniversity.utils.CustomTypefaceSpan;
+import in.edu.galgotiasuniversity.utils.DebugStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 /**
@@ -92,8 +91,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Stetho.initializeWithDefaults(this);
+        if (new DebugStatus().isDebuggable(this))
+            com.facebook.stetho.Stetho.initializeWithDefaults(this);
 
         currentActivity = this;
         ButterKnife.bind(currentActivity);
@@ -132,7 +131,6 @@ public class MainActivity extends AppCompatActivity
                 editor.putString("TO_DATE", TO_DATE.getDate());
                 editor.apply();
                 syncLibrary();
-                switchContent(new MainFragment());
             }
         }, new OnError() {
             @Override
@@ -152,9 +150,11 @@ public class MainActivity extends AppCompatActivity
         }, new OnError() {
             @Override
             public void onError() {
+                switchContent(new MainFragment());
                 showToast("Oops! Connection timed out", Toast.LENGTH_SHORT);
             }
         }).execute();
+
     }
 
     void setupDrawerLayout() {
@@ -427,8 +427,13 @@ public class MainActivity extends AppCompatActivity
 
     public void switchContent(Fragment fragment) {
         this.fragment = fragment;
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment).commit();
+        try {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragment).commit();
+        } catch (java.lang.IllegalStateException ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
