@@ -16,10 +16,10 @@ android {
     }
     signingConfigs {
         config {
-            keyAlias 'key'
-            keyPassword 'ROHAN AGG_3470432'
-            storeFile file('C:/Users/Rohan Garg/Desktop/GCET App/Key')
-            storePassword 'ROHAN AGG_3470432'
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile file(KEYSTORE_PATH)
+            storePassword KEYSTORE_PASSWORD
         }
     }
     compileSdkVersion 24

@@ -57,7 +57,6 @@ import in.edu.galgotiasuniversity.models.Date;
 import in.edu.galgotiasuniversity.networking.AttendanceTask;
 import in.edu.galgotiasuniversity.networking.LibraryTask;
 import in.edu.galgotiasuniversity.utils.CustomTypefaceSpan;
-import in.edu.galgotiasuniversity.utils.DebugStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
 /**
@@ -91,8 +90,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (new DebugStatus().isDebuggable(this))
-            com.facebook.stetho.Stetho.initializeWithDefaults(this);
 
         currentActivity = this;
         ButterKnife.bind(currentActivity);

@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.devs.acr.AutoErrorReporter;
 
+import in.edu.galgotiasuniversity.BuildConfig;
+
 public class MyApp extends com.activeandroid.app.Application {
 
     private static MyApp instance;
@@ -25,7 +27,7 @@ public class MyApp extends com.activeandroid.app.Application {
     public void onCreate() {
         super.onCreate();
         //Crash Report
-        if (!(new DebugStatus().isDebuggable(getContext())))
+        if (!BuildConfig.DEBUG)
             AutoErrorReporter.get(this)
                     .setEmailAddresses("dev.NiharikaRastogi@gmail.com")
                     .setEmailSubject("GU mSIM Crash Report")
