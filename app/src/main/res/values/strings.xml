@@ -28,5 +28,9 @@
     <string name="pressAgainToExitMessage">Press again to exit</string>
 
     <string name="syncFailed">Sync failed</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="content_description_logo">Logo</string>
+    <string name="love">Made with Love</string>
 
 </resources>
