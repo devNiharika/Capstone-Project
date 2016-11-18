@@ -27,4 +27,9 @@
     <dimen name="login_activity_card_radius">4dp</dimen>
     <dimen name="login_activity_button_radius">4dp</dimen>
 
+    <dimen name="logo_activity_padding">8dp</dimen>
+    <dimen name="logo_activity_width">240dp</dimen>
+    <dimen name="logo_activity_height">240dp</dimen>
+
+
 </resources>
