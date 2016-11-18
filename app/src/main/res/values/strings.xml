@@ -11,26 +11,32 @@
 
     <string name="text_about">This app is created with lots of Love and Coffee. Please support the app by liking us on Play Store and sharing the app. Your Love matters a lot for the development of the app.</string>
 
-    <string name="shareHeader">Share via:</string>
-    <string name="shareSubject">Galgotias University mSIM</string>
-    <string name="shareText">Hey,\nCheckout this app for Galgotias University.\n\nhttps://play.google.com/store/apps/details?id=in.edu.galgotiasuniversity\n\nYou can check your attendance directly!\nAlso it has a Holiday Planner and many other awesome features.\nCheers :)</string>
+    <string name="share_header">Share via:</string>
+    <string name="share_subject">Galgotias University mSIM</string>
+    <string name="share_text">Hey,\nCheckout this app for Galgotias University.\n\nhttps://play.google.com/store/apps/details?id=in.edu.galgotiasuniversity\n\nYou can check your attendance directly!\nAlso it has a Holiday Planner and many other awesome features.\nCheers :)</string>
 
-    <string name="playLink">https://play.google.com/store/apps/details?id=in.edu.galgotiasuniversity</string>
+    <string name="play_link">https://play.google.com/store/apps/details?id=in.edu.galgotiasuniversity</string>
 
     <string name="changelog_full_title">Change Log</string>
     <string name="changelog_title">What\'s New</string>
     <string name="changelog_ok_button">Cool</string>
     <string name="changelog_show_full">More</string>
 
-    <string name="updateNowLabel">Update</string>
-    <string name="remindMeLaterLabel">Dismiss</string>
+    <string name="update_now">Update</string>
+    <string name="remind_me_later">Dismiss</string>
 
-    <string name="pressAgainToExitMessage">Press again to exit</string>
+    <string name="exit_snack_bar">Press again to exit</string>
 
-    <string name="syncFailed">Sync failed</string>
+    <string name="sync_failed">Sync failed</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
     <string name="content_description_logo">Logo</string>
     <string name="love">Made with Love</string>
+
+    <string name="login_text">Login</string>
+    <string name="login_hint">Login ID</string>
+    <string name="password_text">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="login_button">LOGIN</string>
 
 </resources>

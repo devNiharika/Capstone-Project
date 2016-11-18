@@ -15,4 +15,16 @@
     <dimen name="content_margin_condition">160dp</dimen>
 
     <dimen name="widget_margin">8dp</dimen>
+
+    <dimen name="about_activity_margin">16dp</dimen>
+    <dimen name="about_activity_padding">16dp</dimen>
+    <dimen name="about_activity_card_elevation">6dp</dimen>
+    <dimen name="about_activity_card_radius">4dp</dimen>
+
+    <dimen name="login_activity_padding">8dp</dimen>
+    <dimen name="login_activity_min_width">320dp</dimen>
+    <dimen name="login_activity_card_elevation">4dp</dimen>
+    <dimen name="login_activity_card_radius">4dp</dimen>
+    <dimen name="login_activity_button_radius">4dp</dimen>
+
 </resources>

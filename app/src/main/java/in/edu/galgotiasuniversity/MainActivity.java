@@ -206,9 +206,9 @@ public class MainActivity extends AppCompatActivity
 
     private void checkUpdate() {
         WVersionManager versionManager = new WVersionManager(currentActivity);
-        versionManager.setUpdateNowLabel(getString(R.string.updateNowLabel));
+        versionManager.setUpdateNowLabel(getString(R.string.update_now));
         versionManager.setTitle("Galgotias University");
-        versionManager.setRemindMeLaterLabel(getString(R.string.remindMeLaterLabel));
+        versionManager.setRemindMeLaterLabel(getString(R.string.remind_me_later));
         versionManager.setIgnoreThisVersionLabel("");
         versionManager.setReminderTimer(1440);
         // Update content url
@@ -278,9 +278,9 @@ public class MainActivity extends AppCompatActivity
     private void share() {
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("text/plain");
-        i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.shareSubject));
-        i.putExtra(Intent.EXTRA_TEXT, getString(R.string.shareText));
-        startActivity(Intent.createChooser(i, getString(R.string.shareHeader)));
+        i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject));
+        i.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_text));
+        startActivity(Intent.createChooser(i, getString(R.string.share_header)));
     }
 
     @Override
@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity
             return;
         }
         this.doubleBackToExitPressedOnce = true;
-        Snackbar.make(ButterKnife.findById(drawer, R.id.drawer_layout), getString(R.string.pressAgainToExitMessage), Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(ButterKnife.findById(drawer, R.id.drawer_layout), getString(R.string.exit_snack_bar), Snackbar.LENGTH_SHORT).show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

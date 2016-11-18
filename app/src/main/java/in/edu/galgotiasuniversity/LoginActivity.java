@@ -83,9 +83,9 @@ public class LoginActivity extends Activity {
 
     private void checkUpdate() {
         WVersionManager versionManager = new WVersionManager(this);
-        versionManager.setUpdateNowLabel(getString(R.string.updateNowLabel));
+        versionManager.setUpdateNowLabel(getString(R.string.update_now));
         versionManager.setTitle("Galgotias University");
-        versionManager.setRemindMeLaterLabel(getString(R.string.remindMeLaterLabel));
+        versionManager.setRemindMeLaterLabel(getString(R.string.remind_me_later));
         versionManager.setIgnoreThisVersionLabel("");
         versionManager.setReminderTimer(1440);
         // Update content url

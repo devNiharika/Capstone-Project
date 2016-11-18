@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:support_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
@@ -7,8 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
     support_view:cardBackgroundColor="@color/dark_red"
-    support_view:cardCornerRadius="4dp"
-    support_view:cardElevation="4dp"
+    support_view:cardCornerRadius="@dimen/login_activity_card_radius"
+    support_view:cardElevation="@dimen/login_activity_card_elevation"
     support_view:cardUseCompatPadding="true">
 
     <ScrollView
@@ -22,14 +21,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:minWidth="320dp"
+            android:minWidth="@dimen/login_activity_min_width"
             android:orientation="vertical"
-            android:padding="8dp">
+            android:padding="@dimen/login_activity_padding">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:contentDescription="@string/content_description_logo"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
@@ -39,23 +39,23 @@
                 android:ellipsize="end"
                 android:gravity="center"
                 android:lines="1"
-                android:padding="8dp"
-                android:text="Login"
+                android:padding="@dimen/login_activity_padding"
+                android:text="@string/login_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/loginIDLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp">
+                android:paddingBottom="@dimen/login_activity_padding"
+                android:paddingLeft="@dimen/login_activity_padding"
+                android:paddingRight="@dimen/login_activity_padding">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/loginID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Login ID"
+                    android:hint="@string/login_hint"
                     android:inputType="textCapCharacters" />
 
             </android.support.design.widget.TextInputLayout>
@@ -64,15 +64,15 @@
                 android:id="@+id/passwordLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp">
+                android:paddingBottom="@dimen/login_activity_padding"
+                android:paddingLeft="@dimen/login_activity_padding"
+                android:paddingRight="@dimen/login_activity_padding">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
+                    android:hint="@string/password_text"
                     android:inputType="textPassword" />
 
             </android.support.design.widget.TextInputLayout>
@@ -83,21 +83,21 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:checked="true"
-                android:padding="8dp"
-                android:text="Remember me" />
+                android:padding="@dimen/login_activity_padding"
+                android:text="@string/remember_me" />
 
             <dev.rg.ProgressButton.iml.ActionProcessButton
                 android:id="@+id/loginButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:paddingBottom="8dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:text="LOGIN"
+                android:paddingBottom="@dimen/login_activity_padding"
+                android:paddingLeft="@dimen/login_activity_padding"
+                android:paddingRight="@dimen/login_activity_padding"
+                android:text="@string/login_button"
                 android:textColor="@color/white"
                 support_view:pb_colorProgress="@color/dark_red"
-                support_view:pb_cornerRadius="4dp"
+                support_view:pb_cornerRadius="@dimen/login_activity_button_radius"
                 support_view:pb_textComplete="Welcome"
                 support_view:pb_textError="Error"
                 support_view:pb_textProgress="Authenticating" />
@@ -106,20 +106,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="8dp">
+                android:padding="@dimen/login_activity_padding">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:alpha="0.5"
                     android:gravity="center"
-                    android:paddingBottom="8dp"
-                    android:text="Made with Love"
+                    android:paddingBottom="@dimen/login_activity_padding"
+                    android:text="@string/love"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@android:color/primary_text_light" />
 
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 </android.support.v7.widget.CardView>
