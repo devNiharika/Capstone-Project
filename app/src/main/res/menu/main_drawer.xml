@@ -45,6 +45,11 @@
                 android:icon="@drawable/ic_thumb_up_white_48dp"
                 android:title="Recommendations" />-->
             <item
+                android:id="@+id/navigate"
+                android:checkable="false"
+                android:icon="@drawable/ic_navigation_white_48dp"
+                android:title="@string/menu_navigate" />
+            <item
                 android:id="@+id/share"
                 android:icon="@drawable/ic_share_white_48dp"
                 android:title="@string/menu_share" />

@@ -1,6 +1,7 @@
 package in.edu.galgotiasuniversity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -113,6 +114,11 @@ public class LoginActivity extends Activity {
         Toast toast = Toast.makeText(getApplicationContext(), msg, duration);
         Utils.setFontAllView((ViewGroup) toast.getView());
         toast.show();
+    }
+
+    @OnClick(R.id.map)
+    void openMap() {
+        startActivity(new Intent(this, MapsActivity.class));
     }
 
     @OnClick(R.id.loginButton)

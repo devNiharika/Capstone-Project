@@ -417,6 +417,8 @@ public class MainActivity extends AppCompatActivity
             showChangelog(false);
         } else if (id == R.id.about) {
             startActivity(new Intent(currentActivity, AboutActivity.class));
+        } else if (id == R.id.navigate) {
+            startActivity(new Intent(currentActivity, MapsActivity.class));
         }
         DrawerLayout drawer = ButterKnife.findById(currentActivity, R.id.drawer_layout);
         if (!isDrawerLocked)

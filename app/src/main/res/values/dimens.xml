@@ -70,4 +70,7 @@
 
     <dimen name="card_color_width">4dp</dimen>
 
+    <dimen name="map_card_elevation">8dp</dimen>
+    <dimen name="map_card_radius">4dp</dimen>
+
 </resources>

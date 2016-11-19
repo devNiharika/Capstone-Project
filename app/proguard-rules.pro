@@ -52,7 +52,7 @@ public *;
 -keep class com.activeandroid.**.** { *; }
 -keep class * extends com.activeandroid.Model
 -keep class * extends com.activeandroid.serializer.TypeSerializer
--keep class com.activeandroid.Cache { *; }
+
 -keep class in.edu.galgotiasuniversity.data.Record { *; }
 
 -keepattributes *Annotation*
