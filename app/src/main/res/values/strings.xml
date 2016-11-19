@@ -39,5 +39,22 @@
     <string name="remember_me">Remember me</string>
     <string name="login_button">LOGIN</string>
 
+    <string name="no_records">No records</string>
+
+    <string name="captcha_hint">Captcha</string>
+    <string name="captcha_submit_button">Submit</string>
+    <string name="captcha_image_content_description">Captcha</string>
+
+    <string name="fragment_button_fetch">FETCH</string>
+    <string name="fragment_button_from">FROM: TODAY"</string>
+    <string name="fragment_button_to">TO: TODAY</string>
+
+    <string name="welcome_message">Bonjour!\n=)\nUse the hamburger icon ☰ on the top left corner to open the navigation drawer.</string>
+    <string name="welcome">Welcome!</string>
+
+    <string name="absent">ABSENT</string>
+    <string name="present">PRESENT</string>
+    <string name="library">LIBRARY</string>
+    <string name="no_value">--</string>
 
 </resources>

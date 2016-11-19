@@ -9,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center|top"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        app:cardCornerRadius="@dimen/card_corner_radius"
-        app:cardElevation="@dimen/card_elevation"
+        android:layout_marginLeft="@dimen/main_activity_vertical_margin"
+        android:layout_marginRight="@dimen/main_activity_vertical_margin"
+        app:cardCornerRadius="@dimen/main_activity_card_radius"
+        app:cardElevation="@dimen/main_activity_card_elevation"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -31,8 +31,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:padding="8dp"
-                    android:text="Bonjour!\n=)\nUse the hamburger icon ☰ on the top left corner to open the navigation drawer."
+                    android:padding="@dimen/main_activity_padding"
+                    android:text="@string/welcome_message"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
             </LinearLayout>
 
@@ -47,8 +47,8 @@
 
                 <dev.rg.WaveProgress.WaveLoadingView
                     android:id="@+id/waveLoadingView"
-                    android:layout_width="280dp"
-                    android:layout_height="280dp"
+                    android:layout_width="@dimen/wlv_width"
+                    android:layout_height="@dimen/wlv_height"
                     android:background="@drawable/circle"
                     app:wlv_borderColor="@color/primary_dark"
                     app:wlv_borderWidth="4dp"
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="Welcome!"
+                    android:text="@string/welcome"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:textColor="@color/white" />
 
@@ -74,7 +74,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:paddingBottom="52dp"
-                    android:text="Made with Love"
+                    android:text="@string/love"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/white"
                     android:textStyle="italic"
@@ -113,10 +113,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:layout_gravity="center|top"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="@dimen/main_activity_margin"
+                        android:layout_marginLeft="@dimen/main_activity_margin"
+                        android:layout_marginRight="@dimen/main_activity_margin"
+                        android:layout_marginStart="@dimen/main_activity_margin"
                         android:background="@color/red" />
 
                     <TextView
@@ -126,8 +126,8 @@
                         android:layout_weight="1"
                         android:gravity="center|bottom"
                         android:lines="2"
-                        android:padding="8dp"
-                        android:text="ABSENT"
+                        android:padding="@dimen/main_activity_padding"
+                        android:text="@string/absent"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@color/secondary_text" />
 
@@ -138,10 +138,10 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:paddingBottom="8dp"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:text="--"
+                        android:paddingBottom="@dimen/main_activity_padding"
+                        android:paddingLeft="@dimen/main_activity_padding"
+                        android:paddingRight="@dimen/main_activity_padding"
+                        android:text="@string/no_value"
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
                 </LinearLayout>
 
@@ -157,10 +157,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:layout_gravity="center|top"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="@dimen/main_activity_margin"
+                        android:layout_marginLeft="@dimen/main_activity_margin"
+                        android:layout_marginRight="@dimen/main_activity_margin"
+                        android:layout_marginStart="@dimen/main_activity_margin"
                         android:background="@color/green" />
 
                     <TextView
@@ -170,8 +170,8 @@
                         android:layout_weight="1"
                         android:gravity="center|bottom"
                         android:lines="2"
-                        android:padding="8dp"
-                        android:text="PRESENT"
+                        android:padding="@dimen/main_activity_padding"
+                        android:text="@string/present"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@color/secondary_text" />
 
@@ -182,10 +182,10 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:paddingBottom="8dp"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:text="--"
+                        android:paddingBottom="@dimen/main_activity_padding"
+                        android:paddingLeft="@dimen/main_activity_padding"
+                        android:paddingRight="@dimen/main_activity_padding"
+                        android:text="@string/no_value"
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
                 </LinearLayout>
 
@@ -201,10 +201,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:layout_gravity="center|top"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="@dimen/main_activity_margin"
+                        android:layout_marginLeft="@dimen/main_activity_margin"
+                        android:layout_marginRight="@dimen/main_activity_margin"
+                        android:layout_marginStart="@dimen/main_activity_margin"
                         android:background="@color/yellow" />
 
                     <TextView
@@ -214,8 +214,8 @@
                         android:layout_weight="1"
                         android:gravity="center|bottom"
                         android:lines="2"
-                        android:padding="8dp"
-                        android:text="LIBRARY"
+                        android:padding="@dimen/main_activity_padding"
+                        android:text="@string/library"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@color/secondary_text" />
 
@@ -226,11 +226,12 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:paddingBottom="8dp"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:text="--"
+                        android:paddingBottom="@dimen/main_activity_padding"
+                        android:paddingLeft="@dimen/main_activity_padding"
+                        android:paddingRight="@dimen/main_activity_padding"
+                        android:text="@string/no_value"
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

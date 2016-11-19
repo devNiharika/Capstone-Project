@@ -5,7 +5,7 @@
     android:id="@+id/subjectWise_content_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
+    android:layout_marginLeft="@dimen/subject_wise_fragment_margin"
+    android:layout_marginRight="@dimen/subject_wise_fragment_margin"
     app:layoutManager="LinearLayoutManager"
     tools:listitem="@layout/row_subject_wise" />
