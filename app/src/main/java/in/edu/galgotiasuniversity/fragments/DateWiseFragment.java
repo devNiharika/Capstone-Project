@@ -88,13 +88,13 @@ public class DateWiseFragment extends Fragment {
 
     void setFromButtonText() {
         Button button = ButterKnife.findById(view, R.id.from_date);
-        String string = getString(R.string.fragment_button_from) + FROM_DATE.getDate();
+        String string = getString(R.string.fragment_button_from) + " " + FROM_DATE.getDate();
         button.setText(string);
     }
 
     void setToButtonText() {
         Button button = ButterKnife.findById(view, R.id.to_date);
-        String string = getString(R.string.fragment_button_to) + TO_DATE.getDate();
+        String string = getString(R.string.fragment_button_to) + " " + TO_DATE.getDate();
         button.setText(string);
     }
 

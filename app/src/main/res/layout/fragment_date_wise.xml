@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.5"
-            android:text="@string/fragment_button_from"
+            android:text="@string/fragment_button_from_today"
             android:theme="@style/Button"
             tools:ignore="ButtonStyle" />
 
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="0.5"
-            android:text="@string/fragment_button_to"
+            android:text="@string/fragment_button_to_today"
             android:theme="@style/Button"
             tools:ignore="ButtonStyle" />
     </LinearLayout>

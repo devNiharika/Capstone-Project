@@ -48,8 +48,11 @@
     <string name="captcha_image_content_description">Captcha</string>
 
     <string name="fragment_button_fetch">FETCH</string>
-    <string name="fragment_button_from">FROM: TODAY"</string>
-    <string name="fragment_button_to">TO: TODAY</string>
+    <string name="fragment_button_from_today">FROM: TODAY"</string>
+    <string name="fragment_button_to_today">TO: TODAY</string>
+    <string name="fragment_button_from">FROM:"</string>
+    <string name="fragment_button_to">TO:</string>
+
 
     <string name="welcome_message">Bonjour!\n=)\nUse the hamburger icon ☰ on the top left corner to open the navigation drawer.</string>
     <string name="welcome">Welcome!</string>
@@ -71,7 +74,7 @@
     <string name="menu_like">Like</string>
     <string name="menu_other">Other</string>
     <string name="menu_logout">Logout</string>
-    <string name="menu_whats_new">What's new</string>
+    <string name="menu_whats_new">What\'s new</string>
     <string name="menu_about">About</string>
 
     <string name="error_toast">Aw, Snap! Please try again</string>
@@ -106,8 +109,8 @@
     <string name="fine">Fine</string>
     <string name="status">Status</string>
 
-    <string name="welcome_toast">Welcome </string>
-    <string name="welcome_back_toast">Welcome back </string>
+    <string name="welcome_toast">Welcome</string>
+    <string name="welcome_back_toast">Welcome back</string>
 
     <string name="name">Name</string>
     <string name="email">Email</string>

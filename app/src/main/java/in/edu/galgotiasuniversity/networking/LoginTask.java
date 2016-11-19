@@ -239,9 +239,9 @@ public class LoginTask extends AsyncTask<Void, Integer, Void> {
                 }
             }
             if (!isShownAsDialog) {
-                showToast(context.getString(R.string.welcome_toast) + name, Toast.LENGTH_SHORT);
+                showToast(context.getString(R.string.welcome_toast) + " " + name, Toast.LENGTH_SHORT);
             } else {
-                showToast(context.getString(R.string.welcome_back_toast) + name, Toast.LENGTH_SHORT);
+                showToast(context.getString(R.string.welcome_back_toast) + " " + name, Toast.LENGTH_SHORT);
             }
             context.startActivity(new Intent(context, MainActivity.class));
             context.overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
