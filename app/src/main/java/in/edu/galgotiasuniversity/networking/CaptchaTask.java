@@ -89,7 +89,7 @@ public class CaptchaTask extends AsyncTask<Void, Integer, Void> {
         if (context != null && !context.isFinishing() && this.progress < 0) {
             context.loginButton.setProgress(this.progress);
             context.loginButton.setEnabled(true);
-            showToast("Captcha could not be loaded!\nPlease try again", Toast.LENGTH_LONG);
+            showToast(context.getString(R.string.error_captcha_not_fetched), Toast.LENGTH_LONG);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -127,7 +127,7 @@ public class CaptchaTask extends AsyncTask<Void, Integer, Void> {
                             .execute();
                     Document document = res.parse();
                     Log.d(TAG, document.title());
-                    if (document.title().equals("SIM")) {
+                    if (document.title().equals(context.getString(R.string.homepage_doc_title))) {
                         cookies = quickLoginCookies;
                         publishProgress(101);
                         return null;
@@ -191,10 +191,10 @@ public class CaptchaTask extends AsyncTask<Void, Integer, Void> {
             captchaTextView.setText(captchaText);
             captchaTextLayout.setErrorEnabled(false);
             if (captchaText.length() == 0) {
-                captchaTextLayout.setError("Required!");
+                captchaTextLayout.setError(context.getString(R.string.required));
                 return;
             } else if (captchaText.length() < 3) {
-                captchaTextLayout.setError("At least 3 characters required!");
+                captchaTextLayout.setError(context.getString(R.string.min_required));
                 return;
             }
             dialog.dismiss();

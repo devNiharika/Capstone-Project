@@ -21,6 +21,7 @@ import java.io.ObjectInputStream;
 import java.util.Map;
 
 import in.edu.galgotiasuniversity.Constants;
+import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 
@@ -65,7 +66,7 @@ public class ProfileTask extends AsyncTask<Void, Integer, Void> {
         } else {
             context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
-        dialog = ProgressDialog.show(context, "", "Loading...", false);
+        dialog = ProgressDialog.show(context, "", context.getString(R.string.loading), false);
         cookies = (Map<String, String>) readObjectFromMemory("cookies");
         progress = 0;
     }
@@ -103,16 +104,16 @@ public class ProfileTask extends AsyncTask<Void, Integer, Void> {
         if (progress == 100) {
             JSONObject profile = new JSONObject();
             try {
-                profile.put("0", new JSONArray().put("Name").put(document.select("label[id*=lblName]").first().text()));
-                profile.put("1", new JSONArray().put("Email").put(document.select("label[id*=lblEmail1]").first().text()));
+                profile.put("0", new JSONArray().put(context.getString(R.string.name)).put(document.select("label[id*=lblName]").first().text()));
+                profile.put("1", new JSONArray().put(context.getString(R.string.email)).put(document.select("label[id*=lblEmail1]").first().text()));
                 if (!document.select("label[id*=lblPhone1]").first().text().equals(""))
-                    profile.put("2", new JSONArray().put("Mobile").put(document.select("label[id*=lblPhone1]").first().text()));
+                    profile.put("2", new JSONArray().put(context.getString(R.string.mobile)).put(document.select("label[id*=lblPhone1]").first().text()));
                 else if (!document.select("label[id*=lblmob]").first().text().equals(""))
-                    profile.put("2", new JSONArray().put("Mobile").put(document.select("label[id*=lblmob]").first().text()));
+                    profile.put("2", new JSONArray().put(context.getString(R.string.mobile)).put(document.select("label[id*=lblmob]").first().text()));
                 else
-                    profile.put("2", new JSONArray().put("Mobile").put("No data available"));
-                profile.put("3", new JSONArray().put("Date of Birth").put(document.select("label[id*=lblDOB]").first().text()));
-                profile.put("4", new JSONArray().put("Gender").put(document.select("label[id*=lblGender]").first().text()));
+                    profile.put("2", new JSONArray().put(context.getString(R.string.mobile)).put(context.getString(R.string.no_data)));
+                profile.put("3", new JSONArray().put(context.getString(R.string.dob)).put(document.select("label[id*=lblDOB]").first().text()));
+                profile.put("4", new JSONArray().put(context.getString(R.string.gender)).put(document.select("label[id*=lblGender]").first().text()));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

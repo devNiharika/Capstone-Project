@@ -31,6 +31,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import in.edu.galgotiasuniversity.Constants;
+import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.data.Record;
 import in.edu.galgotiasuniversity.data.Utils;
 import in.edu.galgotiasuniversity.interfaces.OnError;
@@ -82,7 +83,7 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
         } else {
             context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
-        dialog = ProgressDialog.show(context, "", "Loading...", false);
+        dialog = ProgressDialog.show(context, "", context.getString(R.string.loading), false);
         cookies = Utils.readObjectFromMemory(context, "cookies");
         progress = 0;
     }
@@ -121,7 +122,7 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
                 POST_DATA.put(input.attr("name"), input.attr("value"));
             }
             POST_DATA.put("ctl00$ctl00$MCPH1$SCPH$btnShowAtt", "Show");
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+            DateFormat df = new SimpleDateFormat(context.getString(R.string.date_format), Locale.ENGLISH);
             LocalDate START_DATE = new LocalDate(new DateTime(df.parse(FROM_DATE)));
             LocalDate END_DATE = new LocalDate(new DateTime(df.parse(TO_DATE)));
 
@@ -158,7 +159,7 @@ public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
 
     private void addToRecords() {
         Iterator<Element> i = document.select("span[id*=lblSubjectName],span[id*=lblDate],span[id*=lblNAME],span[id*=lblTimeSlot],span[id*=lblAttType],span[id*=lblProgram]").iterator();
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        DateFormat df = new SimpleDateFormat(context.getString(R.string.date_format), Locale.ENGLISH);
         Date date = new Date();
         try {
             while (i.hasNext()) {

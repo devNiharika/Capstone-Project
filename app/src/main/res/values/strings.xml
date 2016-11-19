@@ -76,7 +76,6 @@
     <string name="offline_toast">Offline!</string>
     <string name="loading">Loading…</string>
     <string name="no_data">No data available</string>
-    <string name="fine">Fine</string>
     <string name="balance">Balance</string>
     <string name="error_connecting">Error connecting to the server</string>
     <string name="error_title">Aw, Snap!</string>
@@ -89,5 +88,29 @@
     <string name="title_admission_number">Admission Number</string>
 
     <string name="date_format">dd/MM/yyyy</string>
+
+    <string name="developer_email">dev.NiharikaRastogi@gmail.com</string>
+    <string name="crash_email_subject">GU mSIM Crash Report</string>
+
+    <string name="error_captcha_not_fetched">Captcha could not be loaded!\nPlease try again</string>
+    <string name="homepage_doc_title">SIM</string>
+    <string name="login_page_doc_title">SIM Login</string>
+
+    <string name="required">Required!</string>
+    <string name="min_required">At least 3 characters required!</string>
+
+    <string name="due_date">Due Date</string>
+    <string name="return_date">Return Date</string>
+    <string name="fine">Fine</string>
+    <string name="status">Status</string>
+
+    <string name="welcome_toast">Welcome </string>
+    <string name="welcome_back_toast">Welcome back </string>
+
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="mobile">Mobile</string>
+    <string name="dob">Date of Birth</string>
+    <string name="gender">Gender</string>
 
 </resources>

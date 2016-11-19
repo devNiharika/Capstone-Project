@@ -5,6 +5,7 @@ import android.content.Context;
 import com.devs.acr.AutoErrorReporter;
 
 import in.edu.galgotiasuniversity.BuildConfig;
+import in.edu.galgotiasuniversity.R;
 
 public class MyApp extends com.activeandroid.app.Application {
 
@@ -29,8 +30,8 @@ public class MyApp extends com.activeandroid.app.Application {
         //Crash Report
         if (!BuildConfig.DEBUG)
             AutoErrorReporter.get(this)
-                    .setEmailAddresses("dev.NiharikaRastogi@gmail.com")
-                    .setEmailSubject("GU mSIM Crash Report")
+                    .setEmailAddresses(getString(R.string.developer_email))
+                    .setEmailSubject(getString(R.string.crash_email_subject))
                     .start();
         Utils.loadFonts();
     }

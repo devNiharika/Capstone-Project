@@ -57,8 +57,8 @@ public class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory
             RemoteViews view = new RemoteViews(mContext.getPackageName(), R.layout.widget_row_subject_wise);
             view.setTextViewText(R.id.title, subjects.get(position).NAME);
             view.setTextViewText(R.id.content1, subjects.get(position).ATTENDANCE_TYPE);
-            view.setTextViewText(R.id.content2, "Present :" + subjects.get(position).PRESENT);
-            view.setTextViewText(R.id.content3, "Absent :" + subjects.get(position).ABSENT);
+            view.setTextViewText(R.id.content2, mContext.getString(R.string.present) + " :" + subjects.get(position).PRESENT);
+            view.setTextViewText(R.id.content3, mContext.getString(R.string.absent) + " :" + subjects.get(position).ABSENT);
             Float percentage = subjects.get(position).PERCENTAGE;
             view.setTextViewText(R.id.content4, String.format(Locale.ENGLISH, "%.2f", percentage) + "%");
 

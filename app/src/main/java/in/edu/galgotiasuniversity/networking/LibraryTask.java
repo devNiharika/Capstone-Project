@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import in.edu.galgotiasuniversity.Constants;
+import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 
@@ -69,7 +70,7 @@ public class LibraryTask extends AsyncTask<Void, Integer, Void> {
         } else {
             context.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         }
-        dialog = ProgressDialog.show(context, "", "Loading...", false);
+        dialog = ProgressDialog.show(context, "", context.getString(R.string.loading), false);
         cookies = (Map<String, String>) readObjectFromMemory("cookies");
         progress = 0;
     }
@@ -152,9 +153,9 @@ public class LibraryTask extends AsyncTask<Void, Integer, Void> {
                     library.put(Integer.toString(k), new JSONArray()
                             .put(i.next().text())
                             //.put("Issued: " + i.next().text() + "\nDue Date: " + i.next().text())
-                            .put("Due Date: " + i.next().text())
-                            .put("Return Date: " + i.next().text())
-                            .put("Fine: " + i.next().text() + " ( Status: " + i.next().text() + " )"));
+                            .put(context.getString(R.string.due_date) + ": " + i.next().text())
+                            .put(context.getString(R.string.return_date) + ": " + i.next().text())
+                            .put(context.getString(R.string.fine) + ": " + i.next().text() + " ( " + context.getString(R.string.status) + ": " + i.next().text() + " )"));
                     k++;
                 }
             } catch (JSONException e) {

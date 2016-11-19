@@ -206,7 +206,8 @@ public class LoginTask extends AsyncTask<Void, Integer, Void> {
 
         try {
             Log.d(TAG, document.title());
-            if (!(document.title().equals("SIM Login"))) publishProgress(100);
+            if (!(document.title().equals(context.getString(R.string.login_page_doc_title))))
+                publishProgress(100);
             else publishProgress(-1);
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -238,9 +239,9 @@ public class LoginTask extends AsyncTask<Void, Integer, Void> {
                 }
             }
             if (!isShownAsDialog) {
-                showToast("Welcome " + name, Toast.LENGTH_SHORT);
+                showToast(context.getString(R.string.welcome_toast) + name, Toast.LENGTH_SHORT);
             } else {
-                showToast("Welcome back " + name, Toast.LENGTH_SHORT);
+                showToast(context.getString(R.string.welcome_back_toast) + name, Toast.LENGTH_SHORT);
             }
             context.startActivity(new Intent(context, MainActivity.class));
             context.overridePendingTransition(R.anim.push_right_in, R.anim.push_left_out);
