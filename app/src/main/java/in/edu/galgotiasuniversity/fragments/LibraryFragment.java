@@ -29,9 +29,6 @@ import in.edu.galgotiasuniversity.networking.LibraryTask;
 import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
-/**
- * Created on 25-01-2016.
- */
 public class LibraryFragment extends Fragment {
 
     View view;

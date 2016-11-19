@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 
 import in.edu.galgotiasuniversity.R;
 
-/**
- * Created on 25-01-2016.
- */
 public class ModalBottomSheet
         extends BottomSheetDialogFragment {
 

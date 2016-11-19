@@ -11,10 +11,6 @@ import android.widget.Toast;
 
 import in.edu.galgotiasuniversity.utils.Utils;
 
-/**
- * Created on 25-01-2016.
- */
-
 public class LogoActivity extends Activity {
 
     Toast toast;

@@ -17,11 +17,6 @@ import java.util.Locale;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.models.Subject;
 
-
-/**
- * Created by Rohan Garg on 15-06-2016.
- */
-
 public class WidgetViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private Context mContext;

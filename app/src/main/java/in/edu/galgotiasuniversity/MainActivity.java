@@ -62,10 +62,6 @@ import in.edu.galgotiasuniversity.networking.LibraryTask;
 import in.edu.galgotiasuniversity.utils.CustomTypefaceSpan;
 import in.edu.galgotiasuniversity.utils.Utils;
 
-/**
- * Created on 25-01-2016.
- */
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

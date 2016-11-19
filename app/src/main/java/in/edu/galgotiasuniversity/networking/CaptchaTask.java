@@ -32,9 +32,6 @@ import in.edu.galgotiasuniversity.LoginActivity;
 import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.utils.Utils;
 
-/**
- * Created on 25-01-2016.
- */
 public class CaptchaTask extends AsyncTask<Void, Integer, Void> {
 
     private final String TAG = "CAPTCHA_TASK";

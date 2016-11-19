@@ -8,10 +8,6 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.View;
 
-/**
- * Created on 09-11-2016.
- */
-
 public class SlantView extends View {
     Paint paint;
     Path path = new Path();

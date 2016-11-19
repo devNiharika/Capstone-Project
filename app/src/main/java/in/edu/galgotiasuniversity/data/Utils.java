@@ -7,10 +7,6 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.Map;
 
-/**
- * Created on 05-11-2016.
- */
-
 public class Utils {
 
     @SuppressWarnings("unchecked")

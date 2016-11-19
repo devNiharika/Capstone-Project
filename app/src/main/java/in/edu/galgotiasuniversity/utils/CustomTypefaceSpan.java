@@ -6,10 +6,6 @@ import android.graphics.Typeface;
 import android.text.TextPaint;
 import android.text.style.TypefaceSpan;
 
-/**
- * Created on 25-01-2016.
- */
-
 @SuppressLint("ParcelCreator")
 public class CustomTypefaceSpan extends TypefaceSpan {
 

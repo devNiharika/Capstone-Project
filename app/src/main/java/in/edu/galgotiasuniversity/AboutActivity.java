@@ -6,9 +6,6 @@ import android.view.ViewGroup;
 
 import in.edu.galgotiasuniversity.utils.Utils;
 
-/**
- * Created on 25-01-2016.
- */
 public class AboutActivity extends Activity {
 
     @Override

@@ -38,11 +38,6 @@ import in.edu.galgotiasuniversity.networking.AttendanceTask;
 import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
-//import in.edu.galgotiasuniversity.networking.AttendanceTask;
-
-/**
- * Created on 25-01-2016.
- */
 public class DateWiseFragment extends Fragment {
 
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";

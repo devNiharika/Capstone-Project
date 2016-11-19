@@ -1,9 +1,5 @@
 package in.edu.galgotiasuniversity.models;
 
-/**
- * Created on 09-11-2016.
- */
-
 public class Subject {
 
     public String NAME;

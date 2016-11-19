@@ -34,11 +34,6 @@ import in.edu.galgotiasuniversity.networking.AttendanceTask;
 import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
-//import in.edu.galgotiasuniversity.networking.MonthlyTask;
-
-/**
- * Created on 25-01-2016.
- */
 public class MonthWiseFragment extends Fragment {
 
     View view;

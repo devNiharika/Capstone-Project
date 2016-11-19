@@ -5,10 +5,6 @@ import com.activeandroid.Cache;
 import com.activeandroid.Model;
 import com.activeandroid.TableInfo;
 
-/**
- * Created on 11-11-2016.
- */
-
 public abstract class TruncatableModel extends Model {
     public static void truncate(Class<? extends Model> type) {
         TableInfo tableInfo = Cache.getTableInfo(type);

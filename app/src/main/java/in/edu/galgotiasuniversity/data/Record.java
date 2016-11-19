@@ -12,10 +12,6 @@ import in.edu.galgotiasuniversity.models.Date;
 import in.edu.galgotiasuniversity.models.Month;
 import in.edu.galgotiasuniversity.models.Subject;
 
-/**
- * Created on 25-01-2016.
- */
-
 @Table(name = "Records", id = "_id")
 public class Record extends TruncatableModel {
 

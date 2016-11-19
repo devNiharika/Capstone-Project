@@ -39,9 +39,6 @@ import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 import in.edu.galgotiasuniversity.models.Date;
 import in.edu.galgotiasuniversity.widget.WidgetProvider;
 
-/**
- * Created on 25-01-2016.
- */
 public class AttendanceTask extends AsyncTask<Void, Integer, Void> {
 
     private final String TAG = "ATTENDANCE_TASK";

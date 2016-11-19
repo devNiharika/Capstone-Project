@@ -8,9 +8,6 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Locale;
 
-/**
- * Created on 25-01-2016.
- */
 public class Date implements Parcelable {
 
     public static final Creator<Date> CREATOR = new Creator<Date>() {

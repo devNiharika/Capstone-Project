@@ -2,9 +2,6 @@ package in.edu.galgotiasuniversity;
 
 import org.jsoup.Connection;
 
-/**
- * Created on 25-01-2016.
- */
 public class Constants {
 
     public static int TIMEOUT = 30000;

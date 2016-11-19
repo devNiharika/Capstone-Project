@@ -25,9 +25,6 @@ import in.edu.galgotiasuniversity.utils.MyApp;
 import in.edu.galgotiasuniversity.utils.NetworkStatus;
 import in.edu.galgotiasuniversity.utils.Utils;
 
-/**
- * Created on 25-01-2016.
- */
 public class LoginActivity extends Activity {
 
     @BindView(R.id.loginID)

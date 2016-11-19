@@ -25,9 +25,6 @@ import in.edu.galgotiasuniversity.R;
 import in.edu.galgotiasuniversity.interfaces.OnError;
 import in.edu.galgotiasuniversity.interfaces.OnTaskCompleted;
 
-/**
- * Created on 25-01-2016.
- */
 public class ProfileTask extends AsyncTask<Void, Integer, Void> {
 
     private final String TAG = "PROFILE_TASK";

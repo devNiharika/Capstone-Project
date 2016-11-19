@@ -9,7 +9,6 @@ import android.widget.RemoteViews;
 
 import in.edu.galgotiasuniversity.R;
 
-
 /**
  * Implementation of App Widget functionality.
  */

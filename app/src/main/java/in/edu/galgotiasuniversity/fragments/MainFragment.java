@@ -26,9 +26,6 @@ import in.edu.galgotiasuniversity.data.Record;
 import in.edu.galgotiasuniversity.models.Month;
 import in.edu.galgotiasuniversity.utils.Utils;
 
-/**
- * Created on 25-01-2016.
- */
 public class MainFragment extends Fragment {
 
     SharedPreferences sp;
