@@ -67,8 +67,8 @@ public class MainFragment extends Fragment {
             View subContainer2 = ButterKnife.findById(view, R.id.subContainer2);
             TextView a = ButterKnife.findById(subContainer1, R.id.data1);
             TextView p = ButterKnife.findById(subContainer2, R.id.data2);
-            a.setText("" + absent);
-            p.setText("" + present);
+            a.setText(String.valueOf(absent));
+            p.setText(String.valueOf(present));
             subContainer1.setVisibility(View.VISIBLE);
             subContainer2.setVisibility(View.VISIBLE);
             float percentage = (100f * present) / (present + absent);
@@ -76,13 +76,13 @@ public class MainFragment extends Fragment {
             TextView waveProgressCenter = ButterKnife.findById(view, R.id.waveProgressCenter);
             TextView topMessageText1 = ButterKnife.findById(view, R.id.topMessageText1);
             topMessageText1.setTextColor(ContextCompat.getColor(getActivity(), R.color.white));
-            waveProgressCenter.setText("Attendance: " + String.format(Locale.ENGLISH, "%.2f", percentage) + "%");
+            waveProgressCenter.setText(getString(R.string.attendance) + ": " + String.format(Locale.ENGLISH, "%.2f", percentage) + "%");
             waveLoadingView.setProgressValue((int) percentage);
             if ((int) percentage > 75) {
-                topMessageText1.setText("TIP: Good going!");
+                topMessageText1.setText(getString(R.string.tip_good));
                 topMessageText1.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green));
             } else {
-                topMessageText1.setText("TIP: Attendance below 75%!");
+                topMessageText1.setText(getString(R.string.tip_alert));
                 topMessageText1.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.tipRed));
             }
         }

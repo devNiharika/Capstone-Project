@@ -88,13 +88,13 @@ public class DateWiseFragment extends Fragment {
 
     void setFromButtonText() {
         Button button = ButterKnife.findById(view, R.id.from_date);
-        String string = "FROM: " + FROM_DATE.getDate();
+        String string = getString(R.string.fragment_button_from) + FROM_DATE.getDate();
         button.setText(string);
     }
 
     void setToButtonText() {
         Button button = ButterKnife.findById(view, R.id.to_date);
-        String string = "TO: " + TO_DATE.getDate();
+        String string = getString(R.string.fragment_button_to) + TO_DATE.getDate();
         button.setText(string);
     }
 
@@ -102,7 +102,7 @@ public class DateWiseFragment extends Fragment {
     void fetch() {
         showFetchButton(false);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        DateFormat df = new SimpleDateFormat(getString(R.string.date_format), Locale.ENGLISH);
         try {
             if (sp.getString("FROM_DATE", "").equals(Constants.SEM_START_DATE))
                 Q_FROM_DATE.setDate(sp.getString("TO_DATE", ""), df);
@@ -144,9 +144,9 @@ public class DateWiseFragment extends Fragment {
 //            showToast("Reconnecting to the server", Toast.LENGTH_SHORT);
 //        }
         if (new NetworkStatus(getActivity()).isOnline())
-            showToast("Aw, Snap! Please try again", Toast.LENGTH_SHORT);
+            showToast(getString(R.string.error_toast), Toast.LENGTH_SHORT);
         else
-            showToast("Offline!", Toast.LENGTH_SHORT);
+            showToast(getString(R.string.offline_toast), Toast.LENGTH_SHORT);
         showFetchButton(true);
         taskCompleted();
     }

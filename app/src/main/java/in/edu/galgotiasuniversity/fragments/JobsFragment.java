@@ -46,7 +46,7 @@ public class JobsFragment extends Fragment implements AdvancedWebView.Listener {
 
     @Override
     public void onPageStarted(String url, Bitmap favicon) {
-        dialog = ProgressDialog.show(getActivity(), "", "Loading...", true);
+        dialog = ProgressDialog.show(getActivity(), "", getString(R.string.loading), true);
         dialog.setCancelable(true);
     }
 
@@ -59,9 +59,9 @@ public class JobsFragment extends Fragment implements AdvancedWebView.Listener {
     public void onPageError(int errorCode, String description, String failingUrl) {
         mWebView.loadUrl("file:///android_asset/error.html");
         if (new NetworkStatus(getActivity()).isOnline())
-            showToast("Aw, Snap! Please try again", Toast.LENGTH_SHORT);
+            showToast(getString(R.string.error_toast), Toast.LENGTH_SHORT);
         else
-            showToast("Offline mode", Toast.LENGTH_SHORT);
+            showToast(getString(R.string.offline_toast), Toast.LENGTH_SHORT);
         if (dialog != null) dialog.dismiss();
     }
 

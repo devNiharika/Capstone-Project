@@ -72,4 +72,22 @@
     <string name="menu_whats_new">What's new</string>
     <string name="menu_about">About</string>
 
+    <string name="error_toast">Aw, Snap! Please try again</string>
+    <string name="offline_toast">Offline!</string>
+    <string name="loading">Loading…</string>
+    <string name="no_data">No data available</string>
+    <string name="fine">Fine</string>
+    <string name="balance">Balance</string>
+    <string name="error_connecting">Error connecting to the server</string>
+    <string name="error_title">Aw, Snap!</string>
+
+    <string name="tip_good">TIP: Good going!</string>
+    <string name="tip_alert">TIP: Attendance below 75%!</string>
+    <string name="attendance">Attendance</string>
+
+    <string name="first_sync">First sync may take a few minutes. Please be patient.</string>
+    <string name="title_admission_number">Admission Number</string>
+
+    <string name="date_format">dd/MM/yyyy</string>
+
 </resources>

@@ -78,7 +78,7 @@ public class ProfileFragment extends Fragment {
         try {
             JSONObject profile = new JSONObject(sp.getString("profile", ""));
             //Log.d("profile", profile.toString());
-            titles.add("Admission Number");
+            titles.add(getString(R.string.title_admission_number));
             contents.add(sp.getString("loginID", ""));
             for (int i = 0; i < profile.length(); i++) {
                 JSONArray data = profile.getJSONArray(Integer.toString(i));
@@ -100,11 +100,11 @@ public class ProfileFragment extends Fragment {
 //            showToast("Reconnecting to the server", Toast.LENGTH_SHORT);
 //        }
         if (new NetworkStatus(getActivity()).isOnline())
-            showToast("Aw, Snap! Please try again", Toast.LENGTH_SHORT);
+            showToast(getString(R.string.error_toast), Toast.LENGTH_SHORT);
         else
-            showToast("Offline mode", Toast.LENGTH_SHORT);
-        titles.add("Aw, Snap!");
-        contents.add("Error connecting to the server");
+            showToast(getString(R.string.offline_toast), Toast.LENGTH_SHORT);
+        titles.add(getString(R.string.error_title));
+        contents.add(getString(R.string.error_connecting));
         profileAdapter.notifyDataSetChanged();
     }
 

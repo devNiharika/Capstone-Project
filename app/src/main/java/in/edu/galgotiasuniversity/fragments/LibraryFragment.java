@@ -94,15 +94,15 @@ public class LibraryFragment extends Fragment {
             JSONObject library = new JSONObject(sp.getString("library", ""));
             JSONArray data = library.getJSONArray("0");
             if (data.getString(0).equals("")) {
-                titles.add("No data available");
-                contents1.add("--");
-                contents2.add("--");
-                contents3.add("--");
+                titles.add(getString(R.string.no_data));
+                contents1.add(getString(R.string.no_value));
+                contents2.add(getString(R.string.no_value));
+                contents3.add(getString(R.string.no_value));
             } else {
                 titles.add(data.getString(0));
                 contents1.add(data.getString(1));
-                contents2.add("Fine: " + data.getString(2));
-                contents3.add("Balance: " + data.getString(3));
+                contents2.add(getString(R.string.fine) + ": " + data.getString(2));
+                contents3.add(getString(R.string.balance) + ": " + data.getString(3));
             }
             for (int i = 1; i < library.length(); i++) {
                 data = library.getJSONArray(Integer.toString(i));
@@ -124,13 +124,13 @@ public class LibraryFragment extends Fragment {
 //            showToast("Reconnecting to the server", Toast.LENGTH_SHORT);
 //        }
         if (new NetworkStatus(getActivity()).isOnline())
-            showToast("Aw, Snap! Please try again", Toast.LENGTH_SHORT);
+            showToast(getString(R.string.error_toast), Toast.LENGTH_SHORT);
         else
-            showToast("Offline mode", Toast.LENGTH_SHORT);
+            showToast(getString(R.string.offline_toast), Toast.LENGTH_SHORT);
         if (!(sp.getBoolean("isLibraryLoaded", false))) {
-            titles.add("Aw, Snap!");
+            titles.add(getString(R.string.error_title));
             contents1.add("");
-            contents2.add("Error connecting to the server");
+            contents2.add(getString(R.string.error_connecting));
             contents3.add("");
             libraryAdapter.notifyDataSetChanged();
             return;

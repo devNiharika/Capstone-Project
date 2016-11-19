@@ -58,7 +58,7 @@ public class MonthWiseFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         recyclerView = ButterKnife.findById(view, R.id.monthWise_content_list);
-        df = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        df = new SimpleDateFormat(getString(R.string.date_format), Locale.ENGLISH);
 
         FROM_DATE = new Date();
         TO_DATE = new Date();
@@ -72,7 +72,7 @@ public class MonthWiseFragment extends Fragment {
             } else {
                 // Init
                 FROM_DATE.setDate(Constants.SEM_START_DATE, df);
-                showToast("First sync may take a few minutes. Please be patient.", Toast.LENGTH_LONG);
+                showToast(getString(R.string.first_sync), Toast.LENGTH_LONG);
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -137,9 +137,9 @@ public class MonthWiseFragment extends Fragment {
 //            showToast("Reconnecting to the server", Toast.LENGTH_SHORT);
 //        }
         if (new NetworkStatus(getActivity()).isOnline())
-            showToast("Aw, Snap! Please try again", Toast.LENGTH_SHORT);
+            showToast(getString(R.string.error_toast), Toast.LENGTH_SHORT);
         else
-            showToast("Offline!", Toast.LENGTH_SHORT);
+            showToast(getString(R.string.offline_toast), Toast.LENGTH_SHORT);
         display();
     }
 

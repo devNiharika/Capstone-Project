@@ -47,10 +47,11 @@ public class MonthWiseAdapter extends RecyclerView.Adapter<MonthWiseAdapter.View
             holder.cardColor.setBackgroundColor(ContextCompat.getColor(mContext, R.color.dark_red));
 
         holder.title.setText(months.get(position).NAME);
-        holder.content1.setText("Present :" + months.get(position).PRESENT);
-        holder.content2.setText("Absent :" + months.get(position).ABSENT);
+        holder.content1.setText(mContext.getString(R.string.present) + " :" + months.get(position).PRESENT);
+        holder.content2.setText(mContext.getString(R.string.absent) + " :" + months.get(position).ABSENT);
 //        holder.content3.setText(ColorUtils.getAttendanceRange(color));
-        holder.content3.setText(String.format(Locale.ENGLISH, "%.2f", percentage) + "%");
+        String percent = String.format(Locale.ENGLISH, "%.2f", percentage) + "%";
+        holder.content3.setText(percent);
     }
 
     @Override

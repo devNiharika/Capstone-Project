@@ -48,10 +48,11 @@ public class SubjectWiseAdapter extends RecyclerView.Adapter<SubjectWiseAdapter.
 
         holder.title.setText(subjects.get(position).NAME);
         holder.content1.setText(subjects.get(position).ATTENDANCE_TYPE);
-        holder.content2.setText("Present :" + subjects.get(position).PRESENT);
-        holder.content3.setText("Absent :" + subjects.get(position).ABSENT);
+        holder.content2.setText(mContext.getString(R.string.present) + " :" + subjects.get(position).PRESENT);
+        holder.content3.setText(mContext.getString(R.string.absent) + " :" + subjects.get(position).ABSENT);
 //        holder.content3.setText(ColorUtils.getAttendanceRange(color));
-        holder.content4.setText(String.format(Locale.ENGLISH, "%.2f", percentage) + "%");
+        String percent = String.format(Locale.ENGLISH, "%.2f", percentage) + "%";
+        holder.content3.setText(percent);
     }
 
     @Override
