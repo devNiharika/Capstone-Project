@@ -102,7 +102,7 @@ public class ProfileFragment extends Fragment {
         if (new NetworkStatus(getActivity()).isOnline())
             showToast(getString(R.string.error_toast), Toast.LENGTH_SHORT);
         else
-            showToast(getString(R.string.offline_toast), Toast.LENGTH_SHORT);
+            showToast(getString(R.string.offline), Toast.LENGTH_SHORT);
         titles.add(getString(R.string.error_title));
         contents.add(getString(R.string.error_connecting));
         profileAdapter.notifyDataSetChanged();

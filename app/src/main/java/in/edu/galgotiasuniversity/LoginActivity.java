@@ -51,7 +51,7 @@ public class LoginActivity extends Activity {
     @Override
     public void onBackPressed() {
         if (loginTask != null && loginTask.getStatus() == AsyncTask.Status.RUNNING)
-            showToast("Please wait", Toast.LENGTH_SHORT);
+            showToast(getString(R.string.please_wait), Toast.LENGTH_SHORT);
         else super.onBackPressed();
 //        if (captchaTask != null)
 //            captchaTask.cancel(true);
@@ -84,7 +84,7 @@ public class LoginActivity extends Activity {
     private void checkUpdate() {
         WVersionManager versionManager = new WVersionManager(this);
         versionManager.setUpdateNowLabel(getString(R.string.update_now));
-        versionManager.setTitle("Galgotias University");
+        versionManager.setTitle(getString(R.string.univ_name));
         versionManager.setRemindMeLaterLabel(getString(R.string.remind_me_later));
         versionManager.setIgnoreThisVersionLabel("");
         versionManager.setReminderTimer(1440);
@@ -94,13 +94,13 @@ public class LoginActivity extends Activity {
     }
 
     void showAsDialog() {
-        loginHeadline.setText("Please wait");
+        loginHeadline.setText(getString(R.string.please_wait));
         loginIDLayout.setVisibility(View.GONE);
         passwordLayout.setVisibility(View.GONE);
         rememberMe.setVisibility(View.GONE);
-        loginButton.setNormalText("Connect");
-        loginButton.setLoadingText("Connecting");
-        loginButton.setCompleteText("Connected");
+        loginButton.setNormalText(getString(R.string.login_button_normal));
+        loginButton.setLoadingText(getString(R.string.login_button_loading));
+        loginButton.setCompleteText(getString(R.string.login_button_complete));
         isShownAsDialog = true;
     }
 
@@ -121,8 +121,8 @@ public class LoginActivity extends Activity {
     @OnClick(R.id.loginButton)
     void validate() {
         if (!new NetworkStatus(LoginActivity.this).isOnline()) {
-            showToast("No internet!", Toast.LENGTH_SHORT);
-            loginHeadline.setText("Offline!");
+            showToast(getString(R.string.no_internet), Toast.LENGTH_SHORT);
+            loginHeadline.setText(getString(R.string.offline));
             return;
         } else if (!isShownAsDialog) {
             String id = loginID.getText().toString().trim();
@@ -132,23 +132,23 @@ public class LoginActivity extends Activity {
             passwordLayout.setErrorEnabled(false);
             if (id.length() == 0) {
                 loginID.requestFocus();
-                loginID.setError("Required!");
+                loginID.setError(getString(R.string.required));
                 return;
             } else if (id.length() < 6) {
                 loginID.requestFocus();
-                loginIDLayout.setError("At least 6 characters required!");
+                loginIDLayout.setError(getString(R.string.login_id_min_required));
                 return;
             } else if (pwd.length() == 0) {
                 password.requestFocus();
-                password.setError("Required!");
+                password.setError(getString(R.string.required));
                 return;
             } else if (pwd.length() < 3) {
                 password.requestFocus();
-                passwordLayout.setError("At least 3 characters required!");
+                passwordLayout.setError(getString(R.string.password_min_required));
                 return;
             }
         } else
-            loginHeadline.setText("Please wait");
+            loginHeadline.setText(getString(R.string.please_wait));
 //        loginTask = new LoginTask(this, isShownAsDialog, null, null);
 //        loginTask.execute();
         captchaTask = new CaptchaTask(this, isShownAsDialog, Constants.isCaptchaRequired);

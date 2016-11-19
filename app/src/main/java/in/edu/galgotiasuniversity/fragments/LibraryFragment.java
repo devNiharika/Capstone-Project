@@ -126,7 +126,7 @@ public class LibraryFragment extends Fragment {
         if (new NetworkStatus(getActivity()).isOnline())
             showToast(getString(R.string.error_toast), Toast.LENGTH_SHORT);
         else
-            showToast(getString(R.string.offline_toast), Toast.LENGTH_SHORT);
+            showToast(getString(R.string.offline), Toast.LENGTH_SHORT);
         if (!(sp.getBoolean("isLibraryLoaded", false))) {
             titles.add(getString(R.string.error_title));
             contents1.add("");

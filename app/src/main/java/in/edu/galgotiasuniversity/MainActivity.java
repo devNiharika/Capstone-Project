@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity
         Date FROM_DATE = new Date();
         final Date TO_DATE = new Date();
         try {
-            FROM_DATE.setDate(sp.getString("TO_DATE", ""), new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH));
+            FROM_DATE.setDate(sp.getString("TO_DATE", ""), new SimpleDateFormat(getString(R.string.date_format), Locale.ENGLISH));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity
         }, new OnError() {
             @Override
             public void onError() {
-                showToast("Oops! Connection timed out", Toast.LENGTH_SHORT);
+                showToast(getString(R.string.error_timed_out), Toast.LENGTH_SHORT);
             }
         }, FROM_DATE.getDate(), TO_DATE.getDate()).execute();
     }
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onError() {
                 switchContent(new MainFragment());
-                showToast("Oops! Connection timed out", Toast.LENGTH_SHORT);
+                showToast(getString(R.string.error_timed_out), Toast.LENGTH_SHORT);
             }
         }).execute();
 
@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity
     private void checkUpdate() {
         WVersionManager versionManager = new WVersionManager(currentActivity);
         versionManager.setUpdateNowLabel(getString(R.string.update_now));
-        versionManager.setTitle("Galgotias University");
+        versionManager.setTitle(getString(R.string.univ_name));
         versionManager.setRemindMeLaterLabel(getString(R.string.remind_me_later));
         versionManager.setIgnoreThisVersionLabel("");
         versionManager.setReminderTimer(1440);

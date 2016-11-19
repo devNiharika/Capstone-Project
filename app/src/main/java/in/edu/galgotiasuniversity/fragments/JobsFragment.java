@@ -61,7 +61,7 @@ public class JobsFragment extends Fragment implements AdvancedWebView.Listener {
         if (new NetworkStatus(getActivity()).isOnline())
             showToast(getString(R.string.error_toast), Toast.LENGTH_SHORT);
         else
-            showToast(getString(R.string.offline_toast), Toast.LENGTH_SHORT);
+            showToast(getString(R.string.offline), Toast.LENGTH_SHORT);
         if (dialog != null) dialog.dismiss();
     }
 

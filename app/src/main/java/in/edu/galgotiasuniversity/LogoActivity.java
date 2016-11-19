@@ -38,7 +38,7 @@ public class LogoActivity extends Activity {
                 }
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 if (sharedPreferences.getBoolean("rememberMe", false)) {
-                    showToast("Reconnecting to the server...", Toast.LENGTH_SHORT);
+                    showToast(getString(R.string.reconnecting), Toast.LENGTH_SHORT);
                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                     overridePendingTransition(R.anim.push_up_in, 0);
                 } else {
@@ -59,6 +59,6 @@ public class LogoActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        showToast("Please wait", Toast.LENGTH_SHORT);
+        showToast(getString(R.string.please_wait), Toast.LENGTH_SHORT);
     }
 }
