@@ -383,7 +383,7 @@ public class MainActivity extends AppCompatActivity
             switchContent(new MainFragment());
             item.setChecked(true);
             //}
-        } else if (id == R.id.dayByDay) {
+        } else if (id == R.id.date_wise) {
             //if (!item.isChecked()) {
             switchContent(new DateWiseFragment());
             item.setChecked(true);
@@ -393,7 +393,7 @@ public class MainActivity extends AppCompatActivity
             switchContent(new MonthWiseFragment());
             item.setChecked(true);
             //}
-        } else if (id == R.id.subjectWise) {
+        } else if (id == R.id.subject_wise) {
             //if (!item.isChecked()) {
             switchContent(new SubjectWiseFragment());
             item.setChecked(true);
