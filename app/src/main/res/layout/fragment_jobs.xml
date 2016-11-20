@@ -21,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
+            android:contentDescription="@string/menu_jobs"
             android:src="@drawable/ic_work_white_48dp"
             app:fabSize="mini"
             app:layout_anchor="@id/jobsWebView"
